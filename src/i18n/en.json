@@ -1,0 +1,159 @@
+{
+  "app": {
+    "title": "Change Planner",
+    "subtitle": "Plan organizational change with Jurgen Appelo's framework"
+  },
+  "nav": {
+    "canvas": "Initiative",
+    "facets": "4 Facets",
+    "actions": "Actions",
+    "progress": "Progress"
+  },
+  "home": {
+    "headline": "How to Change the World",
+    "intro": "Jurgen Appelo's framework guides change agents through 4 core facets of successful organizational change. Structure your initiative, identify actions, and track progress across System, People, Network, and Environment.",
+    "newInitiative": "New Initiative",
+    "loadInitiative": "Load Saved",
+    "noSaved": "No saved initiatives",
+    "delete": "Delete",
+    "continue": "Continue",
+    "framework": "About the Framework",
+    "frameworkText": "Changing an organization requires more than a plan. It requires understanding the system you're in, the people you're working with, the network around you, and the environment that shapes behavior. This framework helps you address all four simultaneously.",
+    "facets": {
+      "dance": {
+        "name": "Dance with the System",
+        "icon": "🔄",
+        "desc": "Use iterations, feedback loops, and experiments to navigate complexity."
+      },
+      "people": {
+        "name": "Mind the People",
+        "icon": "👥",
+        "desc": "Address intrinsic motivators, resistors, and early adopters."
+      },
+      "network": {
+        "name": "Stimulate the Network",
+        "icon": "🌐",
+        "desc": "Leverage connectors, communities of practice, and social proof."
+      },
+      "environment": {
+        "name": "Change the Environment",
+        "icon": "🏗️",
+        "desc": "Adjust constraints, incentives, and contextual cues."
+      }
+    }
+  },
+  "canvas": {
+    "title": "Change Initiative Canvas",
+    "initiativeTitle": "Initiative Title",
+    "initiativeTitlePlaceholder": "e.g. Adopt Continuous Delivery",
+    "goal": "Goal",
+    "goalPlaceholder": "What does success look like in 6 months?",
+    "context": "Context",
+    "contextPlaceholder": "Current situation, pain points, why now?",
+    "stakeholders": "Key Stakeholders",
+    "stakeholdersPlaceholder": "Who is affected? Who has influence?",
+    "save": "Save",
+    "saved": "Saved ✓"
+  },
+  "facets": {
+    "title": "4 Facets Planner",
+    "notes": "Notes & Observations",
+    "notesPlaceholder": "What do you know about this facet for your initiative?",
+    "addAction": "Add Action",
+    "prompts": "Guiding Questions",
+    "dance": {
+      "name": "Dance with the System",
+      "icon": "🔄",
+      "color": "blue",
+      "explainer": "Complex systems resist direct control. Instead of pushing hard, you work with the system's own dynamics — running experiments, gathering feedback, and iterating. Think of it as dancing: you lead, but you also follow.",
+      "prompts": [
+        "What small experiments can you run to test your assumptions?",
+        "What feedback loops already exist? How can you shorten them?",
+        "Where are the leverage points in the system?",
+        "What metrics will tell you if the change is working?",
+        "How will you course-correct if an iteration fails?"
+      ]
+    },
+    "people": {
+      "name": "Mind the People",
+      "icon": "👥",
+      "color": "purple",
+      "explainer": "People don't resist change — they resist being changed. Understanding what motivates individuals (autonomy, mastery, purpose, relatedness, security) helps you design change that people want to participate in, not just comply with.",
+      "prompts": [
+        "Who are the early adopters and how will you engage them first?",
+        "Who are the resistors and what are their real concerns?",
+        "Which intrinsic motivators does this change satisfy or threaten?",
+        "How will you make the change personally meaningful for key people?",
+        "What fears need to be addressed openly?"
+      ]
+    },
+    "network": {
+      "name": "Stimulate the Network",
+      "icon": "🌐",
+      "color": "green",
+      "explainer": "Change spreads through networks, not hierarchies. Identifying connectors (people who bridge groups), communities of practice, and informal influence channels is more effective than top-down mandates.",
+      "prompts": [
+        "Who are the connectors that bridge different groups?",
+        "What communities of practice or informal networks can carry this change?",
+        "How will you create visible social proof of early wins?",
+        "Who are the opinion leaders whose endorsement matters most?",
+        "How can you make the change contagious — easy to share and adopt?"
+      ]
+    },
+    "environment": {
+      "name": "Change the Environment",
+      "icon": "🏗️",
+      "color": "orange",
+      "explainer": "Behavior follows environment. Rather than trying to change people directly, change the context they operate in — the tools, policies, incentives, physical spaces, and information flows that make the desired behavior easier and the old behavior harder.",
+      "prompts": [
+        "What structural constraints are preventing the change?",
+        "Which incentives or rewards currently reinforce the old behavior?",
+        "What tools, processes, or policies need to change?",
+        "How can you make the new behavior the path of least resistance?",
+        "What information or transparency is missing from the environment?"
+      ]
+    }
+  },
+  "actions": {
+    "title": "Action Tracker",
+    "newAction": "New Action",
+    "actionText": "Action",
+    "actionTextPlaceholder": "Describe the action...",
+    "owner": "Owner",
+    "ownerPlaceholder": "Who owns this?",
+    "dueDate": "Due Date",
+    "facet": "Facet",
+    "status": "Status",
+    "open": "Open",
+    "done": "Done",
+    "all": "All Facets",
+    "add": "Add Action",
+    "cancel": "Cancel",
+    "noActions": "No actions yet. Add your first action above.",
+    "markDone": "Mark done",
+    "markOpen": "Mark open",
+    "delete": "Delete"
+  },
+  "progress": {
+    "title": "Progress Overview",
+    "overall": "Overall Progress",
+    "facetProgress": "Progress by Facet",
+    "actionsOpen": "open",
+    "actionsDone": "done",
+    "noActions": "No actions",
+    "notesAdded": "Notes added",
+    "noNotes": "No notes",
+    "completionRate": "completion rate",
+    "exportPrint": "Print / Export PDF"
+  },
+  "common": {
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "language": "RU"
+  }
+}
