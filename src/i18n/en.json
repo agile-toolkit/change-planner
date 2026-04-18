@@ -20,7 +20,8 @@
     "save": "Save",
     "new": "New Initiative",
     "load": "Load",
-    "delete_confirm": "Delete this initiative?"
+    "delete_confirm": "Delete this initiative?",
+    "print": "Print / PDF"
   },
   "facets": {
     "dance": {

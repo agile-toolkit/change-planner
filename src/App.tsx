@@ -80,7 +80,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10 no-print">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <button onClick={() => setView('canvas')} className="font-semibold text-brand-600 hover:text-brand-700">
             {t('app.title')}
@@ -118,6 +118,11 @@ export default function App() {
               <button onClick={handleNew} className="btn-primary">
                 + {t('canvas.new')}
               </button>
+              {current && (
+                <button onClick={() => window.print()} className="btn-secondary no-print">
+                  {t('canvas.print')}
+                </button>
+              )}
               {initiatives.length > 0 && (
                 <div className="relative">
                   <button
