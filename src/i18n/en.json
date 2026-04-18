@@ -1,0 +1,101 @@
+{
+  "app": { "title": "Change Planner" },
+  "home": {
+    "headline": "How to Change the World",
+    "subheadline": "Plan change initiatives using Jurgen Appelo's 4-facet framework from Management 3.0.",
+    "cta": "New Initiative",
+    "framework_title": "The Framework",
+    "framework_body": "\"How to Change the World\" (Appelo) teaches that successful change requires working across four facets simultaneously: the system, the people, the network, and the environment. Most change failures come from focusing on only one or two.",
+    "facets_preview": "The 4 Facets"
+  },
+  "canvas": {
+    "title_label": "Initiative Title",
+    "title_placeholder": "What change are you trying to make?",
+    "goal_label": "Goal",
+    "goal_placeholder": "What does success look like in 6–12 months?",
+    "context_label": "Context",
+    "context_placeholder": "What is the current situation and why does this matter?",
+    "stakeholders_label": "Key Stakeholders",
+    "stakeholders_placeholder": "Who is affected or has influence? (names, roles)",
+    "save": "Save",
+    "new": "New Initiative",
+    "load": "Load",
+    "delete_confirm": "Delete this initiative?"
+  },
+  "facets": {
+    "dance": {
+      "label": "Dance with the System",
+      "color": "blue",
+      "description": "Understand how the current system works. Map feedback loops, incentives, and constraints. Work with the system, not against it.",
+      "prompts": [
+        "What feedback loops maintain the status quo?",
+        "What are the key leverage points for change?",
+        "How can you iterate rather than big-bang?",
+        "What metrics will show whether the system is changing?"
+      ]
+    },
+    "mind": {
+      "label": "Mind the People",
+      "color": "green",
+      "description": "People's intrinsic motivators, fears, and mental models drive whether change succeeds or fails. Engage them, don't manage them.",
+      "prompts": [
+        "Who are the early adopters and who are the resistors?",
+        "What motivates each key stakeholder intrinsically?",
+        "What fears or concerns do people have about this change?",
+        "How will you acknowledge and address those concerns?"
+      ]
+    },
+    "stimulate": {
+      "label": "Stimulate the Network",
+      "color": "orange",
+      "description": "Change spreads through social networks. Identify connectors, communities of practice, and influence channels. Grow the movement.",
+      "prompts": [
+        "Who are the connectors and influencers in this network?",
+        "What communities of practice can amplify the change?",
+        "How can you make early successes visible to others?",
+        "What stories or rituals will reinforce the new behaviors?"
+      ]
+    },
+    "change": {
+      "label": "Change the Environment",
+      "color": "purple",
+      "description": "The environment shapes behavior. Modify incentives, constraints, tools, and physical/digital spaces to make the desired behavior easier.",
+      "prompts": [
+        "What incentives currently reward the old behavior?",
+        "What constraints or rules need to change?",
+        "What new tools, spaces, or structures would support the change?",
+        "How can you make the new behavior the path of least resistance?"
+      ]
+    }
+  },
+  "actions": {
+    "title": "Action Items",
+    "add": "Add Action",
+    "placeholder_text": "Describe the action...",
+    "placeholder_owner": "Owner",
+    "placeholder_due": "Due date",
+    "facet_label": "Facet",
+    "empty": "No actions yet.",
+    "mark_done": "Done",
+    "mark_todo": "Reopen",
+    "delete": "Delete"
+  },
+  "progress": {
+    "title": "Progress",
+    "overall": "Overall",
+    "actions_done": "Actions done",
+    "facets_with_actions": "Facets with actions"
+  },
+  "learn": {
+    "title": "About the Framework",
+    "intro": "\"How to Change the World\" is a practical guide by Jurgen Appelo (Management 3.0) that synthesizes complexity science, psychology, and systems thinking into a practical approach for change agents.",
+    "why_title": "Why 4 Facets?",
+    "why_body": "Most change efforts fail because they focus on just one thing — usually the system or just the people. Real change is complex and requires working simultaneously across all four dimensions. The facets reinforce each other: environmental changes make new behaviors easier, network effects spread adoption, motivated people sustain the effort, and system adjustments remove structural barriers.",
+    "tips_title": "Practical Tips",
+    "tip1": "Start with small, reversible experiments rather than big plans.",
+    "tip2": "Identify 2–3 key people per facet — you can't engage everyone.",
+    "tip3": "Track leading indicators (behaviors) not just lagging ones (outcomes).",
+    "tip4": "Celebrate small wins visibly to stimulate the network.",
+    "tip5": "Review and adapt the plan every 2–4 weeks."
+  }
+}
