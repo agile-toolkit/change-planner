@@ -1,14 +1,23 @@
 {
   "app": { "title": "Change Planner" },
+  "common": { "next": "Next" },
+  "nav": {
+    "workspace": "Workspace",
+    "guided": "Guided facets"
+  },
   "home": {
     "headline": "How to Change the World",
     "subheadline": "Plan change initiatives using Jurgen Appelo's 4-facet framework from Management 3.0.",
     "cta": "New Initiative",
+    "saved_title": "Your initiatives",
+    "open": "Open",
+    "delete": "Delete",
     "framework_title": "The Framework",
     "framework_body": "\"How to Change the World\" (Appelo) teaches that successful change requires working across four facets simultaneously: the system, the people, the network, and the environment. Most change failures come from focusing on only one or two.",
     "facets_preview": "The 4 Facets"
   },
   "canvas": {
+    "section_heading": "Initiative details",
     "title_label": "Initiative Title",
     "title_placeholder": "What change are you trying to make?",
     "goal_label": "Goal",
@@ -23,6 +32,12 @@
     "delete_confirm": "Delete this initiative?"
   },
   "facets": {
+    "guided_title": "Guided facet walkthrough",
+    "prompts_heading": "Guiding prompts",
+    "notes": "Notes",
+    "notes_placeholder": "Capture insights, risks, and next steps for this facet…",
+    "why_toggle_show": "Why this facet?",
+    "why_toggle_hide": "Hide",
     "dance": {
       "label": "Dance with the System",
       "color": "blue",

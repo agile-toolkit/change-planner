@@ -1,4 +1,7 @@
 export type FacetId = 'dance' | 'mind' | 'stimulate' | 'change'
+
+/** Order for tabs, home preview, and guided walkthrough */
+export const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 export type ActionStatus = 'todo' | 'done'
 
 export interface Action {
