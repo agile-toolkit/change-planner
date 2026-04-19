@@ -1,42 +1,37 @@
-# BRIEF — Change Planner
+# BRIEF
 
-## What this app does
-An interactive change management planning tool based on Jurgen Appelo's "How to Change the World" framework (Management 3.0). Guides change agents through the 4 core facets of change: Dance with the System, Mind the People, Stimulate the Network, and Change the Environment. Users create structured change initiatives with actionable steps mapped to each facet.
+Derived per [`agent-state.NO-BRIEF.md`](https://github.com/agile-toolkit/.github/blob/main/agent-state.NO-BRIEF.md). There was **no prior** `BRIEF.md`. Sources: `README.md`, `src/i18n/en.json` / `ru.json`, `src/`. Generated **2026-04-19**.
 
-## Target users
-Change agents, Agile coaches, managers, and team leads planning organizational or team-level change initiatives. Works for individual planning and team workshops.
+## Product scope (from `README.md`)
 
-## Core features (MVP)
-- Change initiative canvas: title, goal, context, stakeholders
-- 4-facet planner: guided prompts and action items for each facet
-  - Dance with the System (iterations, feedback loops)
-  - Mind the People (intrinsic motivators, resistors)
-  - Stimulate the Network (connectors, communities of practice)
-  - Change the Environment (constraints, incentives, context)
-- Action item tracker with owner and due date
-- Progress view: facet completion indicators
-- Export as printable PDF summary
+- Interactive **change management planning** aligned with Jurgen Appelo’s *How to Change the World* framing.
+- Plan initiatives across **four facets** with **guided prompts** and **action tracking**.
+- Stack: React 18, TypeScript, Vite, Tailwind, react-i18next (EN/RU).
+- Deploy: GitHub Pages via Actions on `main`.
 
-## Educational layer
-- "How to Change the World" framework overview panel
-- Per-facet explainer: theory, examples, common pitfalls
-- Motivators crossover: links to Moving Motivators app for people analysis
-- Reference to source material throughout
+## Build
 
-## Tech stack
-React 18 + TypeScript + Vite + Tailwind CSS. No backend (localStorage). GitHub Pages deployment.
+- `npm run build` — **passes** (verified **2026-04-19**).
 
-## Source materials in `.artefacts/`
-- `How to Change the World v1.01 - A4.pdf` — Jurgen Appelo's complete framework guide
+## TODO / FIXME in `src/`
 
-## i18n
-English + Russian (react-i18next).
+- None (`TODO` / `FIXME` / `XXX` not found under `src/`).
 
-## Agentic pipeline roles
-- `/vadavik` — spec & requirements validation
-- `/lojma` — UX/UI design (canvas layout, 4-facet cards, action tracker)
-- `/laznik` — architecture (canvas state model, PDF export)
-- `@cmok` — implementation
-- `@bahnik` — QA (canvas save/restore, PDF export fidelity, mobile layout)
-- `@piarun` — documentation
-- `@zlydni` — git commits & GitHub Pages deploy
+## i18n — likely orphaned keys (no literal `'key'` in `src/`)
+
+These keys exist under `src/i18n/en.json` but no `t('…')` uses the **exact** dotted path (verify dynamic use before deleting):
+
+- `common.next`
+- `canvas.save`, `canvas.load`
+- `actions.placeholder_due`, `actions.facet_label`, `actions.mark_done`, `actions.mark_todo`, `actions.delete`
+
+**Action:** Either wire them in the initiative / canvas / action UI or remove from locale files to avoid drift.
+
+## Hardcoded user-visible strings
+
+- `src/components/ActionTracker.tsx` (approx. line with progress text): English fragment **` done`** appears next to translated counts (`…/{…} done`). Should use i18n.
+
+## Classification (NO-BRIEF)
+
+- **Status:** `in-progress` — build green; README scope broadly covered, but orphaned keys and at least one hardcoded UI string remain.
+- **First next task:** Wire or remove the orphaned `actions.*` / `canvas.save` / `canvas.load` / `common.next` keys; replace hardcoded ` done` in `ActionTracker.tsx` with a new i18n key under `actions.*` or `common.*`.
