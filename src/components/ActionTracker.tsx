@@ -50,7 +50,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
         <div>
           <h2 className="font-semibold text-gray-900">{t('actions.title')}</h2>
           {actions.length > 0 && (
-            <span className="text-xs text-gray-400">{doneCount}/{actions.length} done</span>
+            <span className="text-xs text-gray-400">{t('actions.done_count', { done: doneCount, total: actions.length })}</span>
           )}
         </div>
         <button onClick={() => setShowForm(v => !v)} className="btn-primary text-sm">
@@ -78,11 +78,12 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
             <input
               type="date"
               className="input"
+              aria-label={t('actions.placeholder_due')}
               value={due}
               onChange={e => setDue(e.target.value)}
             />
           </div>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-2 flex-wrap" role="group" aria-label={t('actions.facet_label')}>
             {FACET_IDS.map(f => (
               <button
                 key={f}
@@ -122,6 +123,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               type="checkbox"
               checked={action.status === 'done'}
               onChange={() => onUpdate({ ...action, status: action.status === 'done' ? 'todo' : 'done' })}
+              aria-label={action.status === 'done' ? t('actions.mark_todo') : t('actions.mark_done')}
               className="mt-0.5 accent-brand-600 cursor-pointer"
             />
             <div className="flex-1 min-w-0">
@@ -136,7 +138,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                 {action.dueDate && <span className="text-xs text-gray-400">📅 {action.dueDate}</span>}
               </div>
             </div>
-            <button onClick={() => onDelete(action.id)} className="text-gray-200 hover:text-red-400 transition-colors text-xs flex-shrink-0">
+            <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-200 hover:text-red-400 transition-colors text-xs flex-shrink-0">
               ✕
             </button>
           </div>

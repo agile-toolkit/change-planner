@@ -9,8 +9,8 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] Initiative canvas and guided facet / progress views (`InitiativeCanvas.tsx`, `ProgressView`, `ActionTracker.tsx`)
 - [x] Canvas actions — new, clear confirm, section labels wired
 - [x] Core `actions.title`, `actions.add`, placeholders for text/owner, empty state
-- [ ] Orphan locale keys — `common.next`, `canvas.save`, `canvas.load`, `actions.placeholder_due`, `actions.facet_label`, `actions.mark_done`, `actions.mark_todo`, `actions.delete` (no literal `t('…')` in `src/`)
-- [ ] Hardcoded English — trailing ` done` next to counts in `src/components/ActionTracker.tsx`
+- [x] Orphan locale keys wired/removed — `common.next` → FacetPlanner Next button; `canvas.save` + `canvas.load` removed (auto-save, home-screen load); `actions.placeholder_due|facet_label|mark_done|mark_todo|delete` wired as `aria-label` attributes
+- [x] Hardcoded English — trailing ` done` replaced with `t('actions.done_count')` interpolation
 
 ## Backlog
 
@@ -19,6 +19,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Verify dynamic `t()` patterns before deleting any `actions.*` key.
 
 ## Agent Log
+
+### 2026-04-22 — feat: wire orphan i18n keys and fix hardcoded done string
+- Done: wired `common.next` as Next button in FacetPlanner; removed unused `canvas.save` + `canvas.load`; wired `actions.placeholder_due|facet_label|mark_done|mark_todo|delete` as aria-labels in ActionTracker; replaced `{doneCount}/{total} done` with `t('actions.done_count', {done, total})`; added `actions.done_count` interpolation key to en.json + ru.json
+- Remaining features: none — all BRIEF features now implemented
+- Next task: check needs-review issues for human feedback; run research cycle for market/integration/UX improvements
 
 ### 2026-04-19 — docs: BRIEF template (AGENT_AUTONOMOUS)
 

@@ -26,9 +26,7 @@
     "context_placeholder": "Какова текущая ситуация и почему это важно?",
     "stakeholders_label": "Ключевые стейкхолдеры",
     "stakeholders_placeholder": "Кого затрагивает или кто влияет? (имена, роли)",
-    "save": "Сохранить",
     "new": "Новая инициатива",
-    "load": "Загрузить",
     "delete_confirm": "Удалить эту инициативу?"
   },
   "facets": {
@@ -91,9 +89,10 @@
     "placeholder_due": "Срок",
     "facet_label": "Грань",
     "empty": "Задач пока нет.",
-    "mark_done": "Выполнено",
+    "mark_done": "Отметить выполненным",
     "mark_todo": "Переоткрыть",
-    "delete": "Удалить"
+    "delete": "Удалить задачу",
+    "done_count": "{{done}}/{{total}} выполнено"
   },
   "progress": {
     "title": "Прогресс",
