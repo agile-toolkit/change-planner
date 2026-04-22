@@ -64,6 +64,8 @@ export default function FacetPlanner({
   const styles = FACET_STYLES[activeFacet]
   const prompts = t(`facets.${activeFacet}.prompts`, { returnObjects: true }) as string[]
   const notes = initiative.facetNotes[activeFacet]
+  const currentIdx = facetIds.indexOf(activeFacet)
+  const nextFacet = currentIdx < facetIds.length - 1 ? facetIds[currentIdx + 1] : null
 
   function updateNotes(next: string) {
     onChange({
@@ -146,6 +148,18 @@ export default function FacetPlanner({
             className={`w-full bg-white/70 border border-current/20 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 ${styles.ring} focus:border-transparent resize-y placeholder-slate-400`}
           />
         </div>
+
+        {nextFacet && (
+          <div className="mt-4 flex justify-end">
+            <button
+              type="button"
+              onClick={() => onFacetChange(nextFacet)}
+              className="btn-primary text-sm"
+            >
+              {t('common.next')} →
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

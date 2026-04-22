@@ -26,9 +26,7 @@
     "context_placeholder": "What is the current situation and why does this matter?",
     "stakeholders_label": "Key Stakeholders",
     "stakeholders_placeholder": "Who is affected or has influence? (names, roles)",
-    "save": "Save",
     "new": "New Initiative",
-    "load": "Load",
     "delete_confirm": "Delete this initiative?"
   },
   "facets": {
@@ -91,9 +89,10 @@
     "placeholder_due": "Due date",
     "facet_label": "Facet",
     "empty": "No actions yet.",
-    "mark_done": "Done",
+    "mark_done": "Mark as done",
     "mark_todo": "Reopen",
-    "delete": "Delete"
+    "delete": "Delete action",
+    "done_count": "{{done}}/{{total}} done"
   },
   "progress": {
     "title": "Progress",
