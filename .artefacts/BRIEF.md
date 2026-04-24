@@ -14,11 +14,20 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 
 ## Backlog
 
+- [ ] [#3] Feature: add ES and BE locale translations (language picker 4-way)
+- [ ] [#4] Integration: link Moving Motivators results to Mind-the-People facet
+- [ ] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard)
+
 ## Tech notes
 
 - Verify dynamic `t()` patterns before deleting any `actions.*` key.
 
 ## Agent Log
+
+### 2026-04-24 — research: market + integration + UX opportunities
+- Done: created issue #3 (ES/BE locale translations — suite spec requires 4 locales, only EN+RU exist), issue #4 (Moving Motivators → Mind-the-People facet integration — link stakeholder motivator profiles), issue #5 (export initiative as PDF/image + clipboard Markdown)
+- Waiting for human review on all three
+- Next task: check needs-review issues for human feedback (#3 ES/BE locales, #4 Moving Motivators integration, #5 export/share)
 
 ### 2026-04-22 — feat: wire orphan i18n keys and fix hardcoded done string
 - Done: wired `common.next` as Next button in FacetPlanner; removed unused `canvas.save` + `canvas.load`; wired `actions.placeholder_due|facet_label|mark_done|mark_todo|delete` as aria-labels in ActionTracker; replaced `{doneCount}/{total} done` with `t('actions.done_count', {done, total})`; added `actions.done_count` interpolation key to en.json + ru.json
