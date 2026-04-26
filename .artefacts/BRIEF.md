@@ -17,12 +17,20 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#3] Feature: add ES and BE locale translations (language picker 4-way)
 - [ ] [#4] Integration: link Moving Motivators results to Mind-the-People facet
 - [ ] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard)
+- [ ] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability)
+- [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
+- [ ] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics
 
 ## Tech notes
 
 - Verify dynamic `t()` patterns before deleting any `actions.*` key.
 
 ## Agent Log
+
+### 2026-04-26 — research: data portability, templates, and cross-app integration
+- Done: checked issues #3–#5 — all still `needs-review`, no human feedback yet; created issue #6 (JSON export/import for localStorage backup — zero new deps, ~60 LOC), issue #7 (quick-start templates to reduce cold-start friction — typed Partial<Initiative> objects in src/data/templates.ts), issue #8 (Scrum Facilitator + Sprint Metrics integration — Phase 1 copy-to-retro clipboard, Phase 2 deep links once sibling apps ship URL state)
+- Waiting for human review on all six open issues
+- Next task: check needs-review issues for human feedback (#3 ES/BE locales, #4 Moving Motivators integration, #5 export/share, #6 JSON backup, #7 templates, #8 Scrum/Sprint integration)
 
 ### 2026-04-24 — research: market + integration + UX opportunities
 - Done: created issue #3 (ES/BE locale translations — suite spec requires 4 locales, only EN+RU exist), issue #4 (Moving Motivators → Mind-the-People facet integration — link stakeholder motivator profiles), issue #5 (export initiative as PDF/image + clipboard Markdown)
