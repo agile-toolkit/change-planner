@@ -11,10 +11,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] Core `actions.title`, `actions.add`, placeholders for text/owner, empty state
 - [x] Orphan locale keys wired/removed — `common.next` → FacetPlanner Next button; `canvas.save` + `canvas.load` removed (auto-save, home-screen load); `actions.placeholder_due|facet_label|mark_done|mark_todo|delete` wired as `aria-label` attributes
 - [x] Hardcoded English — trailing ` done` replaced with `t('actions.done_count')` interpolation
+- [x] ES and BE locale translations — full `es.json` and `be.json`; 4-way language picker (EN/ES/BE/RU) in header
 
 ## Backlog
 
-- [ ] [#3] Feature: add ES and BE locale translations (language picker 4-way)
+- [x] [#3] Feature: add ES and BE locale translations (language picker 4-way) — implemented
 - [ ] [#4] Integration: link Moving Motivators results to Mind-the-People facet
 - [ ] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard)
 - [ ] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability)
@@ -26,6 +27,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Verify dynamic `t()` patterns before deleting any `actions.*` key.
 
 ## Agent Log
+
+### 2026-04-29 — feat: ES and BE locale translations + 4-way language picker
+- Done: created `es.json` (Spanish) and `be.json` (Belarusian) with full translations of all keys; registered both locales in `src/i18n/index.ts`; replaced EN↔RU toggle button in `App.tsx` header with a 4-button picker (EN/ES/BE/RU); build passes
+- Remaining backlog: #4 (Moving Motivators integration), #5 (PDF/image export), #6 (JSON backup), #7 (quick-start templates), #8 (Scrum/Sprint integration) — issues #4 and #8 still carry `approved` label
+- Next task: implement issue #4 — link Moving Motivators results to Mind-the-People facet (read from localStorage key `moving-motivators-results`, surface motivator profile in FacetPlanner mind panel)
 
 ### 2026-04-26 — research: data portability, templates, and cross-app integration
 - Done: checked issues #3–#5 — all still `needs-review`, no human feedback yet; created issue #6 (JSON export/import for localStorage backup — zero new deps, ~60 LOC), issue #7 (quick-start templates to reduce cold-start friction — typed Partial<Initiative> objects in src/data/templates.ts), issue #8 (Scrum Facilitator + Sprint Metrics integration — Phase 1 copy-to-retro clipboard, Phase 2 deep links once sibling apps ship URL state)
