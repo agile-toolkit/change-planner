@@ -120,13 +120,18 @@ export default function App() {
             >
               {t('learn.title')}
             </button>
-            <button
-              type="button"
-              onClick={() => i18n.changeLanguage(i18n.language.startsWith('ru') ? 'en' : 'ru')}
-              className="ml-2 text-sm text-gray-500 hover:text-gray-700 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
-            >
-              {i18n.language.startsWith('ru') ? 'EN' : 'RU'}
-            </button>
+            <div className="ml-2 flex items-center gap-0.5">
+              {(['en', 'es', 'be', 'ru'] as const).map(lng => (
+                <button
+                  key={lng}
+                  type="button"
+                  onClick={() => i18n.changeLanguage(lng)}
+                  className={`text-xs px-1.5 py-0.5 rounded transition-colors ${i18n.language.startsWith(lng) ? 'bg-brand-100 text-brand-700 font-semibold' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'}`}
+                >
+                  {lng.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </header>

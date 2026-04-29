@@ -1,0 +1,115 @@
+{
+  "app": { "title": "Planificador de Cambios" },
+  "common": { "next": "Siguiente" },
+  "nav": {
+    "workspace": "Espacio de trabajo",
+    "guided": "Facetas guiadas"
+  },
+  "home": {
+    "headline": "Cómo cambiar el mundo",
+    "subheadline": "Planifica iniciativas de cambio usando el marco de 4 facetas de Jurgen Appelo (Management 3.0).",
+    "cta": "Nueva iniciativa",
+    "saved_title": "Tus iniciativas",
+    "open": "Abrir",
+    "delete": "Eliminar",
+    "framework_title": "El marco",
+    "framework_body": "«Cómo cambiar el mundo» (Appelo) enseña que el cambio exitoso requiere trabajar simultáneamente en cuatro facetas: el sistema, las personas, la red y el entorno. La mayoría de los fracasos se producen por centrarse solo en una o dos.",
+    "facets_preview": "Las 4 facetas"
+  },
+  "canvas": {
+    "section_heading": "Detalles de la iniciativa",
+    "title_label": "Título de la iniciativa",
+    "title_placeholder": "¿Qué cambio intentas conseguir?",
+    "goal_label": "Objetivo",
+    "goal_placeholder": "¿Cómo es el éxito en 6–12 meses?",
+    "context_label": "Contexto",
+    "context_placeholder": "¿Cuál es la situación actual y por qué importa?",
+    "stakeholders_label": "Partes interesadas clave",
+    "stakeholders_placeholder": "¿Quién se ve afectado o tiene influencia? (nombres, roles)",
+    "new": "Nueva iniciativa",
+    "delete_confirm": "¿Eliminar esta iniciativa?"
+  },
+  "facets": {
+    "guided_title": "Recorrido guiado por facetas",
+    "prompts_heading": "Preguntas guía",
+    "notes": "Notas",
+    "notes_placeholder": "Captura ideas, riesgos y próximos pasos para esta faceta…",
+    "why_toggle_show": "¿Por qué esta faceta?",
+    "why_toggle_hide": "Ocultar",
+    "dance": {
+      "label": "Bailar con el sistema",
+      "color": "blue",
+      "description": "Comprende cómo funciona el sistema actual. Mapea los bucles de retroalimentación, los incentivos y las restricciones. Trabaja con el sistema, no en su contra.",
+      "prompts": [
+        "¿Qué bucles de retroalimentación mantienen el statu quo?",
+        "¿Cuáles son los puntos de apalancamiento clave para el cambio?",
+        "¿Cómo iterar en lugar de hacer un gran cambio de golpe?",
+        "¿Qué métricas mostrarán si el sistema está cambiando?"
+      ]
+    },
+    "mind": {
+      "label": "Cuidar a las personas",
+      "color": "green",
+      "description": "Los motivadores intrínsecos, los miedos y los modelos mentales de las personas determinan si el cambio tiene éxito o fracasa. Involúcralas, no las gestiones.",
+      "prompts": [
+        "¿Quiénes son los adoptantes tempranos y quiénes los resistentes?",
+        "¿Qué motiva intrínsecamente a cada parte interesada clave?",
+        "¿Qué miedos o preocupaciones tienen las personas sobre este cambio?",
+        "¿Cómo reconocerás y abordarás esas preocupaciones?"
+      ]
+    },
+    "stimulate": {
+      "label": "Estimular la red",
+      "color": "orange",
+      "description": "El cambio se propaga a través de redes sociales. Identifica conectores, comunidades de práctica y canales de influencia. Haz crecer el movimiento.",
+      "prompts": [
+        "¿Quiénes son los conectores y los influenciadores en esta red?",
+        "¿Qué comunidades de práctica pueden amplificar el cambio?",
+        "¿Cómo hacer visibles los primeros éxitos para los demás?",
+        "¿Qué historias o rituales reforzarán los nuevos comportamientos?"
+      ]
+    },
+    "change": {
+      "label": "Cambiar el entorno",
+      "color": "purple",
+      "description": "El entorno moldea el comportamiento. Modifica los incentivos, las restricciones, las herramientas y los espacios físicos/digitales para que el comportamiento deseado sea más fácil.",
+      "prompts": [
+        "¿Qué incentivos recompensan actualmente el comportamiento antiguo?",
+        "¿Qué restricciones o reglas deben cambiar?",
+        "¿Qué nuevas herramientas, espacios o estructuras apoyarían el cambio?",
+        "¿Cómo hacer que el nuevo comportamiento sea el camino de menor resistencia?"
+      ]
+    }
+  },
+  "actions": {
+    "title": "Elementos de acción",
+    "add": "Agregar acción",
+    "placeholder_text": "Describe la acción...",
+    "placeholder_owner": "Responsable",
+    "placeholder_due": "Fecha límite",
+    "facet_label": "Faceta",
+    "empty": "Aún no hay acciones.",
+    "mark_done": "Marcar como hecho",
+    "mark_todo": "Reabrir",
+    "delete": "Eliminar acción",
+    "done_count": "{{done}}/{{total}} hechas"
+  },
+  "progress": {
+    "title": "Progreso",
+    "overall": "General",
+    "actions_done": "Acciones realizadas",
+    "facets_with_actions": "Facetas con acciones"
+  },
+  "learn": {
+    "title": "Sobre el marco",
+    "intro": "«Cómo cambiar el mundo» es una guía práctica de Jurgen Appelo (Management 3.0) que sintetiza la ciencia de la complejidad, la psicología y el pensamiento sistémico en un enfoque práctico para los agentes de cambio.",
+    "why_title": "¿Por qué 4 facetas?",
+    "why_body": "La mayoría de los esfuerzos de cambio fracasan porque se centran en una sola cosa, generalmente el sistema o solo las personas. El cambio real es complejo y requiere trabajar simultáneamente en las cuatro dimensiones. Las facetas se refuerzan mutuamente: los cambios en el entorno facilitan los nuevos comportamientos, los efectos de red propagan la adopción, las personas motivadas sostienen el esfuerzo y los ajustes del sistema eliminan las barreras estructurales.",
+    "tips_title": "Consejos prácticos",
+    "tip1": "Comienza con experimentos pequeños y reversibles en lugar de grandes planes.",
+    "tip2": "Identifica 2–3 personas clave por faceta: no puedes involucrar a todos.",
+    "tip3": "Sigue los indicadores adelantados (comportamientos), no solo los rezagados (resultados).",
+    "tip4": "Celebra los pequeños logros visiblemente para estimular la red.",
+    "tip5": "Revisa y adapta el plan cada 2–4 semanas."
+  }
+}
