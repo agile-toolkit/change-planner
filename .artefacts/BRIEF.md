@@ -20,13 +20,19 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard)
 - [ ] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability)
 - [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
-- [ ] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics
+- [x] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (Phase 1 implemented)
 
 ## Tech notes
 
 - Verify dynamic `t()` patterns before deleting any `actions.*` key.
 
 ## Agent Log
+
+### 2026-04-30 — feat: Scrum Facilitator integration (Phase 1) — issue #8
+- Done: added `relatedSprints` optional field to `Initiative` type and `InitiativeCanvas` (full i18n in EN/ES/BE/RU); added "Copy to Retro context" button in `ProgressView` that builds a structured Markdown block (initiative title, goal, related sprints, per-facet notes, open action items) and copies to clipboard via `navigator.clipboard`; button shows "Copied!" for 2 s feedback; all 4 locales updated; build passes
+- Phase 2 (deep-link to Scrum Facilitator / Sprint Metrics via URL state) remains — conditional on sibling apps shipping URL-based session state
+- Remaining backlog: #5 (PDF/image export), #6 (JSON backup), #7 (quick-start templates)
+- Next task: check needs-review issues for human feedback (#5 export/share, #6 JSON backup, #7 templates); then implement next approved backlog item
 
 ### 2026-04-30 — feat: Moving Motivators integration in Mind-the-People facet
 - Done: added `StakeholderProfile` type to `types.ts`; created `StakeholderProfilePanel` component (name + top-3 motivator inputs, suggested action prompt, deep-link to Moving Motivators app); rendered panel in both workspace `FacetCard` (mind facet) and guided `FacetPlanner` (mind tab); added `stakeholderProfiles` field to Initiative with backward-compatible `?? []` fallback; added `mind_profiles.*` i18n keys to all 4 locales (EN/ES/BE/RU); build passes

@@ -27,7 +27,9 @@
     "stakeholders_label": "Ключевые стейкхолдеры",
     "stakeholders_placeholder": "Кого затрагивает или кто влияет? (имена, роли)",
     "new": "Новая инициатива",
-    "delete_confirm": "Удалить эту инициативу?"
+    "delete_confirm": "Удалить эту инициативу?",
+    "related_sprints_label": "Связанные спринты",
+    "related_sprints_placeholder": "например, Команда Альфа, Спринт 23+"
   },
   "facets": {
     "guided_title": "Проход по граням",
@@ -98,7 +100,14 @@
     "title": "Прогресс",
     "overall": "Общий",
     "actions_done": "Задач выполнено",
-    "facets_with_actions": "Граней с задачами"
+    "facets_with_actions": "Граней с задачами",
+    "copy_retro": "Копировать в ретро",
+    "copy_retro_hint": "Копирует сводку инициативы в формате Markdown для вставки в заметку ретроспективы",
+    "copied": "Скопировано!",
+    "retro_heading": "Инициатива изменений",
+    "retro_untitled": "Без названия",
+    "retro_facets": "Сводка по граням",
+    "retro_open_actions": "Открытые задачи"
   },
   "learn": {
     "title": "О фреймворке",

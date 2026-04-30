@@ -26,6 +26,7 @@ export interface Initiative {
   goal: string
   context: string
   stakeholders: string
+  relatedSprints: string
   facetNotes: Record<FacetId, string>
   actions: Action[]
   stakeholderProfiles: StakeholderProfile[]

@@ -52,6 +52,15 @@ export default function InitiativeCanvas({ initiative, onChange }: Props) {
             onChange={e => onChange({ context: e.target.value })}
           />
         </div>
+        <div className="md:col-span-2">
+          <label className="label">{t('canvas.related_sprints_label')}</label>
+          <input
+            className="input"
+            placeholder={t('canvas.related_sprints_placeholder')}
+            value={initiative.relatedSprints ?? ''}
+            onChange={e => onChange({ relatedSprints: e.target.value })}
+          />
+        </div>
       </div>
     </div>
   )

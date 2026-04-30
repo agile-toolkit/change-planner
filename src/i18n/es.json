@@ -27,7 +27,9 @@
     "stakeholders_label": "Partes interesadas clave",
     "stakeholders_placeholder": "¿Quién se ve afectado o tiene influencia? (nombres, roles)",
     "new": "Nueva iniciativa",
-    "delete_confirm": "¿Eliminar esta iniciativa?"
+    "delete_confirm": "¿Eliminar esta iniciativa?",
+    "related_sprints_label": "Sprints relacionados",
+    "related_sprints_placeholder": "p. ej. Equipo Alfa, Sprint 23+"
   },
   "facets": {
     "guided_title": "Recorrido guiado por facetas",
@@ -98,7 +100,14 @@
     "title": "Progreso",
     "overall": "General",
     "actions_done": "Acciones realizadas",
-    "facets_with_actions": "Facetas con acciones"
+    "facets_with_actions": "Facetas con acciones",
+    "copy_retro": "Copiar al contexto de retro",
+    "copy_retro_hint": "Copia el resumen de la iniciativa como Markdown para pegarlo en una nota de ceremonia del Scrum Facilitator",
+    "copied": "¡Copiado!",
+    "retro_heading": "Iniciativa de cambio",
+    "retro_untitled": "Sin título",
+    "retro_facets": "Resumen de facetas",
+    "retro_open_actions": "Elementos de acción abiertos"
   },
   "learn": {
     "title": "Sobre el marco",

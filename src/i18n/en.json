@@ -27,7 +27,9 @@
     "stakeholders_label": "Key Stakeholders",
     "stakeholders_placeholder": "Who is affected or has influence? (names, roles)",
     "new": "New Initiative",
-    "delete_confirm": "Delete this initiative?"
+    "delete_confirm": "Delete this initiative?",
+    "related_sprints_label": "Related sprints",
+    "related_sprints_placeholder": "e.g. Team Alpha, Sprint 23+"
   },
   "facets": {
     "guided_title": "Guided facet walkthrough",
@@ -98,7 +100,14 @@
     "title": "Progress",
     "overall": "Overall",
     "actions_done": "Actions done",
-    "facets_with_actions": "Facets with actions"
+    "facets_with_actions": "Facets with actions",
+    "copy_retro": "Copy to Retro context",
+    "copy_retro_hint": "Copies initiative summary as Markdown for pasting into a Scrum Facilitator ceremony note",
+    "copied": "Copied!",
+    "retro_heading": "Change Initiative",
+    "retro_untitled": "Untitled",
+    "retro_facets": "Facet summary",
+    "retro_open_actions": "Open action items"
   },
   "learn": {
     "title": "About the Framework",

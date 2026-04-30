@@ -27,7 +27,9 @@
     "stakeholders_label": "Ключавыя зацікаўленыя",
     "stakeholders_placeholder": "Хто закрануты або мае ўплыў? (імёны, ролі)",
     "new": "Новая ініцыятыва",
-    "delete_confirm": "Выдаліць гэту ініцыятыву?"
+    "delete_confirm": "Выдаліць гэту ініцыятыву?",
+    "related_sprints_label": "Звязаныя спрынты",
+    "related_sprints_placeholder": "напр. Каманда Альфа, Спрынт 23+"
   },
   "facets": {
     "guided_title": "Кіраваны праход па гранях",
@@ -98,7 +100,14 @@
     "title": "Прагрэс",
     "overall": "Агульны",
     "actions_done": "Дзеянняў выканана",
-    "facets_with_actions": "Граней з дзеяннямі"
+    "facets_with_actions": "Граней з дзеяннямі",
+    "copy_retro": "Скапіраваць у рэтра",
+    "copy_retro_hint": "Капіруе зводку ініцыятывы ў фармаце Markdown для ўстаўкі ў нататку цырымоніі рэтраспектывы",
+    "copied": "Скапіравана!",
+    "retro_heading": "Ініцыятыва змяненняў",
+    "retro_untitled": "Без назвы",
+    "retro_facets": "Зводка па гранях",
+    "retro_open_actions": "Адкрытыя дзеянні"
   },
   "learn": {
     "title": "Пра структуру",
