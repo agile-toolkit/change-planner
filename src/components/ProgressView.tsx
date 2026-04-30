@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId } from '../types'
 
@@ -12,17 +13,63 @@ const FACET_COLORS: Record<FacetId, string> = {
 
 interface Props {
   initiative: Initiative
+  onChange?: (patch: Partial<Initiative>) => void
 }
 
 export default function ProgressView({ initiative }: Props) {
   const { t } = useTranslation()
+  const [copied, setCopied] = useState(false)
+
   const totalActions = initiative.actions.length
   const doneActions = initiative.actions.filter(a => a.status === 'done').length
   const facetsWithActions = FACET_IDS.filter(f => initiative.actions.some(a => a.facet === f)).length
 
+  function buildRetroMarkdown(): string {
+    const lines: string[] = []
+    lines.push(`## ${t('progress.retro_heading')}: ${initiative.title || t('progress.retro_untitled')}`)
+    if (initiative.goal) lines.push(`**${t('canvas.goal_label')}:** ${initiative.goal}`)
+    if (initiative.relatedSprints) lines.push(`**${t('canvas.related_sprints_label')}:** ${initiative.relatedSprints}`)
+    lines.push('')
+    lines.push(`### ${t('progress.retro_facets')}`)
+    for (const facet of FACET_IDS) {
+      const notes = initiative.facetNotes[facet]?.trim()
+      lines.push(`**${t(`facets.${facet}.label`)}:** ${notes || '—'}`)
+    }
+    const openActions = initiative.actions.filter(a => a.status === 'todo')
+    if (openActions.length > 0) {
+      lines.push('')
+      lines.push(`### ${t('progress.retro_open_actions')}`)
+      for (const action of openActions) {
+        const parts = [`- [ ] ${action.text}`]
+        if (action.owner) parts.push(`(${t('actions.placeholder_owner')}: ${action.owner})`)
+        if (action.dueDate) parts.push(`[${t('actions.placeholder_due')}: ${action.dueDate}]`)
+        lines.push(parts.join(' '))
+      }
+    }
+    return lines.join('\n')
+  }
+
+  const handleCopy = () => {
+    const md = buildRetroMarkdown()
+    navigator.clipboard.writeText(md).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
   return (
     <div className="card">
-      <h2 className="font-semibold text-gray-900 mb-4">{t('progress.title')}</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-semibold text-gray-900">{t('progress.title')}</h2>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
+          title={t('progress.copy_retro_hint')}
+        >
+          {copied ? `✓ ${t('progress.copied')}` : t('progress.copy_retro')}
+        </button>
+      </div>
 
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="text-center">

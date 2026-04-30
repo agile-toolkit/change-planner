@@ -19,6 +19,7 @@ function newInitiative(): Initiative {
     goal: '',
     context: '',
     stakeholders: '',
+    relatedSprints: '',
     facetNotes: { dance: '', mind: '', stimulate: '', change: '' },
     actions: [],
     stakeholderProfiles: [],
@@ -241,7 +242,7 @@ export default function App() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <ProgressView initiative={current} />
+                      <ProgressView initiative={current} onChange={patch} />
                       <ActionTracker
                         actions={current.actions}
                         onAdd={(action: Action) => patch({ actions: [...current.actions, action] })}
