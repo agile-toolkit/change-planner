@@ -16,7 +16,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 ## Backlog
 
 - [x] [#3] Feature: add ES and BE locale translations (language picker 4-way) — implemented
-- [ ] [#4] Integration: link Moving Motivators results to Mind-the-People facet
+- [x] [#4] Integration: link Moving Motivators results to Mind-the-People facet — implemented
 - [ ] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard)
 - [ ] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability)
 - [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
@@ -27,6 +27,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Verify dynamic `t()` patterns before deleting any `actions.*` key.
 
 ## Agent Log
+
+### 2026-04-30 — feat: Moving Motivators integration in Mind-the-People facet
+- Done: added `StakeholderProfile` type to `types.ts`; created `StakeholderProfilePanel` component (name + top-3 motivator inputs, suggested action prompt, deep-link to Moving Motivators app); rendered panel in both workspace `FacetCard` (mind facet) and guided `FacetPlanner` (mind tab); added `stakeholderProfiles` field to Initiative with backward-compatible `?? []` fallback; added `mind_profiles.*` i18n keys to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #5 (PDF/image export), #6 (JSON backup), #7 (quick-start templates), #8 (Scrum/Sprint integration — also approved)
+- Next task: implement issue #8 — link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (read spec from issue body; Phase 1 clipboard copy of initiative summary for retro; Phase 2 deep-links)
 
 ### 2026-04-29 — feat: ES and BE locale translations + 4-way language picker
 - Done: created `es.json` (Spanish) and `be.json` (Belarusian) with full translations of all keys; registered both locales in `src/i18n/index.ts`; replaced EN↔RU toggle button in `App.tsx` header with a 4-button picker (EN/ES/BE/RU); build passes

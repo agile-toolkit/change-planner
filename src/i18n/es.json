@@ -111,5 +111,19 @@
     "tip3": "Sigue los indicadores adelantados (comportamientos), no solo los rezagados (resultados).",
     "tip4": "Celebra los pequeños logros visiblemente para estimular la red.",
     "tip5": "Revisa y adapta el plan cada 2–4 semanas."
+  },
+  "mind_profiles": {
+    "section_title": "Perfiles de motivadores de partes interesadas",
+    "open_mm": "Abrir Moving Motivators →",
+    "open_mm_hint": "Usa la app Moving Motivators para clasificar los motivadores CHAMPFROGS de cada parte interesada clave, luego registra los 3 principales aquí para guiar tus acciones.",
+    "add_button": "Agregar perfil de parte interesada",
+    "name_placeholder": "Nombre de la parte interesada",
+    "motivator1_placeholder": "Motivador principal",
+    "motivator2_placeholder": "2.º motivador",
+    "motivator3_placeholder": "3.er motivador",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar perfil",
+    "suggested_action": "Aborda el motivador principal de {{name}}: {{motivator}}"
   }
 }

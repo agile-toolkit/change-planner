@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Initiative, FacetId } from '../types'
+import type { Initiative, FacetId, StakeholderProfile } from '../types'
+import StakeholderProfilePanel from './StakeholderProfilePanel'
 
 /** Short labels for facet tabs (facets.*.label are often long) */
 const FACET_TAB_EMOJI: Record<FacetId, string> = {
@@ -71,6 +72,10 @@ export default function FacetPlanner({
     onChange({
       facetNotes: { ...initiative.facetNotes, [activeFacet]: next },
     })
+  }
+
+  function updateProfiles(profiles: StakeholderProfile[]) {
+    onChange({ stakeholderProfiles: profiles })
   }
 
   return (
@@ -148,6 +153,13 @@ export default function FacetPlanner({
             className={`w-full bg-white/70 border border-current/20 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 ${styles.ring} focus:border-transparent resize-y placeholder-slate-400`}
           />
         </div>
+
+        {activeFacet === 'mind' && (
+          <StakeholderProfilePanel
+            profiles={initiative.stakeholderProfiles ?? []}
+            onChange={updateProfiles}
+          />
+        )}
 
         {nextFacet && (
           <div className="mt-4 flex justify-end">
