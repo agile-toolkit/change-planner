@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import type { FacetId } from '../types'
+import type { FacetId, StakeholderProfile } from '../types'
+import StakeholderProfilePanel from './StakeholderProfilePanel'
 
 const FACET_STYLES: Record<FacetId, { bg: string; border: string; header: string; badge: string }> = {
   dance:     { bg: 'bg-blue-50',   border: 'border-blue-200',   header: 'text-blue-900',   badge: 'bg-blue-100 text-blue-700' },
@@ -13,9 +14,11 @@ interface Props {
   notes: string
   actionCount: number
   onNotesChange: (notes: string) => void
+  stakeholderProfiles?: StakeholderProfile[]
+  onProfilesChange?: (profiles: StakeholderProfile[]) => void
 }
 
-export default function FacetCard({ facetId, notes, actionCount, onNotesChange }: Props) {
+export default function FacetCard({ facetId, notes, actionCount, onNotesChange, stakeholderProfiles, onProfilesChange }: Props) {
   const { t } = useTranslation()
   const styles = FACET_STYLES[facetId]
   const prompts = t(`facets.${facetId}.prompts`, { returnObjects: true }) as string[]
@@ -53,6 +56,10 @@ export default function FacetCard({ facetId, notes, actionCount, onNotesChange }
         value={notes}
         onChange={e => onNotesChange(e.target.value)}
       />
+
+      {facetId === 'mind' && stakeholderProfiles !== undefined && onProfilesChange && (
+        <StakeholderProfilePanel profiles={stakeholderProfiles} onChange={onProfilesChange} />
+      )}
     </div>
   )
 }

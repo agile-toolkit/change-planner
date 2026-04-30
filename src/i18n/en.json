@@ -111,5 +111,19 @@
     "tip3": "Track leading indicators (behaviors) not just lagging ones (outcomes).",
     "tip4": "Celebrate small wins visibly to stimulate the network.",
     "tip5": "Review and adapt the plan every 2–4 weeks."
+  },
+  "mind_profiles": {
+    "section_title": "Stakeholder Motivator Profiles",
+    "open_mm": "Open Moving Motivators →",
+    "open_mm_hint": "Use the Moving Motivators app to rank CHAMPFROGS motivators for each key stakeholder, then record the top 3 here to guide your actions.",
+    "add_button": "Add stakeholder profile",
+    "name_placeholder": "Stakeholder name",
+    "motivator1_placeholder": "Top motivator",
+    "motivator2_placeholder": "2nd motivator",
+    "motivator3_placeholder": "3rd motivator",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Remove profile",
+    "suggested_action": "Address {{name}}'s top motivator: {{motivator}}"
   }
 }

@@ -21,6 +21,7 @@ function newInitiative(): Initiative {
     stakeholders: '',
     facetNotes: { dance: '', mind: '', stimulate: '', change: '' },
     actions: [],
+    stakeholderProfiles: [],
     createdAt: Date.now(),
     updatedAt: Date.now(),
   }
@@ -231,6 +232,10 @@ export default function App() {
                           onNotesChange={notes =>
                             patch({ facetNotes: { ...current.facetNotes, [facet]: notes } })
                           }
+                          {...(facet === 'mind' ? {
+                            stakeholderProfiles: current.stakeholderProfiles ?? [],
+                            onProfilesChange: (profiles) => patch({ stakeholderProfiles: profiles }),
+                          } : {})}
                         />
                       ))}
                     </div>

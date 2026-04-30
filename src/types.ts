@@ -13,6 +13,13 @@ export interface Action {
   facet: FacetId
 }
 
+export interface StakeholderProfile {
+  id: string
+  name: string
+  /** Top 3 motivator names (free text), may be shorter if user left some blank */
+  motivators: string[]
+}
+
 export interface Initiative {
   id: string
   title: string
@@ -21,6 +28,7 @@ export interface Initiative {
   stakeholders: string
   facetNotes: Record<FacetId, string>
   actions: Action[]
+  stakeholderProfiles: StakeholderProfile[]
   createdAt: number
   updatedAt: number
 }
