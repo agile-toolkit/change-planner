@@ -13,6 +13,12 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] Hardcoded English — trailing ` done` replaced with `t('actions.done_count')` interpolation
 - [x] ES and BE locale translations — full `es.json` and `be.json`; 4-way language picker (EN/ES/BE/RU) in header
 
+## localStorage keys
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `change-planner-initiatives` | `Initiative[]` | All initiatives (active + archived). Dashboard reads this key. |
+
 ## Backlog
 
 - [x] [#3] Feature: add ES and BE locale translations (language picker 4-way) — implemented
@@ -21,12 +27,24 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability)
 - [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
 - [x] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (Phase 1 implemented)
+- [ ] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader)
+- [ ] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`)
+- [ ] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage)
 
 ## Tech notes
 
 - Verify dynamic `t()` patterns before deleting any `actions.*` key.
+- Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-09 — research: initiative lifecycle, action UX, and cross-app integration
+- Done: checked issues #5/6/7 — still `needs-review`, no human feedback; updated project status for #3, #4, #8 to `In Review` (all were implemented in prior runs but project board not updated)
+- Created issue #12 (initiative completed/archived status — adds `completedAt` field that dashboard reader already expects; active/archived split on home screen)
+- Created issue #13 (overdue action item visual indicator — red highlight on `todo` actions past `dueDate`, zero dependencies)
+- Created issue #14 (Integration: import Improvement Board items as change actions — reads `improvement-board-items` localStorage, maps `category → facet`, creates `Action[]`)
+- Added `## localStorage keys` section to BRIEF.md
+- Next task: check issues for human feedback (#5 export/share, #6 JSON backup, #7 templates, #12 archive, #13 overdue, #14 Improvement Board import); implement first approved item
 
 ### 2026-04-30 — feat: Scrum Facilitator integration (Phase 1) — issue #8
 - Done: added `relatedSprints` optional field to `Initiative` type and `InitiativeCanvas` (full i18n in EN/ES/BE/RU); added "Copy to Retro context" button in `ProgressView` that builds a structured Markdown block (initiative title, goal, related sprints, per-facet notes, open action items) and copies to clipboard via `navigator.clipboard`; button shows "Copied!" for 2 s feedback; all 4 locales updated; build passes
