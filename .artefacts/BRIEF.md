@@ -30,6 +30,9 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader)
 - [ ] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`)
 - [ ] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage)
+- [ ] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
+- [ ] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
+- [ ] [#17] Feature: per-facet action completion progress visualization in ProgressView (done/total per facet, global %, pure CSS or SVG)
 
 ## Tech notes
 
@@ -37,6 +40,13 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-13 — research: Team Identity integration, action priority, and progress visualization
+- Done: scanned all open issues — #3/#4/#8 still `approved` + `In Review` (implemented, awaiting human close); #5–7 and #12–14 still `needs-review`, no new human feedback
+- Created issue #15 (Integration: auto-fill stakeholder context from Team Identity charter — reads `team-identity-charter` localStorage, one-click pre-fill for stakeholders textarea)
+- Created issue #16 (Feature: action item priority levels High/Medium/Low — adds `priority` field to Action type, color-coded badges, default sort by priority)
+- Created issue #17 (Feature: per-facet action completion progress visualization — done/total per facet + global % in ProgressView, pure CSS progress bars)
+- Next task: check issues for human feedback; implement first approved item
 
 ### 2026-05-09 — research: initiative lifecycle, action UX, and cross-app integration
 - Done: checked issues #5/6/7 — still `needs-review`, no human feedback; updated project status for #3, #4, #8 to `In Review` (all were implemented in prior runs but project board not updated)
