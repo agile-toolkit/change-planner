@@ -33,6 +33,9 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
 - [ ] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
 - [ ] [#17] Feature: per-facet action completion progress visualization in ProgressView (done/total per facet, global %, pure CSS or SVG)
+- [ ] [#19] Feature: experiment hypothesis format for action items (If/Then/Because + outcome field on Action type, collapsible section in ActionTracker)
+- [ ] [#20] Feature: stakeholder influence/interest map visualization (2x2 quadrant SVG in Mind facet; extends StakeholderProfile with influence/interest 1–5 scores)
+- [ ] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control)
 
 ## Tech notes
 
@@ -40,6 +43,14 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-16 — research: experiment format, stakeholder map, home screen UX
+- Done: scanned all open issues — #3/#4/#8 confirmed `approved` + `In Review` on project board (all implemented, awaiting human close); #5–7, #12–17 still `needs-review`, no new human feedback
+- Created issue #19 (Feature: experiment hypothesis format — If/Then/Because + outcome on Action type, turning Action Tracker into a PDCA experiment log aligned with Appelo framework)
+- Created issue #20 (Feature: stakeholder influence/interest map — 2x2 quadrant SVG visualization; extends StakeholderProfile with influence/interest 1–5 scores in Mind facet)
+- Created issue #21 (Feature: home screen initiative health summary — open-action count, facet-coverage dots, relative last-updated, sort control per initiative card)
+- All three added to project board at Backlog status
+- Next task: check issues for human feedback; implement first approved item among #5 (export/share), #6 (JSON backup), #7 (templates), #12 (archive/completedAt), #13 (overdue indicator), #14 (Improvement Board import), #15 (Team Identity auto-fill), #16 (action priority), #17 (progress visualization), #19 (experiment hypothesis), #20 (stakeholder map), #21 (home screen health)
 
 ### 2026-05-13 — research: Team Identity integration, action priority, and progress visualization
 - Done: scanned all open issues — #3/#4/#8 still `approved` + `In Review` (implemented, awaiting human close); #5–7 and #12–14 still `needs-review`, no new human feedback
