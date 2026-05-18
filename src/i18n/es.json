@@ -1,6 +1,10 @@
 {
-  "app": { "title": "Planificador de Cambios" },
-  "common": { "next": "Siguiente" },
+  "app": {
+    "title": "Planificador de Cambios"
+  },
+  "common": {
+    "next": "Siguiente"
+  },
   "nav": {
     "workspace": "Espacio de trabajo",
     "guided": "Facetas guiadas"
@@ -131,6 +135,20 @@
     "untitled": "Sin título",
     "facets_heading": "Notas por faceta",
     "actions_heading": "Elementos de acción"
+  },
+  "backup": {
+    "export": "Exportar copia de seguridad",
+    "export_hint": "Descargar todas las iniciativas como archivo JSON",
+    "import": "Importar copia de seguridad",
+    "import_hint": "Restaurar iniciativas desde un archivo JSON",
+    "import_success": "{{count}} iniciativa(s) importada(s)",
+    "import_error": "Archivo de copia de seguridad no válido",
+    "archive": "Archivar",
+    "archive_confirm": "¿Archivar esta iniciativa? Puedes desarchivarla más tarde.",
+    "unarchive": "Desarchivar",
+    "archived_banner": "Archivada el {{date}}",
+    "archived_section": "Archivadas ({{count}})",
+    "archived_on": "Archivada {{date}}"
   },
   "mind_profiles": {
     "section_title": "Perfiles de motivadores de partes interesadas",

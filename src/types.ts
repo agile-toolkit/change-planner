@@ -32,4 +32,5 @@ export interface Initiative {
   stakeholderProfiles: StakeholderProfile[]
   createdAt: number
   updatedAt: number
+  completedAt?: number
 }

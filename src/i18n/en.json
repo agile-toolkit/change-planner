@@ -132,6 +132,20 @@
     "facets_heading": "Facet notes",
     "actions_heading": "Action items"
   },
+  "backup": {
+    "export": "Export backup",
+    "export_hint": "Download all initiatives as a JSON file",
+    "import": "Import backup",
+    "import_hint": "Restore initiatives from a JSON backup file",
+    "import_success": "{{count}} initiative(s) imported",
+    "import_error": "Invalid backup file",
+    "archive": "Archive",
+    "archive_confirm": "Archive this initiative? You can unarchive it later.",
+    "unarchive": "Unarchive",
+    "archived_banner": "Archived on {{date}}",
+    "archived_section": "Archived ({{count}})",
+    "archived_on": "Archived {{date}}"
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",

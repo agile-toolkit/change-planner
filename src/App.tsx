@@ -12,6 +12,7 @@ import LearnView from './components/LearnView'
 import ExportButton from './components/ExportButton'
 
 const STORAGE_KEY = 'change-planner-initiatives'
+const BACKUP_VERSION = 1
 
 function newInitiative(): Initiative {
   return {
@@ -54,7 +55,9 @@ export default function App() {
     return saved.length > 0 ? saved[0].id : null
   })
   const [showList, setShowList] = useState(false)
+  const [importMsg, setImportMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
   const workspaceRef = useRef<HTMLDivElement>(null)
+  const importInputRef = useRef<HTMLInputElement>(null)
 
   const current = initiatives.find(i => i.id === currentId) ?? null
 
@@ -91,6 +94,62 @@ export default function App() {
     })
     if (currentId === id) setCurrentId(initiatives.find(i => i.id !== id)?.id ?? null)
     setShowList(false)
+  }
+
+  const handleArchive = (id: string) => {
+    setInitiatives(prev => {
+      const next = prev.map(i => i.id === id ? { ...i, completedAt: Date.now() } : i)
+      save(next)
+      return next
+    })
+    if (currentId === id) setCurrentId(null)
+  }
+
+  const handleUnarchive = (id: string) => {
+    setInitiatives(prev => {
+      const next = prev.map(i => i.id === id ? { ...i, completedAt: undefined } : i)
+      save(next)
+      return next
+    })
+  }
+
+  const handleExportBackup = () => {
+    const payload = JSON.stringify({ version: BACKUP_VERSION, initiatives }, null, 2)
+    const blob = new Blob([payload], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    const date = new Date().toISOString().slice(0, 10)
+    a.href = url
+    a.download = `change-planner-backup-${date}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleImportBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const raw = JSON.parse(ev.target?.result as string)
+        const incoming: Initiative[] = Array.isArray(raw) ? raw : (raw?.initiatives ?? null)
+        if (!Array.isArray(incoming)) throw new Error('invalid')
+        setInitiatives(prev => {
+          const existingIds = new Set(prev.map(i => i.id))
+          const merged = [...prev, ...incoming.filter(i => !existingIds.has(i.id))]
+          save(merged)
+          const added = incoming.filter(i => !existingIds.has(i.id)).length
+          setImportMsg({ type: 'ok', text: t('backup.import_success', { count: added }) })
+          setTimeout(() => setImportMsg(null), 4000)
+          return merged
+        })
+      } catch {
+        setImportMsg({ type: 'err', text: t('backup.import_error') })
+        setTimeout(() => setImportMsg(null), 4000)
+      }
+    }
+    reader.readAsText(file)
+    if (importInputRef.current) importInputRef.current.value = ''
   }
 
   const patch = (partial: Partial<Initiative>) => {
@@ -188,6 +247,7 @@ export default function App() {
                             className={`text-sm flex-1 text-left ${i.id === currentId ? 'font-semibold text-brand-600' : 'text-gray-700'}`}
                           >
                             {i.title || 'Untitled'}
+                            {i.completedAt ? <span className="ml-1 text-xs text-gray-400">(archived)</span> : null}
                           </button>
                           <button
                             type="button"
@@ -204,6 +264,12 @@ export default function App() {
               )}
             </div>
 
+            {importMsg && (
+              <div className={`mb-4 px-4 py-2 rounded-lg text-sm font-medium ${importMsg.type === 'ok' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                {importMsg.text}
+              </div>
+            )}
+
             {!current ? (
               <HomeScreen
                 initiatives={initiatives}
@@ -213,6 +279,10 @@ export default function App() {
                   setCanvasTab('workspace')
                 }}
                 onDelete={handleDelete}
+                onArchive={handleArchive}
+                onUnarchive={handleUnarchive}
+                onExportBackup={handleExportBackup}
+                onImportBackup={() => importInputRef.current?.click()}
               />
             ) : (
               <>
@@ -232,7 +302,26 @@ export default function App() {
                     >
                       {t('nav.guided')}
                     </button>
-                    <div className="ml-auto">
+                    <div className="ml-auto flex items-center gap-2">
+                      {current.completedAt ? (
+                        <button
+                          type="button"
+                          onClick={() => handleUnarchive(current.id)}
+                          className="text-sm text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+                        >
+                          {t('backup.unarchive')}
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (confirm(t('backup.archive_confirm'))) handleArchive(current.id)
+                          }}
+                          className="text-sm text-gray-500 hover:text-amber-600 px-3 py-1.5 rounded-lg hover:bg-amber-50 transition-colors"
+                        >
+                          {t('backup.archive')}
+                        </button>
+                      )}
                       <ExportButton initiative={current} workspaceRef={workspaceRef} />
                     </div>
                   </div>
@@ -240,6 +329,11 @@ export default function App() {
 
                 {canvasTab === 'workspace' ? (
                   <div ref={workspaceRef} className="space-y-6">
+                    {current.completedAt && (
+                      <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2 text-sm text-amber-700">
+                        {t('backup.archived_banner', { date: new Date(current.completedAt).toLocaleDateString() })}
+                      </div>
+                    )}
                     <InitiativeCanvas initiative={current} onChange={patch} />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -290,6 +384,14 @@ export default function App() {
           </>
         )}
       </main>
+
+      <input
+        ref={importInputRef}
+        type="file"
+        accept=".json,application/json"
+        className="hidden"
+        onChange={handleImportBackup}
+      />
     </div>
   )
 }
