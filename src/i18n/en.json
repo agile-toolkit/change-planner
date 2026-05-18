@@ -121,6 +121,17 @@
     "tip4": "Celebrate small wins visibly to stimulate the network.",
     "tip5": "Review and adapt the plan every 2–4 weeks."
   },
+  "export": {
+    "button": "Export",
+    "button_hint": "Export initiative as PNG image or copy as Markdown",
+    "exporting": "Exporting…",
+    "copy_markdown": "Copy as Markdown",
+    "export_png": "Export as PNG",
+    "copied": "Copied!",
+    "untitled": "Untitled",
+    "facets_heading": "Facet notes",
+    "actions_heading": "Action items"
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",
