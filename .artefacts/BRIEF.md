@@ -24,10 +24,10 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#3] Feature: add ES and BE locale translations (language picker 4-way) — implemented
 - [x] [#4] Integration: link Moving Motivators results to Mind-the-People facet — implemented
 - [x] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard) — implemented
-- [ ] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability)
+- [x] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability) — implemented
 - [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
 - [x] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (Phase 1 implemented)
-- [ ] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader)
+- [x] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader) — implemented
 - [ ] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`)
 - [ ] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage)
 - [ ] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-18 — feat: JSON backup (issue #6) + initiative archive/completedAt (issue #12)
+- Done: added `completedAt?: number` to `Initiative` type; Export backup button downloads all initiatives as `{"version":1,"initiatives":[...]}` JSON via Blob+URL.createObjectURL; Import backup button reads JSON file via FileReader, merges by id (no duplicates), shows success toast with count; Archive button in workspace tab bar sets `completedAt`, redirects to home; Unarchive button reverses it; HomeScreen splits initiatives into Active / Archived sections (archived collapsed by default); archived banner shown in workspace; `backup.*` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #7 (templates), #13 (overdue indicator), #15 (Team Identity auto-fill), #16 (action priority), #17 (progress visualization), #19 (experiment hypothesis), #20 (stakeholder map), #21 (home screen health), #14 (Improvement Board import), #8 (Scrum/Sprint deep-link Phase 2)
+- Next task: implement #13 (overdue action item visual indicator — red highlight when `dueDate < today` and `status === 'todo'`; no new deps, ~15 LOC in ActionTracker.tsx); then implement #7 (quick-start templates)
 
 ### 2026-05-18 — feat: export initiative as PNG and Markdown clipboard (issue #5)
 - Done: installed html2canvas; created `ExportButton.tsx` with two export options — PNG capture via html2canvas (2× scale, downloads as `<slug>.png`) and structured Markdown clipboard copy (title, goal, context, stakeholders, facet notes, all action items with done/todo checkboxes); added "Export" button to workspace tab bar (top-right); added `export.*` i18n keys to all 4 locales (EN/ES/BE/RU); workspace container has a `ref` for html2canvas capture; dynamic import keeps html2canvas out of initial bundle
