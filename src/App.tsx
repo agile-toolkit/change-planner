@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, Action } from './types'
 import { FACET_IDS } from './types'
@@ -9,6 +9,7 @@ import HomeScreen from './components/HomeScreen'
 import ActionTracker from './components/ActionTracker'
 import ProgressView from './components/ProgressView'
 import LearnView from './components/LearnView'
+import ExportButton from './components/ExportButton'
 
 const STORAGE_KEY = 'change-planner-initiatives'
 
@@ -53,6 +54,7 @@ export default function App() {
     return saved.length > 0 ? saved[0].id : null
   })
   const [showList, setShowList] = useState(false)
+  const workspaceRef = useRef<HTMLDivElement>(null)
 
   const current = initiatives.find(i => i.id === currentId) ?? null
 
@@ -215,7 +217,7 @@ export default function App() {
             ) : (
               <>
                 {current && (
-                  <div className="flex gap-1 mb-6 border-b border-gray-200 pb-2">
+                  <div className="flex items-center gap-1 mb-6 border-b border-gray-200 pb-2">
                     <button
                       type="button"
                       onClick={() => setCanvasTab('workspace')}
@@ -230,11 +232,14 @@ export default function App() {
                     >
                       {t('nav.guided')}
                     </button>
+                    <div className="ml-auto">
+                      <ExportButton initiative={current} workspaceRef={workspaceRef} />
+                    </div>
                   </div>
                 )}
 
                 {canvasTab === 'workspace' ? (
-                  <div className="space-y-6">
+                  <div ref={workspaceRef} className="space-y-6">
                     <InitiativeCanvas initiative={current} onChange={patch} />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

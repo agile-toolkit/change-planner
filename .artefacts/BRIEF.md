@@ -23,7 +23,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 
 - [x] [#3] Feature: add ES and BE locale translations (language picker 4-way) — implemented
 - [x] [#4] Integration: link Moving Motivators results to Mind-the-People facet — implemented
-- [ ] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard)
+- [x] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard) — implemented
 - [ ] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability)
 - [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
 - [x] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (Phase 1 implemented)
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-18 — feat: export initiative as PNG and Markdown clipboard (issue #5)
+- Done: installed html2canvas; created `ExportButton.tsx` with two export options — PNG capture via html2canvas (2× scale, downloads as `<slug>.png`) and structured Markdown clipboard copy (title, goal, context, stakeholders, facet notes, all action items with done/todo checkboxes); added "Export" button to workspace tab bar (top-right); added `export.*` i18n keys to all 4 locales (EN/ES/BE/RU); workspace container has a `ref` for html2canvas capture; dynamic import keeps html2canvas out of initial bundle
+- Remaining backlog: #6 (JSON backup), #7 (templates), #12 (archive/completedAt), #13 (overdue indicator), #15 (Team Identity auto-fill), #16 (action priority), #17 (progress visualization), #19 (experiment hypothesis), #20 (stakeholder map), #21 (home screen health)
+- Next task: implement #6 (JSON backup — export all initiatives as JSON file + import from file; Blob+URL.createObjectURL download, FileReader import; no new deps); then #12 (completedAt field)
 
 ### 2026-05-16 — research: experiment format, stakeholder map, home screen UX
 - Done: scanned all open issues — #3/#4/#8 confirmed `approved` + `In Review` on project board (all implemented, awaiting human close); #5–7, #12–17 still `needs-review`, no new human feedback
