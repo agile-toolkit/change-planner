@@ -33,7 +33,11 @@
     "new": "Новая ініцыятыва",
     "delete_confirm": "Выдаліць гэту ініцыятыву?",
     "related_sprints_label": "Звязаныя спрынты",
-    "related_sprints_placeholder": "напр. Каманда Альфа, Спрынт 23+"
+    "related_sprints_placeholder": "напр. Каманда Альфа, Спрынт 23+",
+    "autofill_button": "Аўтазапаўненне з картачкі Team Identity",
+    "autofill_team": "Каманда: {{teamName}}",
+    "autofill_values": "Каштоўнасці: {{values}}",
+    "autofill_agreements": "Дамоўленасці: {{agreements}}"
   },
   "facets": {
     "guided_title": "Кіраваны праход па гранях",

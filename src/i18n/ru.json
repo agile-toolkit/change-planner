@@ -33,7 +33,11 @@
     "new": "Новая инициатива",
     "delete_confirm": "Удалить эту инициативу?",
     "related_sprints_label": "Связанные спринты",
-    "related_sprints_placeholder": "например, Команда Альфа, Спринт 23+"
+    "related_sprints_placeholder": "например, Команда Альфа, Спринт 23+",
+    "autofill_button": "Заполнить из устава Team Identity",
+    "autofill_team": "Команда: {{teamName}}",
+    "autofill_values": "Ценности: {{values}}",
+    "autofill_agreements": "Договорённости: {{agreements}}"
   },
   "facets": {
     "guided_title": "Проход по граням",
