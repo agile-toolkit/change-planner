@@ -25,7 +25,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#4] Integration: link Moving Motivators results to Mind-the-People facet — implemented
 - [x] [#5] Feature: export initiative as PDF / shareable image (html2canvas + Markdown clipboard) — implemented
 - [x] [#6] Feature: JSON backup — export and re-import initiative data (localStorage portability) — implemented
-- [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
+- [x] [#7] Feature: quick-start initiative templates for common Agile change scenarios — implemented
 - [x] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (Phase 1 implemented)
 - [x] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader) — implemented
 - [x] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`) — implemented
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-19 — feat: quick-start initiative templates (issue #7)
+- Done: created `src/data/templates.ts` with 5 typed `InitiativeTemplate` objects (Agile Adoption, Continuous Delivery, Remote-First Culture, DevOps Transformation, OKR Rollout); added `onNewFromTemplate` prop and "Start from template" secondary button to `HomeScreen.tsx`; template picker modal shows blank + 5 template cards with emoji, i18n name/desc; clicking a template merges template data into a fresh initiative via `handleNewFromTemplate` in `App.tsx`; `templates.*` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #14 (Improvement Board import), #15 (Team Identity auto-fill), #16 (action priority), #17 (progress visualization), #19 (experiment hypothesis), #20 (stakeholder map), #21 (home screen health)
+- Next task: check issues for human feedback; implement first approved item among #14–#21
 
 ### 2026-05-19 — feat: overdue action item visual indicator (issue #13)
 - Done: added `isOverdue` helper in `ActionTracker.tsx` comparing `action.dueDate < today` when `status === 'todo'`; overdue rows get `bg-red-50 border-red-200` background; due date text turns `text-red-500 font-medium`; a red "Overdue" badge renders inline; done actions unaffected; `actions.overdue` i18n key added to all 4 locales (EN/ES/BE/RU); build passes
