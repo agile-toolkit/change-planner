@@ -98,7 +98,8 @@
     "mark_done": "Адзначыць выкананым",
     "mark_todo": "Адкрыць зноў",
     "delete": "Выдаліць дзеянне",
-    "done_count": "{{done}}/{{total}} выканана"
+    "done_count": "{{done}}/{{total}} выканана",
+    "overdue": "Пратэрмінавана"
   },
   "progress": {
     "title": "Прагрэс",

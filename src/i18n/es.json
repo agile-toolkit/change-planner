@@ -98,7 +98,8 @@
     "mark_done": "Marcar como hecho",
     "mark_todo": "Reabrir",
     "delete": "Eliminar acción",
-    "done_count": "{{done}}/{{total}} hechas"
+    "done_count": "{{done}}/{{total}} hechas",
+    "overdue": "Vencido"
   },
   "progress": {
     "title": "Progreso",

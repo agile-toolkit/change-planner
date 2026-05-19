@@ -43,6 +43,9 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   }
 
   const doneCount = actions.filter(a => a.status === 'done').length
+  const today = new Date().toISOString().slice(0, 10)
+  const isOverdue = (action: Action) =>
+    action.status === 'todo' && !!action.dueDate && action.dueDate < today
 
   return (
     <div className="card">
@@ -116,7 +119,11 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
           <div
             key={action.id}
             className={`flex items-start gap-3 px-3 py-2.5 rounded-xl border transition-colors ${
-              action.status === 'done' ? 'bg-gray-50 border-gray-100' : 'bg-white border-gray-200'
+              action.status === 'done'
+                ? 'bg-gray-50 border-gray-100'
+                : isOverdue(action)
+                  ? 'bg-red-50 border-red-200'
+                  : 'bg-white border-gray-200'
             }`}
           >
             <input
@@ -135,7 +142,16 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                   {t(`facets.${action.facet}.label`)}
                 </span>
                 {action.owner && <span className="text-xs text-gray-400">{action.owner}</span>}
-                {action.dueDate && <span className="text-xs text-gray-400">📅 {action.dueDate}</span>}
+                {action.dueDate && (
+                  <span className={`text-xs ${isOverdue(action) ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
+                    📅 {action.dueDate}
+                  </span>
+                )}
+                {isOverdue(action) && (
+                  <span className="text-xs px-1.5 py-0.5 rounded-full bg-red-100 text-red-600 font-medium">
+                    {t('actions.overdue')}
+                  </span>
+                )}
               </div>
             </div>
             <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-200 hover:text-red-400 transition-colors text-xs flex-shrink-0">
