@@ -147,6 +147,32 @@
     "archived_section": "Archived ({{count}})",
     "archived_on": "Archived {{date}}"
   },
+  "templates": {
+    "modal_trigger": "Start from template",
+    "modal_title": "Start from a template",
+    "blank_title": "Blank initiative",
+    "blank_desc": "Start with an empty canvas and fill it in yourself.",
+    "agile-adoption": {
+      "name": "Agile Adoption",
+      "desc": "Introduce Scrum ceremonies, sprint cadence, and agile mindset to a team."
+    },
+    "continuous-delivery": {
+      "name": "Continuous Delivery",
+      "desc": "Automate the deployment pipeline and reduce lead time to production."
+    },
+    "remote-culture": {
+      "name": "Remote-First Culture",
+      "desc": "Create equal collaboration for hybrid and distributed teams."
+    },
+    "devops-transformation": {
+      "name": "DevOps Transformation",
+      "desc": "Break Dev/Ops silos and introduce shared ownership of production."
+    },
+    "okr-rollout": {
+      "name": "OKR Rollout",
+      "desc": "Align all teams on quarterly Objectives and Key Results."
+    }
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",
