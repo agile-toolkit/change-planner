@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, Action } from './types'
+import type { InitiativeTemplate } from './data/templates'
 import { FACET_IDS } from './types'
 import FacetCard from './components/FacetCard'
 import FacetPlanner from './components/FacetPlanner'
@@ -74,6 +75,19 @@ export default function App() {
 
   const handleNew = () => {
     const initiative = newInitiative()
+    setInitiatives(prev => {
+      const next = [...prev, initiative]
+      save(next)
+      return next
+    })
+    setCurrentId(initiative.id)
+    setShowList(false)
+    setCanvasTab('workspace')
+    setActiveFacet('dance')
+  }
+
+  const handleNewFromTemplate = (data: InitiativeTemplate['data']) => {
+    const initiative: Initiative = { ...newInitiative(), ...data }
     setInitiatives(prev => {
       const next = [...prev, initiative]
       save(next)
@@ -274,6 +288,7 @@ export default function App() {
               <HomeScreen
                 initiatives={initiatives}
                 onNew={handleNew}
+                onNewFromTemplate={handleNewFromTemplate}
                 onLoad={id => {
                   setCurrentId(id)
                   setCanvasTab('workspace')

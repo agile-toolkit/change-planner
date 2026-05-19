@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FACET_IDS, type Initiative } from '../types'
+import { TEMPLATES, type InitiativeTemplate } from '../data/templates'
 
 interface Props {
   initiatives: Initiative[]
   onNew: () => void
+  onNewFromTemplate: (data: InitiativeTemplate['data']) => void
   onLoad: (id: string) => void
   onDelete: (id: string) => void
   onArchive: (id: string) => void
@@ -16,6 +18,7 @@ interface Props {
 export default function HomeScreen({
   initiatives,
   onNew,
+  onNewFromTemplate,
   onLoad,
   onDelete,
   onArchive,
@@ -25,6 +28,7 @@ export default function HomeScreen({
 }: Props) {
   const { t } = useTranslation()
   const [showArchived, setShowArchived] = useState(false)
+  const [showTemplates, setShowTemplates] = useState(false)
 
   const active = initiatives.filter(i => !i.completedAt)
   const archived = initiatives.filter(i => !!i.completedAt)
@@ -37,9 +41,16 @@ export default function HomeScreen({
         </div>
         <h1 className="text-3xl font-bold text-slate-900 mb-3">{t('home.headline')}</h1>
         <p className="text-slate-600 text-lg leading-relaxed">{t('home.subheadline')}</p>
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center gap-3 flex-wrap">
           <button type="button" onClick={onNew} className="btn-primary text-lg px-6 py-3">
             {t('home.cta')}
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowTemplates(true)}
+            className="btn-secondary text-lg px-6 py-3"
+          >
+            {t('templates.modal_trigger')}
           </button>
         </div>
       </div>
@@ -145,6 +156,67 @@ export default function HomeScreen({
               )}
             </div>
           )}
+        </div>
+      )}
+
+      {showTemplates && (
+        <div
+          className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowTemplates(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-xl font-bold text-slate-900">{t('templates.modal_title')}</h2>
+              <button
+                type="button"
+                onClick={() => setShowTemplates(false)}
+                className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowTemplates(false)
+                  onNew()
+                }}
+                className="text-left border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-brand-400 hover:bg-brand-50 transition-colors group"
+              >
+                <div className="text-2xl mb-2">📄</div>
+                <div className="font-semibold text-slate-800 group-hover:text-brand-700">
+                  {t('templates.blank_title')}
+                </div>
+                <div className="text-sm text-slate-500 mt-1">{t('templates.blank_desc')}</div>
+              </button>
+
+              {TEMPLATES.map(tpl => (
+                <button
+                  key={tpl.id}
+                  type="button"
+                  onClick={() => {
+                    setShowTemplates(false)
+                    onNewFromTemplate(tpl.data)
+                  }}
+                  className="text-left border border-slate-200 rounded-xl p-4 hover:border-brand-400 hover:bg-brand-50 transition-colors shadow-sm group"
+                >
+                  <div className="text-2xl mb-2">{tpl.emoji}</div>
+                  <div className="font-semibold text-slate-800 group-hover:text-brand-700">
+                    {t(`templates.${tpl.id}.name`)}
+                  </div>
+                  <div className="text-sm text-slate-500 mt-1 leading-snug">
+                    {t(`templates.${tpl.id}.desc`)}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

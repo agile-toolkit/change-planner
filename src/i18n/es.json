@@ -151,6 +151,32 @@
     "archived_section": "Archivadas ({{count}})",
     "archived_on": "Archivada {{date}}"
   },
+  "templates": {
+    "modal_trigger": "Comenzar desde plantilla",
+    "modal_title": "Comenzar desde una plantilla",
+    "blank_title": "Iniciativa en blanco",
+    "blank_desc": "Comienza con un lienzo vacío y rellénalo tú mismo.",
+    "agile-adoption": {
+      "name": "Adopción Ágil",
+      "desc": "Introduce ceremonias Scrum, cadencia de sprint y mentalidad ágil en un equipo."
+    },
+    "continuous-delivery": {
+      "name": "Entrega Continua",
+      "desc": "Automatiza el pipeline de despliegue y reduce el tiempo hasta producción."
+    },
+    "remote-culture": {
+      "name": "Cultura Remota",
+      "desc": "Crea una colaboración equitativa para equipos híbridos y distribuidos."
+    },
+    "devops-transformation": {
+      "name": "Transformación DevOps",
+      "desc": "Rompe los silos Dev/Ops e introduce la responsabilidad compartida en producción."
+    },
+    "okr-rollout": {
+      "name": "Implantación de OKR",
+      "desc": "Alinea todos los equipos en Objetivos y Resultados Clave trimestrales."
+    }
+  },
   "mind_profiles": {
     "section_title": "Perfiles de motivadores de partes interesadas",
     "open_mm": "Abrir Moving Motivators →",
