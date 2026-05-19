@@ -98,7 +98,8 @@
     "mark_done": "Отметить выполненным",
     "mark_todo": "Переоткрыть",
     "delete": "Удалить задачу",
-    "done_count": "{{done}}/{{total}} выполнено"
+    "done_count": "{{done}}/{{total}} выполнено",
+    "overdue": "Просрочено"
   },
   "progress": {
     "title": "Прогресс",

@@ -94,7 +94,8 @@
     "mark_done": "Mark as done",
     "mark_todo": "Reopen",
     "delete": "Delete action",
-    "done_count": "{{done}}/{{total}} done"
+    "done_count": "{{done}}/{{total}} done",
+    "overdue": "Overdue"
   },
   "progress": {
     "title": "Progress",

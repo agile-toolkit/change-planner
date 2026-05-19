@@ -28,7 +28,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#7] Feature: quick-start initiative templates for common Agile change scenarios
 - [x] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (Phase 1 implemented)
 - [x] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader) — implemented
-- [ ] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`)
+- [x] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`) — implemented
 - [ ] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage)
 - [ ] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
 - [ ] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-19 — feat: overdue action item visual indicator (issue #13)
+- Done: added `isOverdue` helper in `ActionTracker.tsx` comparing `action.dueDate < today` when `status === 'todo'`; overdue rows get `bg-red-50 border-red-200` background; due date text turns `text-red-500 font-medium`; a red "Overdue" badge renders inline; done actions unaffected; `actions.overdue` i18n key added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #7 (quick-start templates), #14 (Improvement Board import), #15 (Team Identity auto-fill), #16 (action priority), #17 (progress visualization), #19 (experiment hypothesis), #20 (stakeholder map), #21 (home screen health)
+- Next task: implement #7 (quick-start initiative templates — create `src/data/templates.ts` with 3–5 typed `Partial<Initiative>` objects for common Agile change scenarios; add "Start from template" modal on home screen NewInitiative flow)
 
 ### 2026-05-18 — feat: JSON backup (issue #6) + initiative archive/completedAt (issue #12)
 - Done: added `completedAt?: number` to `Initiative` type; Export backup button downloads all initiatives as `{"version":1,"initiatives":[...]}` JSON via Blob+URL.createObjectURL; Import backup button reads JSON file via FileReader, merges by id (no duplicates), shows success toast with count; Archive button in workspace tab bar sets `completedAt`, redirects to home; Unarchive button reverses it; HomeScreen splits initiatives into Active / Archived sections (archived collapsed by default); archived banner shown in workspace; `backup.*` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
