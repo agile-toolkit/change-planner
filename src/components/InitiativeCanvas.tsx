@@ -1,13 +1,45 @@
 import { useTranslation } from 'react-i18next'
 import type { Initiative } from '../types'
 
+interface TeamCharter {
+  teamName: string
+  values: string[]
+  agreements: { id: string; text: string; votes: number }[]
+}
+
 interface Props {
   initiative: Initiative
   onChange: (patch: Partial<Initiative>) => void
 }
 
+function loadTeamCharter(): TeamCharter | null {
+  try {
+    const raw = localStorage.getItem('team-identity-charter')
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as TeamCharter
+    if (!parsed.teamName) return null
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+function buildAutoFillText(charter: TeamCharter, t: (k: string, opts?: Record<string, string>) => string): string {
+  const values = charter.values.length > 0 ? charter.values.join(', ') : '—'
+  const agreements = charter.agreements.length > 0
+    ? charter.agreements.map(a => a.text).join('; ')
+    : '—'
+  return [
+    t('canvas.autofill_team', { teamName: charter.teamName }),
+    t('canvas.autofill_values', { values }),
+    t('canvas.autofill_agreements', { agreements }),
+  ].join('\n')
+}
+
 export default function InitiativeCanvas({ initiative, onChange }: Props) {
   const { t } = useTranslation()
+  const charter = loadTeamCharter()
+  const showAutoFill = charter !== null && !initiative.stakeholders.trim()
 
   return (
     <div className="card">
@@ -34,6 +66,15 @@ export default function InitiativeCanvas({ initiative, onChange }: Props) {
         </div>
         <div>
           <label className="label">{t('canvas.stakeholders_label')}</label>
+          {showAutoFill && (
+            <button
+              type="button"
+              className="mb-1 text-xs text-teal-600 hover:text-teal-700 underline underline-offset-2"
+              onClick={() => onChange({ stakeholders: buildAutoFillText(charter, t) })}
+            >
+              {t('canvas.autofill_button')}
+            </button>
+          )}
           <textarea
             className="input resize-none"
             rows={2}

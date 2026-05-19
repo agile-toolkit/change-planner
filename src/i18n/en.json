@@ -29,7 +29,11 @@
     "new": "New Initiative",
     "delete_confirm": "Delete this initiative?",
     "related_sprints_label": "Related sprints",
-    "related_sprints_placeholder": "e.g. Team Alpha, Sprint 23+"
+    "related_sprints_placeholder": "e.g. Team Alpha, Sprint 23+",
+    "autofill_button": "Auto-fill from Team Identity charter",
+    "autofill_team": "Team: {{teamName}}",
+    "autofill_values": "Values: {{values}}",
+    "autofill_agreements": "Agreements: {{agreements}}"
   },
   "facets": {
     "guided_title": "Guided facet walkthrough",

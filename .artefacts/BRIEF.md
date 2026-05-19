@@ -30,7 +30,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader) — implemented
 - [x] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`) — implemented
 - [ ] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage)
-- [ ] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
+- [x] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
 - [ ] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
 - [ ] [#17] Feature: per-facet action completion progress visualization in ProgressView (done/total per facet, global %, pure CSS or SVG)
 - [ ] [#19] Feature: experiment hypothesis format for action items (If/Then/Because + outcome field on Action type, collapsible section in ActionTracker)
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-19 — feat: Team Identity charter auto-fill (issue #15)
+- Done: added `loadTeamCharter()` helper in `InitiativeCanvas.tsx` that reads `team-identity-charter` from localStorage; when `stakeholders` is empty and a valid charter exists, a subtle underline link "Auto-fill from Team Identity charter" appears above the textarea; clicking it populates the field with a 3-line formatted block (Team / Values / Agreements); one-time import — user can edit freely after; `canvas.autofill_button|team|values|agreements` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #16 (action priority), #19 (experiment hypothesis), #20 (stakeholder map), #21 (home screen health)
+- Next task: check issues for human feedback; implement #16 (action priority: add `priority` field to Action type in types.ts, color-coded High/Medium/Low badges in ActionTracker.tsx, default sort by priority descending)
 
 ### 2026-05-19 — feat: quick-start initiative templates (issue #7)
 - Done: created `src/data/templates.ts` with 5 typed `InitiativeTemplate` objects (Agile Adoption, Continuous Delivery, Remote-First Culture, DevOps Transformation, OKR Rollout); added `onNewFromTemplate` prop and "Start from template" secondary button to `HomeScreen.tsx`; template picker modal shows blank + 5 template cards with emoji, i18n name/desc; clicking a template merges template data into a fresh initiative via `handleNewFromTemplate` in `App.tsx`; `templates.*` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes

@@ -33,7 +33,11 @@
     "new": "Nueva iniciativa",
     "delete_confirm": "¿Eliminar esta iniciativa?",
     "related_sprints_label": "Sprints relacionados",
-    "related_sprints_placeholder": "p. ej. Equipo Alfa, Sprint 23+"
+    "related_sprints_placeholder": "p. ej. Equipo Alfa, Sprint 23+",
+    "autofill_button": "Rellenar desde la carta de Team Identity",
+    "autofill_team": "Equipo: {{teamName}}",
+    "autofill_values": "Valores: {{values}}",
+    "autofill_agreements": "Acuerdos: {{agreements}}"
   },
   "facets": {
     "guided_title": "Recorrido guiado por facetas",
