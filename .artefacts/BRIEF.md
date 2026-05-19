@@ -31,7 +31,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`) — implemented
 - [ ] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage)
 - [x] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
-- [ ] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
+- [x] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
 - [ ] [#17] Feature: per-facet action completion progress visualization in ProgressView (done/total per facet, global %, pure CSS or SVG)
 - [ ] [#19] Feature: experiment hypothesis format for action items (If/Then/Because + outcome field on Action type, collapsible section in ActionTracker)
 - [ ] [#20] Feature: stakeholder influence/interest map visualization (2x2 quadrant SVG in Mind facet; extends StakeholderProfile with influence/interest 1–5 scores)
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-19 — feat: action item priority levels (issue #16)
+- Done: added `ActionPriority = 'high' | 'medium' | 'low'` type to `types.ts`; added `priority` field to `Action` interface; added priority selector button group in `ActionTracker.tsx` add form (default Medium); color-coded badges (red=High, amber=Medium, gray=Low) shown on every action row; `sortByPriority()` sorts actions High→Medium→Low, then by `dueDate` ascending within each tier; `?? 'low'` fallback handles legacy localStorage data; `actions.priority_label|high|medium|low` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #17 (per-facet progress visualization), #19 (experiment hypothesis), #20 (stakeholder map), #21 (home screen health), #14 (Improvement Board import)
+- Next task: check issues for human feedback; implement #17 (per-facet action completion progress visualization in ProgressView — done/total per facet, global %, pure CSS progress bars)
 
 ### 2026-05-19 — feat: Team Identity charter auto-fill (issue #15)
 - Done: added `loadTeamCharter()` helper in `InitiativeCanvas.tsx` that reads `team-identity-charter` from localStorage; when `stakeholders` is empty and a valid charter exists, a subtle underline link "Auto-fill from Team Identity charter" appears above the textarea; clicking it populates the field with a 3-line formatted block (Team / Values / Agreements); one-time import — user can edit freely after; `canvas.autofill_button|team|values|agreements` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes

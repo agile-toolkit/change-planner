@@ -103,7 +103,11 @@
     "mark_todo": "Адкрыць зноў",
     "delete": "Выдаліць дзеянне",
     "done_count": "{{done}}/{{total}} выканана",
-    "overdue": "Пратэрмінавана"
+    "overdue": "Пратэрмінавана",
+    "priority_label": "Прыярытэт",
+    "priority_high": "Высокі",
+    "priority_medium": "Сярэдні",
+    "priority_low": "Нізкі"
   },
   "progress": {
     "title": "Прагрэс",

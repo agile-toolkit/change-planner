@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Action, FacetId } from '../types'
+import type { Action, ActionPriority, FacetId } from '../types'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -9,6 +9,26 @@ const FACET_COLORS: Record<FacetId, string> = {
   mind: 'bg-green-100 text-green-700',
   stimulate: 'bg-orange-100 text-orange-700',
   change: 'bg-purple-100 text-purple-700',
+}
+
+const PRIORITY_COLORS: Record<ActionPriority, string> = {
+  high: 'bg-red-100 text-red-700',
+  medium: 'bg-amber-100 text-amber-700',
+  low: 'bg-gray-100 text-gray-600',
+}
+
+const PRIORITY_ORDER: ActionPriority[] = ['high', 'medium', 'low']
+
+function sortByPriority(actions: Action[]): Action[] {
+  return [...actions].sort((a, b) => {
+    const pa = PRIORITY_ORDER.indexOf(a.priority ?? 'low')
+    const pb = PRIORITY_ORDER.indexOf(b.priority ?? 'low')
+    if (pa !== pb) return pa - pb
+    if (a.dueDate && b.dueDate) return a.dueDate.localeCompare(b.dueDate)
+    if (a.dueDate) return -1
+    if (b.dueDate) return 1
+    return 0
+  })
 }
 
 interface Props {
@@ -24,6 +44,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   const [owner, setOwner] = useState('')
   const [due, setDue] = useState('')
   const [facet, setFacet] = useState<FacetId>('dance')
+  const [priority, setPriority] = useState<ActionPriority>('medium')
   const [showForm, setShowForm] = useState(false)
 
   const handleAdd = () => {
@@ -35,10 +56,12 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
       dueDate: due,
       status: 'todo',
       facet,
+      priority,
     })
     setText('')
     setOwner('')
     setDue('')
+    setPriority('medium')
     setShowForm(false)
   }
 
@@ -46,6 +69,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   const today = new Date().toISOString().slice(0, 10)
   const isOverdue = (action: Action) =>
     action.status === 'todo' && !!action.dueDate && action.dueDate < today
+  const sorted = sortByPriority(actions)
 
   return (
     <div className="card">
@@ -101,6 +125,21 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               </button>
             ))}
           </div>
+          <div className="flex gap-2 flex-wrap" role="group" aria-label={t('actions.priority_label')}>
+            {PRIORITY_ORDER.map(p => (
+              <button
+                key={p}
+                onClick={() => setPriority(p)}
+                className={`px-3 py-1 rounded-lg text-xs font-medium border transition-colors ${
+                  priority === p
+                    ? 'bg-brand-600 text-white border-brand-600'
+                    : 'border-gray-200 text-gray-600 hover:bg-white'
+                }`}
+              >
+                {t(`actions.priority_${p}`)}
+              </button>
+            ))}
+          </div>
           <div className="flex gap-2">
             <button onClick={handleAdd} disabled={!text.trim()} className="btn-primary text-sm">
               Add
@@ -115,7 +154,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
       )}
 
       <div className="space-y-2">
-        {actions.map(action => (
+        {sorted.map(action => (
           <div
             key={action.id}
             className={`flex items-start gap-3 px-3 py-2.5 rounded-xl border transition-colors ${
@@ -138,6 +177,9 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                 {action.text}
               </p>
               <div className="flex items-center gap-2 mt-1 flex-wrap">
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${PRIORITY_COLORS[action.priority ?? 'low']}`}>
+                  {t(`actions.priority_${action.priority ?? 'low'}`)}
+                </span>
                 <span className={`text-xs px-2 py-0.5 rounded-full ${FACET_COLORS[action.facet]}`}>
                   {t(`facets.${action.facet}.label`)}
                 </span>

@@ -103,7 +103,11 @@
     "mark_todo": "Переоткрыть",
     "delete": "Удалить задачу",
     "done_count": "{{done}}/{{total}} выполнено",
-    "overdue": "Просрочено"
+    "overdue": "Просрочено",
+    "priority_label": "Приоритет",
+    "priority_high": "Высокий",
+    "priority_medium": "Средний",
+    "priority_low": "Низкий"
   },
   "progress": {
     "title": "Прогресс",

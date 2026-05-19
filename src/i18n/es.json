@@ -103,7 +103,11 @@
     "mark_todo": "Reabrir",
     "delete": "Eliminar acción",
     "done_count": "{{done}}/{{total}} hechas",
-    "overdue": "Vencido"
+    "overdue": "Vencido",
+    "priority_label": "Prioridad",
+    "priority_high": "Alta",
+    "priority_medium": "Media",
+    "priority_low": "Baja"
   },
   "progress": {
     "title": "Progreso",
