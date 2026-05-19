@@ -99,7 +99,11 @@
     "mark_todo": "Reopen",
     "delete": "Delete action",
     "done_count": "{{done}}/{{total}} done",
-    "overdue": "Overdue"
+    "overdue": "Overdue",
+    "priority_label": "Priority",
+    "priority_high": "High",
+    "priority_medium": "Medium",
+    "priority_low": "Low"
   },
   "progress": {
     "title": "Progress",
