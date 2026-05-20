@@ -202,6 +202,15 @@
       "desc": "Align all teams on quarterly Objectives and Key Results."
     }
   },
+  "stakeholders": {
+    "influence": "Influence",
+    "interest": "Interest",
+    "map_title": "Stakeholder Map",
+    "quadrant_manage": "Manage Closely",
+    "quadrant_satisfy": "Keep Satisfied",
+    "quadrant_inform": "Keep Informed",
+    "quadrant_monitor": "Monitor"
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",
