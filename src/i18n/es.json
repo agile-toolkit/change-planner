@@ -18,7 +18,13 @@
     "delete": "Eliminar",
     "framework_title": "El marco",
     "framework_body": "«Cómo cambiar el mundo» (Appelo) enseña que el cambio exitoso requiere trabajar simultáneamente en cuatro facetas: el sistema, las personas, la red y el entorno. La mayoría de los fracasos se producen por centrarse solo en una o dos.",
-    "facets_preview": "Las 4 facetas"
+    "facets_preview": "Las 4 facetas",
+    "open_actions": "{{count}} abiertas",
+    "overdue_actions": "{{count}} vencidas",
+    "facet_coverage": "Cobertura de facetas",
+    "sort_latest": "Recientes",
+    "sort_actions": "Más abiertas",
+    "sort_alpha": "A–Z"
   },
   "canvas": {
     "section_heading": "Detalles de la iniciativa",

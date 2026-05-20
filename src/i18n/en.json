@@ -14,7 +14,13 @@
     "delete": "Delete",
     "framework_title": "The Framework",
     "framework_body": "\"How to Change the World\" (Appelo) teaches that successful change requires working across four facets simultaneously: the system, the people, the network, and the environment. Most change failures come from focusing on only one or two.",
-    "facets_preview": "The 4 Facets"
+    "facets_preview": "The 4 Facets",
+    "open_actions": "{{count}} open",
+    "overdue_actions": "{{count}} overdue",
+    "facet_coverage": "Facet coverage",
+    "sort_latest": "Latest",
+    "sort_actions": "Most open",
+    "sort_alpha": "A–Z"
   },
   "canvas": {
     "section_heading": "Initiative details",
