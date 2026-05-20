@@ -107,7 +107,22 @@
     "priority_label": "Prioridad",
     "priority_high": "Alta",
     "priority_medium": "Media",
-    "priority_low": "Baja"
+    "priority_low": "Baja",
+    "hypothesis_add": "Agregar hipótesis",
+    "hypothesis_title": "Hipótesis del experimento",
+    "hypothesis_if": "Si",
+    "hypothesis_if_placeholder": "tomamos esta acción…",
+    "hypothesis_then": "Entonces",
+    "hypothesis_then_placeholder": "esperamos ver…",
+    "hypothesis_because": "Porque",
+    "hypothesis_because_placeholder": "creemos que…",
+    "hypothesis_remove": "Eliminar hipótesis",
+    "hypothesis_show": "Hipótesis",
+    "hypothesis_hide": "Ocultar hipótesis",
+    "hypothesis_outcome_prompt": "¿Ocurrió esto?",
+    "hypothesis_outcome_yes": "Sí",
+    "hypothesis_outcome_partial": "Parcialmente",
+    "hypothesis_outcome_no": "No"
   },
   "progress": {
     "title": "Progreso",
