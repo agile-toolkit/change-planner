@@ -1,7 +1,43 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FACET_IDS, type Initiative } from '../types'
+import { FACET_IDS, type FacetId, type Initiative } from '../types'
 import { TEMPLATES, type InitiativeTemplate } from '../data/templates'
+
+type SortKey = 'latest' | 'actions' | 'alpha'
+
+const FACET_DOT_COLOR: Record<FacetId, string> = {
+  dance: 'bg-blue-500',
+  mind: 'bg-green-500',
+  stimulate: 'bg-orange-500',
+  change: 'bg-purple-500',
+}
+
+function relativeTime(ts: number): string {
+  const diff = Date.now() - ts
+  const mins = Math.floor(diff / 60000)
+  if (mins < 2) return 'just now'
+  if (mins < 60) return `${mins}m ago`
+  const hours = Math.floor(diff / 3600000)
+  if (hours < 24) return `${hours}h ago`
+  const days = Math.floor(diff / 86400000)
+  if (days === 1) return 'yesterday'
+  if (days < 30) return `${days} days ago`
+  const months = Math.floor(days / 30)
+  return months === 1 ? '1 month ago' : `${months} months ago`
+}
+
+function sortInitiatives(list: Initiative[], key: SortKey): Initiative[] {
+  const copy = [...list]
+  if (key === 'latest') return copy.sort((a, b) => b.updatedAt - a.updatedAt)
+  if (key === 'actions') {
+    return copy.sort((a, b) => {
+      const aOpen = a.actions.filter(x => x.status === 'todo').length
+      const bOpen = b.actions.filter(x => x.status === 'todo').length
+      return bOpen - aOpen
+    })
+  }
+  return copy.sort((a, b) => a.title.localeCompare(b.title))
+}
 
 interface Props {
   initiatives: Initiative[]
@@ -29,8 +65,9 @@ export default function HomeScreen({
   const { t } = useTranslation()
   const [showArchived, setShowArchived] = useState(false)
   const [showTemplates, setShowTemplates] = useState(false)
+  const [sortBy, setSortBy] = useState<SortKey>('latest')
 
-  const active = initiatives.filter(i => !i.completedAt)
+  const active = sortInitiatives(initiatives.filter(i => !i.completedAt), sortBy)
   const archived = initiatives.filter(i => !!i.completedAt)
 
   return (
@@ -82,8 +119,22 @@ export default function HomeScreen({
 
       {initiatives.length > 0 && (
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-slate-800">{t('home.saved_title')}</h2>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-slate-800">{t('home.saved_title')}</h2>
+              <div className="flex items-center gap-1 bg-slate-100 rounded-lg p-0.5">
+                {(['latest', 'actions', 'alpha'] as SortKey[]).map(key => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setSortBy(key)}
+                    className={`text-xs px-2.5 py-1 rounded-md font-medium transition-colors ${sortBy === key ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                  >
+                    {t(`home.sort_${key}`)}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -223,6 +274,52 @@ export default function HomeScreen({
   )
 }
 
+interface StatsProps {
+  initiative: Initiative
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t: (key: string, opts?: any) => string
+  isArchived: boolean
+}
+
+function InitiativeStats({ initiative: init, t, isArchived }: StatsProps) {
+  const today = new Date().toISOString().slice(0, 10)
+  const openActions = init.actions.filter(a => a.status === 'todo')
+  const overdueCount = openActions.filter(a => a.dueDate && a.dueDate < today).length
+  const facetCoverage = FACET_IDS.map(f => ({
+    id: f,
+    covered:
+      (init.facetNotes[f]?.trim().length ?? 0) > 0 ||
+      init.actions.some(a => a.facet === f),
+  }))
+  const displayDate = isArchived && init.completedAt
+    ? t('backup.archived_on', { date: new Date(init.completedAt).toLocaleDateString() })
+    : relativeTime(init.updatedAt)
+
+  return (
+    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+      <span>{displayDate}</span>
+      <span className={openActions.length > 0 ? 'text-slate-600 font-medium' : ''}>
+        {t('home.open_actions', { count: openActions.length })}
+      </span>
+      {overdueCount > 0 && (
+        <span className="inline-flex items-center gap-1 text-red-600 font-medium">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500 inline-block" />
+          {t('home.overdue_actions', { count: overdueCount })}
+        </span>
+      )}
+      <span className="flex items-center gap-1" title={t('home.facet_coverage')}>
+        {facetCoverage.map(({ id, covered }) => (
+          <span
+            key={id}
+            className={`w-2 h-2 rounded-full inline-block ${covered ? FACET_DOT_COLOR[id] : 'bg-slate-200'}`}
+            title={t(`facets.${id}.label`)}
+          />
+        ))}
+      </span>
+    </div>
+  )
+}
+
 interface RowProps {
   initiative: Initiative
   onLoad: (id: string) => void
@@ -236,52 +333,50 @@ interface RowProps {
 
 function InitiativeRow({ initiative: init, onLoad, onDelete, onArchive, onUnarchive, t, isArchived }: RowProps) {
   return (
-    <li className={`bg-white border rounded-lg px-4 py-3 flex flex-wrap items-center justify-between gap-2 shadow-sm ${isArchived ? 'border-gray-100 opacity-70' : 'border-slate-200'}`}>
-      <div className="min-w-0">
-        <span className="font-medium text-slate-800">
-          {init.title.trim() ? init.title : <span className="italic text-slate-400">(untitled)</span>}
-        </span>
-        <span className="text-slate-400 text-xs ml-3">
-          {isArchived && init.completedAt
-            ? t('backup.archived_on', { date: new Date(init.completedAt).toLocaleDateString() })
-            : new Date(init.updatedAt).toLocaleDateString()}
-        </span>
-      </div>
-      <div className="flex gap-2 shrink-0">
-        <button
-          type="button"
-          onClick={() => onLoad(init.id)}
-          className="text-brand-600 hover:text-brand-800 text-sm font-medium px-3 py-1 rounded hover:bg-brand-50 transition-colors"
-        >
-          {t('home.open')}
-        </button>
-        {isArchived ? (
+    <li className={`bg-white border rounded-lg px-4 py-3 shadow-sm ${isArchived ? 'border-gray-100 opacity-70' : 'border-slate-200'}`}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="min-w-0">
+          <span className="font-medium text-slate-800">
+            {init.title.trim() ? init.title : <span className="italic text-slate-400">(untitled)</span>}
+          </span>
+        </div>
+        <div className="flex gap-2 shrink-0">
           <button
             type="button"
-            onClick={() => onUnarchive(init.id)}
-            className="text-gray-500 hover:text-brand-600 text-sm px-2 py-1 rounded hover:bg-brand-50 transition-colors"
+            onClick={() => onLoad(init.id)}
+            className="text-brand-600 hover:text-brand-800 text-sm font-medium px-3 py-1 rounded hover:bg-brand-50 transition-colors"
           >
-            {t('backup.unarchive')}
+            {t('home.open')}
           </button>
-        ) : (
+          {isArchived ? (
+            <button
+              type="button"
+              onClick={() => onUnarchive(init.id)}
+              className="text-gray-500 hover:text-brand-600 text-sm px-2 py-1 rounded hover:bg-brand-50 transition-colors"
+            >
+              {t('backup.unarchive')}
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm(t('backup.archive_confirm'))) onArchive(init.id)
+              }}
+              className="text-gray-400 hover:text-amber-600 text-sm px-2 py-1 rounded hover:bg-amber-50 transition-colors"
+            >
+              {t('backup.archive')}
+            </button>
+          )}
           <button
             type="button"
-            onClick={() => {
-              if (confirm(t('backup.archive_confirm'))) onArchive(init.id)
-            }}
-            className="text-gray-400 hover:text-amber-600 text-sm px-2 py-1 rounded hover:bg-amber-50 transition-colors"
+            onClick={() => onDelete(init.id)}
+            className="text-red-500 hover:text-red-700 text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors"
           >
-            {t('backup.archive')}
+            {t('home.delete')}
           </button>
-        )}
-        <button
-          type="button"
-          onClick={() => onDelete(init.id)}
-          className="text-red-500 hover:text-red-700 text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors"
-        >
-          {t('home.delete')}
-        </button>
+        </div>
       </div>
+      <InitiativeStats initiative={init} t={t} isArchived={!!isArchived} />
     </li>
   )
 }

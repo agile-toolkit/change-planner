@@ -35,7 +35,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#17] Feature: per-facet action completion progress visualization in ProgressView (done/total per facet, global %, pure CSS or SVG)
 - [x] [#19] Feature: experiment hypothesis format for action items (If/Then/Because + outcome field on Action type, collapsible section in ActionTracker) — implemented
 - [ ] [#20] Feature: stakeholder influence/interest map visualization (2x2 quadrant SVG in Mind facet; extends StakeholderProfile with influence/interest 1–5 scores)
-- [ ] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control)
+- [x] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control) — implemented
 
 ## Tech notes
 
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-20 — feat: home screen initiative health summary and sort (issue #21)
+- Done: added `relativeTime()` helper and `sortInitiatives()` function to `HomeScreen.tsx`; each initiative card now shows a compact stats row with relative last-updated time, open-action count, overdue-action count (red badge), and 4 facet-coverage dots (blue/green/orange/purple filled when facet has notes or actions, grey otherwise); sort control (Latest / Most open / A–Z) in the initiative list header; all using existing `Initiative` type data — no new deps, no schema changes; `home.open_actions|overdue_actions|facet_coverage|sort_latest|sort_actions|sort_alpha` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #17 (per-facet progress visualization), #20 (stakeholder map), #14 (Improvement Board import)
+- Next task: check issues for human feedback; implement #20 (stakeholder influence/interest map — 2x2 quadrant SVG in Mind facet, StakeholderProfile extended with influence/interest 1–5 scores) if approved; implement #17 (per-facet progress visualization in ProgressView) if approved
 
 ### 2026-05-20 — feat: experiment hypothesis format for action items (issue #19)
 - Done: added `ActionHypothesis` interface and `HypothesisOutcome` type to `types.ts`; added optional `hypothesis` field to `Action`; collapsible "Add hypothesis" toggle in add form (hidden by default) with If/Then/Because inputs; on action rows, a 🧪 "Hypothesis" toggle shows/hides the hypothesis block; when action is marked done, an outcome prompt "Did this happen?" appears with Yes/Partially/No buttons stored in `hypothesis.outcome`; `actions.hypothesis_*` i18n keys added to all 4 locales (EN/ES/BE/RU); backward-compatible optional field, no migration needed; build passes
