@@ -206,6 +206,15 @@
       "desc": "Alinea todos los equipos en Objetivos y Resultados Clave trimestrales."
     }
   },
+  "stakeholders": {
+    "influence": "Influencia",
+    "interest": "Interés",
+    "map_title": "Mapa de partes interesadas",
+    "quadrant_manage": "Gestionar de cerca",
+    "quadrant_satisfy": "Mantener satisfecho",
+    "quadrant_inform": "Mantener informado",
+    "quadrant_monitor": "Monitorear"
+  },
   "mind_profiles": {
     "section_title": "Perfiles de motivadores de partes interesadas",
     "open_mm": "Abrir Moving Motivators →",

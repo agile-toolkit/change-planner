@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, StakeholderProfile } from '../types'
 import StakeholderProfilePanel from './StakeholderProfilePanel'
+import StakeholderMap from './StakeholderMap'
 
 /** Short labels for facet tabs (facets.*.label are often long) */
 const FACET_TAB_EMOJI: Record<FacetId, string> = {
@@ -155,10 +156,13 @@ export default function FacetPlanner({
         </div>
 
         {activeFacet === 'mind' && (
-          <StakeholderProfilePanel
-            profiles={initiative.stakeholderProfiles ?? []}
-            onChange={updateProfiles}
-          />
+          <>
+            <StakeholderProfilePanel
+              profiles={initiative.stakeholderProfiles ?? []}
+              onChange={updateProfiles}
+            />
+            <StakeholderMap profiles={initiative.stakeholderProfiles ?? []} />
+          </>
         )}
 
         {nextFacet && (

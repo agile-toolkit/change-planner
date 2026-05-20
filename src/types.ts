@@ -29,6 +29,9 @@ export interface StakeholderProfile {
   name: string
   /** Top 3 motivator names (free text), may be shorter if user left some blank */
   motivators: string[]
+  /** Mendelow matrix: 1 (low) – 5 (high) */
+  influence?: number
+  interest?: number
 }
 
 export interface Initiative {

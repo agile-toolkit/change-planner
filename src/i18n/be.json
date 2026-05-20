@@ -206,6 +206,15 @@
       "desc": "Узгадніце ўсе каманды па квартальных мэтах і ключавых выніках."
     }
   },
+  "stakeholders": {
+    "influence": "Уплыў",
+    "interest": "Зацікаўленасць",
+    "map_title": "Карта зацікаўленых бакоў",
+    "quadrant_manage": "Кіраваць уважліва",
+    "quadrant_satisfy": "Задавальняць",
+    "quadrant_inform": "Інфармаваць",
+    "quadrant_monitor": "Назіраць"
+  },
   "mind_profiles": {
     "section_title": "Профілі матываватараў зацікаўленых бакоў",
     "open_mm": "Адкрыць Moving Motivators →",

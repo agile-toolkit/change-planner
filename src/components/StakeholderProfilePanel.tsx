@@ -9,6 +9,38 @@ interface Props {
   onChange: (profiles: StakeholderProfile[]) => void
 }
 
+function ScoreButtons({
+  label,
+  value,
+  onSelect,
+}: {
+  label: string
+  value: number | undefined
+  onSelect: (v: number) => void
+}) {
+  return (
+    <div className="flex items-center gap-1.5">
+      <span className="text-xs text-green-700/80 w-14 shrink-0">{label}</span>
+      <div className="flex gap-0.5">
+        {[1, 2, 3, 4, 5].map(n => (
+          <button
+            key={n}
+            type="button"
+            onClick={() => onSelect(n)}
+            className={`w-5 h-5 rounded text-xs font-medium transition-colors ${
+              value === n
+                ? 'bg-green-600 text-white'
+                : 'bg-green-50 border border-green-200 text-green-700 hover:bg-green-100'
+            }`}
+          >
+            {n}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
   const { t } = useTranslation()
   const [adding, setAdding] = useState(false)
@@ -16,6 +48,8 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
   const [m1, setM1] = useState('')
   const [m2, setM2] = useState('')
   const [m3, setM3] = useState('')
+  const [influence, setInfluence] = useState<number | undefined>()
+  const [interest, setInterest] = useState<number | undefined>()
 
   function handleAdd() {
     if (!name.trim()) return
@@ -24,6 +58,8 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
       id: crypto.randomUUID(),
       name: name.trim(),
       motivators: filled,
+      influence,
+      interest,
     }
     onChange([...profiles, profile])
     setAdding(false)
@@ -31,6 +67,8 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
     setM1('')
     setM2('')
     setM3('')
+    setInfluence(undefined)
+    setInterest(undefined)
   }
 
   function handleCancel() {
@@ -39,10 +77,16 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
     setM1('')
     setM2('')
     setM3('')
+    setInfluence(undefined)
+    setInterest(undefined)
   }
 
   function handleDelete(id: string) {
     onChange(profiles.filter(p => p.id !== id))
+  }
+
+  function updateScore(id: string, field: 'influence' | 'interest', value: number) {
+    onChange(profiles.map(p => p.id === id ? { ...p, [field]: value } : p))
   }
 
   return (
@@ -95,10 +139,22 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
             </div>
           )}
           {p.motivators[0] && (
-            <p className="text-xs italic text-green-700/80">
+            <p className="text-xs italic text-green-700/80 mb-2">
               💡 {t('mind_profiles.suggested_action', { name: p.name, motivator: p.motivators[0] })}
             </p>
           )}
+          <div className="space-y-1 pt-1 border-t border-green-50">
+            <ScoreButtons
+              label={t('stakeholders.influence')}
+              value={p.influence}
+              onSelect={v => updateScore(p.id, 'influence', v)}
+            />
+            <ScoreButtons
+              label={t('stakeholders.interest')}
+              value={p.interest}
+              onSelect={v => updateScore(p.id, 'interest', v)}
+            />
+          </div>
         </div>
       ))}
 
@@ -132,6 +188,18 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
               value={m3}
               onChange={e => setM3(e.target.value)}
               className="rounded-lg border border-gray-200 px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-green-300"
+            />
+          </div>
+          <div className="space-y-1.5 pt-1">
+            <ScoreButtons
+              label={t('stakeholders.influence')}
+              value={influence}
+              onSelect={setInfluence}
+            />
+            <ScoreButtons
+              label={t('stakeholders.interest')}
+              value={interest}
+              onSelect={setInterest}
             />
           </div>
           <div className="flex gap-2">

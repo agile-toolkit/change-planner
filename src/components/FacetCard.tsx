@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { FacetId, StakeholderProfile } from '../types'
 import StakeholderProfilePanel from './StakeholderProfilePanel'
+import StakeholderMap from './StakeholderMap'
 
 const FACET_STYLES: Record<FacetId, { bg: string; border: string; header: string; badge: string }> = {
   dance:     { bg: 'bg-blue-50',   border: 'border-blue-200',   header: 'text-blue-900',   badge: 'bg-blue-100 text-blue-700' },
@@ -58,7 +59,10 @@ export default function FacetCard({ facetId, notes, actionCount, onNotesChange, 
       />
 
       {facetId === 'mind' && stakeholderProfiles !== undefined && onProfilesChange && (
-        <StakeholderProfilePanel profiles={stakeholderProfiles} onChange={onProfilesChange} />
+        <>
+          <StakeholderProfilePanel profiles={stakeholderProfiles} onChange={onProfilesChange} />
+          <StakeholderMap profiles={stakeholderProfiles} />
+        </>
       )}
     </div>
   )
