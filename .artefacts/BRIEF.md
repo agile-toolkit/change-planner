@@ -33,7 +33,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
 - [x] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
 - [ ] [#17] Feature: per-facet action completion progress visualization in ProgressView (done/total per facet, global %, pure CSS or SVG)
-- [ ] [#19] Feature: experiment hypothesis format for action items (If/Then/Because + outcome field on Action type, collapsible section in ActionTracker)
+- [x] [#19] Feature: experiment hypothesis format for action items (If/Then/Because + outcome field on Action type, collapsible section in ActionTracker) — implemented
 - [ ] [#20] Feature: stakeholder influence/interest map visualization (2x2 quadrant SVG in Mind facet; extends StakeholderProfile with influence/interest 1–5 scores)
 - [ ] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control)
 
@@ -43,6 +43,12 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-20 — feat: experiment hypothesis format for action items (issue #19)
+- Done: added `ActionHypothesis` interface and `HypothesisOutcome` type to `types.ts`; added optional `hypothesis` field to `Action`; collapsible "Add hypothesis" toggle in add form (hidden by default) with If/Then/Because inputs; on action rows, a 🧪 "Hypothesis" toggle shows/hides the hypothesis block; when action is marked done, an outcome prompt "Did this happen?" appears with Yes/Partially/No buttons stored in `hypothesis.outcome`; `actions.hypothesis_*` i18n keys added to all 4 locales (EN/ES/BE/RU); backward-compatible optional field, no migration needed; build passes
+- Also fixed pre-existing build error: installed `html2canvas` package (was missing from node_modules despite being in code)
+- Remaining backlog: #17 (per-facet progress visualization), #20 (stakeholder map), #21 (home screen health), #14 (Improvement Board import)
+- Next task: check issues for human feedback; implement #20 (stakeholder influence/interest map — 2x2 quadrant SVG in Mind facet, extends StakeholderProfile with influence/interest 1–5 scores) or #21 (home screen initiative health summary) if approved
 
 ### 2026-05-19 — feat: action item priority levels (issue #16)
 - Done: added `ActionPriority = 'high' | 'medium' | 'low'` type to `types.ts`; added `priority` field to `Action` interface; added priority selector button group in `ActionTracker.tsx` add form (default Medium); color-coded badges (red=High, amber=Medium, gray=Low) shown on every action row; `sortByPriority()` sorts actions High→Medium→Low, then by `dueDate` ascending within each tier; `?? 'low'` fallback handles legacy localStorage data; `actions.priority_label|high|medium|low` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes

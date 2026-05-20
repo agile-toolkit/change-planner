@@ -107,7 +107,22 @@
     "priority_label": "Приоритет",
     "priority_high": "Высокий",
     "priority_medium": "Средний",
-    "priority_low": "Низкий"
+    "priority_low": "Низкий",
+    "hypothesis_add": "Добавить гипотезу",
+    "hypothesis_title": "Гипотеза эксперимента",
+    "hypothesis_if": "Если",
+    "hypothesis_if_placeholder": "мы предпримем это действие…",
+    "hypothesis_then": "То",
+    "hypothesis_then_placeholder": "мы ожидаем увидеть…",
+    "hypothesis_because": "Потому что",
+    "hypothesis_because_placeholder": "мы считаем, что…",
+    "hypothesis_remove": "Удалить гипотезу",
+    "hypothesis_show": "Гипотеза",
+    "hypothesis_hide": "Скрыть гипотезу",
+    "hypothesis_outcome_prompt": "Это произошло?",
+    "hypothesis_outcome_yes": "Да",
+    "hypothesis_outcome_partial": "Частично",
+    "hypothesis_outcome_no": "Нет"
   },
   "progress": {
     "title": "Прогресс",

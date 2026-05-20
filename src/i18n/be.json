@@ -107,7 +107,22 @@
     "priority_label": "Прыярытэт",
     "priority_high": "Высокі",
     "priority_medium": "Сярэдні",
-    "priority_low": "Нізкі"
+    "priority_low": "Нізкі",
+    "hypothesis_add": "Дадаць гіпотэзу",
+    "hypothesis_title": "Гіпотэза эксперыменту",
+    "hypothesis_if": "Калі",
+    "hypothesis_if_placeholder": "мы зробім гэта дзеянне…",
+    "hypothesis_then": "Тады",
+    "hypothesis_then_placeholder": "мы чакаем убачыць…",
+    "hypothesis_because": "Таму што",
+    "hypothesis_because_placeholder": "мы лічым, што…",
+    "hypothesis_remove": "Выдаліць гіпотэзу",
+    "hypothesis_show": "Гіпотэза",
+    "hypothesis_hide": "Схаваць гіпотэзу",
+    "hypothesis_outcome_prompt": "Ці адбылося гэта?",
+    "hypothesis_outcome_yes": "Так",
+    "hypothesis_outcome_partial": "Часткова",
+    "hypothesis_outcome_no": "Не"
   },
   "progress": {
     "title": "Прагрэс",

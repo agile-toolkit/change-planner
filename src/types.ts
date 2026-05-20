@@ -4,6 +4,14 @@ export type FacetId = 'dance' | 'mind' | 'stimulate' | 'change'
 export const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 export type ActionStatus = 'todo' | 'done'
 export type ActionPriority = 'high' | 'medium' | 'low'
+export type HypothesisOutcome = 'yes' | 'partial' | 'no'
+
+export interface ActionHypothesis {
+  if: string
+  then: string
+  because: string
+  outcome?: HypothesisOutcome
+}
 
 export interface Action {
   id: string
@@ -13,6 +21,7 @@ export interface Action {
   status: ActionStatus
   facet: FacetId
   priority: ActionPriority
+  hypothesis?: ActionHypothesis
 }
 
 export interface StakeholderProfile {
