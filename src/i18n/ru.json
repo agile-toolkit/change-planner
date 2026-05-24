@@ -141,7 +141,8 @@
     "retro_heading": "Инициатива изменений",
     "retro_untitled": "Без названия",
     "retro_facets": "Сводка по граням",
-    "retro_open_actions": "Открытые задачи"
+    "retro_open_actions": "Открытые задачи",
+    "notes_only": "Только заметки"
   },
   "learn": {
     "title": "О фреймворке",

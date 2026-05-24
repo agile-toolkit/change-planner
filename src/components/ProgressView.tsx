@@ -74,7 +74,7 @@ export default function ProgressView({ initiative }: Props) {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="text-center">
           <div className="text-3xl font-bold text-brand-600 tabular-nums">
-            {totalActions > 0 ? Math.round((doneActions / totalActions) * 100) : 0}%
+            {totalActions > 0 ? `${Math.round((doneActions / totalActions) * 100)}%` : '—'}
           </div>
           <div className="text-xs text-gray-400">{t('progress.overall')}</div>
         </div>
@@ -106,16 +106,18 @@ export default function ProgressView({ initiative }: Props) {
                 <span className="text-gray-600">{t(`facets.${facet}.label`)}</span>
                 <span className="text-gray-400">
                   {facetActions.length > 0
-                    ? `${facetDone}/${facetActions.length} actions`
-                    : hasNotes ? 'Notes only' : 'Empty'}
+                    ? `${facetDone}/${facetActions.length}`
+                    : hasNotes ? t('progress.notes_only') : '—'}
                 </span>
               </div>
-              <div className="h-1.5 bg-gray-100 rounded-full">
-                <div
-                  className={`h-1.5 rounded-full transition-all ${FACET_COLORS[facet]}`}
-                  style={{ width: `${Math.max(pct, hasNotes && facetActions.length === 0 ? 15 : 0)}%` }}
-                />
-              </div>
+              {facetActions.length > 0 && (
+                <div className="h-1.5 bg-gray-100 rounded-full">
+                  <div
+                    className={`h-1.5 rounded-full transition-all ${FACET_COLORS[facet]}`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+              )}
             </div>
           )
         })}
