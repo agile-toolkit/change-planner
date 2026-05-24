@@ -137,7 +137,8 @@
     "retro_heading": "Change Initiative",
     "retro_untitled": "Untitled",
     "retro_facets": "Facet summary",
-    "retro_open_actions": "Open action items"
+    "retro_open_actions": "Open action items",
+    "notes_only": "Notes only"
   },
   "learn": {
     "title": "About the Framework",
