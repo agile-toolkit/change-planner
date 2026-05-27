@@ -212,6 +212,19 @@
     "quadrant_inform": "Keep Informed",
     "quadrant_monitor": "Monitor"
   },
+  "import_board": {
+    "button": "Import from Improvement Board",
+    "modal_title": "Import from Improvement Board",
+    "subtitle": "{{count}} open item(s) found. Select which to import as actions.",
+    "empty_title": "No open items found",
+    "empty_desc": "Open the Improvement Board app and add items first.",
+    "select_all": "Select all",
+    "deselect_all": "Deselect all",
+    "selected_count": "{{count}} selected",
+    "cancel": "Cancel",
+    "confirm": "Import {{count}} item(s)",
+    "new_initiative_title": "From Improvement Board"
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",

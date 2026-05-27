@@ -216,6 +216,19 @@
     "quadrant_inform": "Mantener informado",
     "quadrant_monitor": "Monitorear"
   },
+  "import_board": {
+    "button": "Importar desde Tablero de Mejora",
+    "modal_title": "Importar desde Tablero de Mejora",
+    "subtitle": "{{count}} elemento(s) abierto(s) encontrado(s). Selecciona cuáles importar como acciones.",
+    "empty_title": "No se encontraron elementos abiertos",
+    "empty_desc": "Abre la app Tablero de Mejora y agrega elementos primero.",
+    "select_all": "Seleccionar todo",
+    "deselect_all": "Deseleccionar todo",
+    "selected_count": "{{count}} seleccionado(s)",
+    "cancel": "Cancelar",
+    "confirm": "Importar {{count}} elemento(s)",
+    "new_initiative_title": "Desde Tablero de Mejora"
+  },
   "mind_profiles": {
     "section_title": "Perfiles de motivadores de partes interesadas",
     "open_mm": "Abrir Moving Motivators →",
