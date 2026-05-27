@@ -1,7 +1,55 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FACET_IDS, type FacetId, type Initiative } from '../types'
+import { FACET_IDS, type FacetId, type Initiative, type Action, type ActionPriority } from '../types'
 import { TEMPLATES, type InitiativeTemplate } from '../data/templates'
+
+/** Minimal shape of an ImprovementItem from the Improvement Board app */
+interface ImprovementItem {
+  id: string
+  title: string
+  description: string
+  category: 'process' | 'technical' | 'people' | 'product' | 'other'
+  status: 'identified' | 'in_progress' | 'done'
+  owner: string
+}
+
+const CATEGORY_TO_FACET: Record<ImprovementItem['category'], FacetId> = {
+  people: 'mind',
+  process: 'dance',
+  product: 'change',
+  technical: 'change',
+  other: 'stimulate',
+}
+
+const CATEGORY_BADGE: Record<ImprovementItem['category'], string> = {
+  people: 'bg-green-100 text-green-700',
+  process: 'bg-blue-100 text-blue-700',
+  product: 'bg-purple-100 text-purple-700',
+  technical: 'bg-purple-100 text-purple-700',
+  other: 'bg-orange-100 text-orange-700',
+}
+
+function loadBoardItems(): ImprovementItem[] {
+  try {
+    const raw = localStorage.getItem('improvement-board-items')
+    if (!raw) return []
+    return JSON.parse(raw)
+  } catch {
+    return []
+  }
+}
+
+function boardItemToAction(item: ImprovementItem): Action {
+  return {
+    id: crypto.randomUUID(),
+    text: item.description ? `${item.title}: ${item.description}` : item.title,
+    owner: item.owner ?? '',
+    dueDate: '',
+    status: 'todo',
+    facet: CATEGORY_TO_FACET[item.category] ?? 'dance',
+    priority: 'medium' as ActionPriority,
+  }
+}
 
 type SortKey = 'latest' | 'actions' | 'alpha'
 
@@ -49,6 +97,7 @@ interface Props {
   onUnarchive: (id: string) => void
   onExportBackup: () => void
   onImportBackup: () => void
+  onImportFromBoard: (actions: Action[]) => void
 }
 
 export default function HomeScreen({
@@ -61,11 +110,39 @@ export default function HomeScreen({
   onUnarchive,
   onExportBackup,
   onImportBackup,
+  onImportFromBoard,
 }: Props) {
   const { t } = useTranslation()
   const [showArchived, setShowArchived] = useState(false)
   const [showTemplates, setShowTemplates] = useState(false)
   const [sortBy, setSortBy] = useState<SortKey>('latest')
+  const [showImportBoard, setShowImportBoard] = useState(false)
+  const [boardItems, setBoardItems] = useState<ImprovementItem[]>([])
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+
+  const openImportBoard = () => {
+    const items = loadBoardItems().filter(i => i.status !== 'done')
+    setBoardItems(items)
+    setSelectedIds(new Set(items.map(i => i.id)))
+    setShowImportBoard(true)
+  }
+
+  const toggleItem = (id: string) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const handleConfirmImport = () => {
+    const selected = boardItems.filter(i => selectedIds.has(i.id))
+    if (selected.length === 0) return
+    const actions = selected.map(boardItemToAction)
+    setShowImportBoard(false)
+    onImportFromBoard(actions)
+  }
 
   const active = sortInitiatives(initiatives.filter(i => !i.completedAt), sortBy)
   const archived = initiatives.filter(i => !!i.completedAt)
@@ -88,6 +165,19 @@ export default function HomeScreen({
             className="btn-secondary text-lg px-6 py-3"
           >
             {t('templates.modal_trigger')}
+          </button>
+          <button
+            type="button"
+            onClick={openImportBoard}
+            className="btn-secondary text-lg px-6 py-3 flex items-center gap-2"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="2" y="2" width="7" height="7" rx="1.5"/>
+              <rect x="11" y="2" width="7" height="7" rx="1.5"/>
+              <rect x="2" y="11" width="7" height="7" rx="1.5"/>
+              <path d="M15 14h2M14 11v6" strokeLinecap="round"/>
+            </svg>
+            {t('import_board.button')}
           </button>
         </div>
       </div>
@@ -267,6 +357,114 @@ export default function HomeScreen({
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {showImportBoard && (
+        <div
+          className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowImportBoard(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-xl max-w-xl w-full max-h-[85vh] flex flex-col p-6"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-slate-900">{t('import_board.modal_title')}</h2>
+              <button
+                type="button"
+                onClick={() => setShowImportBoard(false)}
+                className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            {boardItems.length === 0 ? (
+              <div className="flex-1 flex flex-col items-center justify-center py-10 text-center">
+                <div className="text-4xl mb-3">📋</div>
+                <p className="text-slate-600 font-medium mb-1">{t('import_board.empty_title')}</p>
+                <p className="text-slate-400 text-sm">{t('import_board.empty_desc')}</p>
+              </div>
+            ) : (
+              <>
+                <p className="text-sm text-slate-500 mb-3">{t('import_board.subtitle', { count: boardItems.length })}</p>
+                <div className="flex items-center gap-2 mb-3">
+                  <button
+                    type="button"
+                    className="text-xs text-brand-600 hover:underline"
+                    onClick={() => setSelectedIds(new Set(boardItems.map(i => i.id)))}
+                  >
+                    {t('import_board.select_all')}
+                  </button>
+                  <span className="text-slate-300">·</span>
+                  <button
+                    type="button"
+                    className="text-xs text-slate-500 hover:underline"
+                    onClick={() => setSelectedIds(new Set())}
+                  >
+                    {t('import_board.deselect_all')}
+                  </button>
+                </div>
+                <ul className="flex-1 overflow-y-auto space-y-2 mb-4">
+                  {boardItems.map(item => (
+                    <li
+                      key={item.id}
+                      className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${selectedIds.has(item.id) ? 'border-brand-300 bg-brand-50' : 'border-slate-200 hover:border-slate-300'}`}
+                      onClick={() => toggleItem(item.id)}
+                    >
+                      <input
+                        type="checkbox"
+                        readOnly
+                        checked={selectedIds.has(item.id)}
+                        className="mt-0.5 w-4 h-4 rounded accent-brand-600 flex-shrink-0"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-medium text-slate-800 text-sm">{item.title}</span>
+                          <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${CATEGORY_BADGE[item.category]}`}>
+                            {item.category}
+                          </span>
+                          <span className="text-xs text-slate-400">
+                            → {t(`facets.${CATEGORY_TO_FACET[item.category]}.label`)}
+                          </span>
+                        </div>
+                        {item.description && (
+                          <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{item.description}</p>
+                        )}
+                        {item.owner && (
+                          <p className="text-xs text-slate-400 mt-0.5">👤 {item.owner}</p>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center justify-between gap-3 pt-2 border-t border-slate-100">
+                  <span className="text-sm text-slate-500">
+                    {t('import_board.selected_count', { count: selectedIds.size })}
+                  </span>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowImportBoard(false)}
+                      className="btn-secondary text-sm px-4 py-2"
+                    >
+                      {t('import_board.cancel')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleConfirmImport}
+                      disabled={selectedIds.size === 0}
+                      className="btn-primary text-sm px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {t('import_board.confirm', { count: selectedIds.size })}
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

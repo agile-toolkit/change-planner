@@ -29,7 +29,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#8] Integration: link Change Planner to Scrum Facilitator ceremonies and Sprint Metrics (Phase 1 implemented)
 - [x] [#12] Feature: initiative completed / archived status (adds `completedAt` to Initiative; aligns with dashboard reader) — implemented
 - [x] [#13] Feature: overdue action item visual indicator (red highlight when `dueDate < today` and status `todo`) — implemented
-- [ ] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage)
+- [x] [#14] Integration: import Improvement Board items as change actions (reads `improvement-board-items` localStorage) — implemented
 - [x] [#15] Integration: auto-fill stakeholder context from Team Identity charter (reads `team-identity-charter` localStorage, pre-fills stakeholders textarea in InitiativeCanvas)
 - [x] [#16] Feature: action item priority levels (High/Medium/Low) — adds `priority` field to Action type, color-coded badges in ActionTracker, default sort by priority
 - [x] [#17] Feature: per-facet action completion progress visualization in ProgressView (done/total per facet, global %, pure CSS or SVG) — implemented
@@ -43,6 +43,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-27 — feat: Improvement Board import (issue #14)
+- Done: added `ImprovementItem` inline type and `boardItemToAction()` helper in `HomeScreen.tsx`; category→facet mapping (`people→mind`, `process→dance`, `product/technical→change`, `other→stimulate`); "Import from Improvement Board" button on home screen hero area (3rd CTA alongside "New Initiative" and "Start from template"); `openImportBoard()` reads `improvement-board-items` from localStorage, filters out `done` items, opens modal; modal shows checkboxes per item with title, category badge, target-facet hint, description preview, and owner; "Select all / Deselect all" controls; footer shows selected count; "Import N items" creates a new initiative (titled "From Improvement Board") with the mapped actions and navigates to it; `import_board.*` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining backlog: #31 (AppHeader unification), #32 (light/dark theme)
+- Next task: implement #31 (AppHeader unification: copy AppHeader.tsx + LanguagePicker.tsx from agile-toolkit.github.io/design-system/components/ into src/components/, replace inline header block in App.tsx)
 
 ### 2026-05-24 — feat: per-facet progress visualization polish (issue #17)
 - Done: fixed 3 hardcoded English strings in `ProgressView.tsx` — `'Notes only'` → `t('progress.notes_only')`, `'Empty'` → `'—'` (dash per spec), `'actions'` word removed (numbers speak for themselves); zero-action facets no longer render an empty bar; overall % shows `'—'` instead of `0%` when no actions exist; `progress.notes_only` key added to all 4 locale files (EN/ES/BE/RU)

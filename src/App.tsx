@@ -127,6 +127,23 @@ export default function App() {
     })
   }
 
+  const handleImportFromBoard = (actions: Action[]) => {
+    const initiative: Initiative = {
+      ...newInitiative(),
+      title: t('import_board.new_initiative_title'),
+      actions,
+    }
+    setInitiatives(prev => {
+      const next = [...prev, initiative]
+      save(next)
+      return next
+    })
+    setCurrentId(initiative.id)
+    setShowList(false)
+    setCanvasTab('workspace')
+    setActiveFacet('dance')
+  }
+
   const handleExportBackup = () => {
     const payload = JSON.stringify({ version: BACKUP_VERSION, initiatives }, null, 2)
     const blob = new Blob([payload], { type: 'application/json' })
@@ -298,6 +315,7 @@ export default function App() {
                 onUnarchive={handleUnarchive}
                 onExportBackup={handleExportBackup}
                 onImportBackup={() => importInputRef.current?.click()}
+                onImportFromBoard={handleImportFromBoard}
               />
             ) : (
               <>
