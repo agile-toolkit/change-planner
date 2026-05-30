@@ -36,6 +36,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#19] Feature: experiment hypothesis format for action items (If/Then/Because + outcome field on Action type, collapsible section in ActionTracker) — implemented
 - [x] [#20] Feature: stakeholder influence/interest map visualization (2x2 quadrant SVG in Mind facet; extends StakeholderProfile with influence/interest 1–5 scores) — implemented
 - [x] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control) — implemented
+- [x] [#31] Unify header: AppHeader component + LanguagePicker — implemented
 
 ## Tech notes
 
@@ -43,6 +44,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-05-30 — feat: AppHeader unification (issue #31)
+- Done: copied `AppHeader.tsx` and `LanguagePicker.tsx` from design system into `src/components/`; replaced inline `<header>` block in `App.tsx` with `<AppHeader title={t('app.title')} onTitleClick={...} navItems=[Learn]>`; removed four-button inline language switcher; removed unused `i18n` from `useTranslation` destructuring; build passes
+- Remaining backlog: #32 (light/dark theme)
+- Next task: implement #32 (light/dark theme: tailwind darkMode class, anti-flash script in index.html, ThemeToggle.tsx from design-system, dark: variants on all Tailwind color classes)
 
 ### 2026-05-27 — feat: Improvement Board import (issue #14)
 - Done: added `ImprovementItem` inline type and `boardItemToAction()` helper in `HomeScreen.tsx`; category→facet mapping (`people→mind`, `process→dance`, `product/technical→change`, `other→stimulate`); "Import from Improvement Board" button on home screen hero area (3rd CTA alongside "New Initiative" and "Start from template"); `openImportBoard()` reads `improvement-board-items` from localStorage, filters out `done` items, opens modal; modal shows checkboxes per item with title, category badge, target-facet hint, description preview, and owner; "Select all / Deselect all" controls; footer shows selected count; "Import N items" creates a new initiative (titled "From Improvement Board") with the mapped actions and navigates to it; `import_board.*` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
