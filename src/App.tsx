@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, Action } from './types'
 import type { InitiativeTemplate } from './data/templates'
 import { FACET_IDS } from './types'
+import AppHeader from './components/AppHeader'
 import FacetCard from './components/FacetCard'
 import FacetPlanner from './components/FacetPlanner'
 import InitiativeCanvas from './components/InitiativeCanvas'
@@ -46,7 +47,7 @@ type View = 'canvas' | 'learn'
 type CanvasTab = 'workspace' | 'guided'
 
 export default function App() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const [view, setView] = useState<View>('canvas')
   const [canvasTab, setCanvasTab] = useState<CanvasTab>('workspace')
   const [activeFacet, setActiveFacet] = useState<FacetId>('dance')
@@ -190,59 +191,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <a
-              href="https://agile-toolkit.github.io/"
-              title="Agile Toolkit"
-              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
-                <rect x="1" y="1" width="6" height="6" rx="1"/>
-                <rect x="9" y="1" width="6" height="6" rx="1"/>
-                <rect x="1" y="9" width="6" height="6" rx="1"/>
-                <rect x="9" y="9" width="6" height="6" rx="1"/>
-              </svg>
-            </a>
-            <button
-              type="button"
-              onClick={() => setView('canvas')}
-              className="font-semibold text-brand-600 hover:text-brand-700"
-            >
-              {t('app.title')}
-            </button>
-          </div>
-          <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={() => setView('canvas')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${view === 'canvas' ? 'bg-brand-100 text-brand-700' : 'text-gray-500 hover:bg-gray-100'}`}
-            >
-              Canvas
-            </button>
-            <button
-              type="button"
-              onClick={() => setView('learn')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${view === 'learn' ? 'bg-brand-100 text-brand-700' : 'text-gray-500 hover:bg-gray-100'}`}
-            >
-              {t('learn.title')}
-            </button>
-            <div className="ml-2 flex items-center gap-0.5">
-              {(['en', 'es', 'be', 'ru'] as const).map(lng => (
-                <button
-                  key={lng}
-                  type="button"
-                  onClick={() => i18n.changeLanguage(lng)}
-                  className={`text-xs px-1.5 py-0.5 rounded transition-colors ${i18n.language.startsWith(lng) ? 'bg-brand-100 text-brand-700 font-semibold' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'}`}
-                >
-                  {lng.toUpperCase()}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </header>
+      <AppHeader
+        title={t('app.title')}
+        onTitleClick={() => { setView('canvas'); setCurrentId(null) }}
+        navItems={[
+          { key: 'learn', label: t('learn.title'), active: view === 'learn', onClick: () => setView('learn') },
+        ]}
+      />
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
         {view === 'learn' && <LearnView />}
