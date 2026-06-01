@@ -190,7 +190,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col" data-accent="cobalt">
       <AppHeader
         title={t('app.title')}
         onTitleClick={() => { setView('canvas'); setCurrentId(null) }}
