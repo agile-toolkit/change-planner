@@ -17,30 +17,30 @@ const FACET_STYLES: Record<
   { bg: string; border: string; header: string; active: string; ring: string }
 > = {
   dance: {
-    bg: 'bg-blue-50 border-blue-200 text-blue-800',
-    border: 'border-blue-200',
-    header: 'text-blue-900',
+    bg: 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200',
+    border: 'border-blue-200 dark:border-blue-800',
+    header: 'text-blue-900 dark:text-blue-100',
     active: 'bg-blue-600 text-white border-blue-600',
     ring: 'focus:ring-blue-400',
   },
   mind: {
-    bg: 'bg-green-50 border-green-200 text-green-800',
-    border: 'border-green-200',
-    header: 'text-green-900',
+    bg: 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200',
+    border: 'border-green-200 dark:border-green-800',
+    header: 'text-green-900 dark:text-green-100',
     active: 'bg-green-600 text-white border-green-600',
     ring: 'focus:ring-green-400',
   },
   stimulate: {
-    bg: 'bg-orange-50 border-orange-200 text-orange-800',
-    border: 'border-orange-200',
-    header: 'text-orange-900',
+    bg: 'bg-orange-50 dark:bg-orange-950 border-orange-200 dark:border-orange-800 text-orange-800 dark:text-orange-200',
+    border: 'border-orange-200 dark:border-orange-800',
+    header: 'text-orange-900 dark:text-orange-100',
     active: 'bg-orange-600 text-white border-orange-600',
     ring: 'focus:ring-orange-400',
   },
   change: {
-    bg: 'bg-purple-50 border-purple-200 text-purple-800',
-    border: 'border-purple-200',
-    header: 'text-purple-900',
+    bg: 'bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-200',
+    border: 'border-purple-200 dark:border-purple-800',
+    header: 'text-purple-900 dark:text-purple-100',
     active: 'bg-purple-600 text-white border-purple-600',
     ring: 'focus:ring-purple-400',
   },
@@ -81,7 +81,7 @@ export default function FacetPlanner({
 
   return (
     <div className="space-y-5">
-      <h2 className="text-2xl font-bold text-slate-800">{t('facets.guided_title')}</h2>
+      <h2 className="text-2xl font-bold text-slate-800 dark:text-gray-100">{t('facets.guided_title')}</h2>
 
       <div className="flex flex-wrap gap-2">
         {facetIds.map(fid => {
@@ -151,7 +151,7 @@ export default function FacetPlanner({
             placeholder={t('facets.notes_placeholder')}
             rows={5}
             onChange={e => updateNotes(e.target.value)}
-            className={`w-full bg-white/70 border border-current/20 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 ${styles.ring} focus:border-transparent resize-y placeholder-slate-400`}
+            className={`w-full bg-white/70 dark:bg-gray-900/70 border border-current/20 rounded-lg px-3 py-2 text-slate-800 dark:text-gray-100 focus:outline-none focus:ring-2 ${styles.ring} focus:border-transparent resize-y placeholder-slate-400 dark:placeholder-gray-500`}
           />
         </div>
 

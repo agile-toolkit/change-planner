@@ -60,11 +60,11 @@ export default function ProgressView({ initiative }: Props) {
   return (
     <div className="card">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-semibold text-gray-900">{t('progress.title')}</h2>
+        <h2 className="font-semibold text-gray-900 dark:text-gray-100">{t('progress.title')}</h2>
         <button
           type="button"
           onClick={handleCopy}
-          className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
+          className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           title={t('progress.copy_retro_hint')}
         >
           {copied ? `✓ ${t('progress.copied')}` : t('progress.copy_retro')}
@@ -79,16 +79,16 @@ export default function ProgressView({ initiative }: Props) {
           <div className="text-xs text-gray-400">{t('progress.overall')}</div>
         </div>
         <div className="text-center">
-          <div className="text-3xl font-bold text-gray-800 tabular-nums">
+          <div className="text-3xl font-bold text-gray-800 dark:text-gray-200 tabular-nums">
             {doneActions}/{totalActions}
           </div>
-          <div className="text-xs text-gray-400">{t('progress.actions_done')}</div>
+          <div className="text-xs text-gray-400 dark:text-gray-500">{t('progress.actions_done')}</div>
         </div>
         <div className="text-center">
-          <div className="text-3xl font-bold text-gray-800 tabular-nums">
+          <div className="text-3xl font-bold text-gray-800 dark:text-gray-200 tabular-nums">
             {facetsWithActions}/4
           </div>
-          <div className="text-xs text-gray-400">{t('progress.facets_with_actions')}</div>
+          <div className="text-xs text-gray-400 dark:text-gray-500">{t('progress.facets_with_actions')}</div>
         </div>
       </div>
 
@@ -103,15 +103,15 @@ export default function ProgressView({ initiative }: Props) {
           return (
             <div key={facet}>
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-gray-600">{t(`facets.${facet}.label`)}</span>
-                <span className="text-gray-400">
+                <span className="text-gray-600 dark:text-gray-400">{t(`facets.${facet}.label`)}</span>
+                <span className="text-gray-400 dark:text-gray-500">
                   {facetActions.length > 0
                     ? `${facetDone}/${facetActions.length}`
                     : hasNotes ? t('progress.notes_only') : '—'}
                 </span>
               </div>
               {facetActions.length > 0 && (
-                <div className="h-1.5 bg-gray-100 rounded-full">
+                <div className="h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full">
                   <div
                     className={`h-1.5 rounded-full transition-all ${FACET_COLORS[facet]}`}
                     style={{ width: `${pct}%` }}

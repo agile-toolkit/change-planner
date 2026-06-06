@@ -43,7 +43,7 @@ export default function InitiativeCanvas({ initiative, onChange }: Props) {
 
   return (
     <div className="card">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">{t('canvas.section_heading')}</h2>
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('canvas.section_heading')}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="md:col-span-2">
           <label className="label">{t('canvas.title_label')}</label>

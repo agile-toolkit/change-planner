@@ -12,6 +12,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] Orphan locale keys wired/removed — `common.next` → FacetPlanner Next button; `canvas.save` + `canvas.load` removed (auto-save, home-screen load); `actions.placeholder_due|facet_label|mark_done|mark_todo|delete` wired as `aria-label` attributes
 - [x] Hardcoded English — trailing ` done` replaced with `t('actions.done_count')` interpolation
 - [x] ES and BE locale translations — full `es.json` and `be.json`; 4-way language picker (EN/ES/BE/RU) in header
+- [x] Light/dark theme — sun/moon ThemeToggle in AppHeader, `[data-theme="dark"]` Tailwind selector, anti-flash script in index.html, full `dark:` coverage across all components
 
 ## localStorage keys
 
@@ -37,6 +38,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#20] Feature: stakeholder influence/interest map visualization (2x2 quadrant SVG in Mind facet; extends StakeholderProfile with influence/interest 1–5 scores) — implemented
 - [x] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control) — implemented
 - [x] [#31] Unify header: AppHeader component + LanguagePicker — implemented
+- [x] [#32] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
 
 ## Tech notes
 
@@ -44,6 +46,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-06 — feat: light/dark theme (issue #32)
+- Done: wired `ThemeToggle` into `AppHeader` children slot in `App.tsx`; added `dark:` Tailwind variants across all 13 source files — `index.css` (shared classes: `.card`, `.btn-secondary`, `.btn-ghost`, `.label`, `.input`, `body`), `App.tsx`, `AppHeader.tsx`, `LanguagePicker.tsx`, `ActionTracker.tsx`, `FacetCard.tsx`, `FacetPlanner.tsx`, `ProgressView.tsx`, `InitiativeCanvas.tsx`, `StakeholderProfilePanel.tsx`, `StakeholderMap.tsx`, `ExportButton.tsx`, `HomeScreen.tsx`, `LearnView.tsx`; anti-flash script and `tailwind.config.js` selector mode (`[data-theme="dark"]`) were already in place from design-system v2 commit; build passes
+- Remaining backlog: none known (issue #32 closes)
+- Next task: check issues for human feedback
 
 ### 2026-05-30 — feat: AppHeader unification (issue #31)
 - Done: copied `AppHeader.tsx` and `LanguagePicker.tsx` from design system into `src/components/`; replaced inline `<header>` block in `App.tsx` with `<AppHeader title={t('app.title')} onTitleClick={...} navItems=[Learn]>`; removed four-button inline language switcher; removed unused `i18n` from `useTranslation` destructuring; build passes

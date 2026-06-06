@@ -89,7 +89,7 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
         type="button"
         onClick={() => setOpen(v => !v)}
         disabled={exporting}
-        className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-50"
+        className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
         title={t('export.button_hint')}
       >
         {exporting ? t('export.exporting') : copied ? `✓ ${t('export.copied')}` : t('export.button')}
@@ -98,11 +98,11 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-20 min-w-[200px] py-1">
+          <div className="absolute right-0 mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-20 min-w-[200px] py-1">
             <button
               type="button"
               onClick={handleCopyMarkdown}
-              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2"
             >
               <span>📋</span>
               <span>{t('export.copy_markdown')}</span>
@@ -110,7 +110,7 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
             <button
               type="button"
               onClick={handleExportPng}
-              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2"
             >
               <span>🖼️</span>
               <span>{t('export.export_png')}</span>

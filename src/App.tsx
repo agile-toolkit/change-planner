@@ -4,6 +4,7 @@ import type { Initiative, FacetId, Action } from './types'
 import type { InitiativeTemplate } from './data/templates'
 import { FACET_IDS } from './types'
 import AppHeader from './components/AppHeader'
+import ThemeToggle from './components/ThemeToggle'
 import FacetCard from './components/FacetCard'
 import FacetPlanner from './components/FacetPlanner'
 import InitiativeCanvas from './components/InitiativeCanvas'
@@ -190,14 +191,16 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" data-accent="cobalt">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950" data-accent="cobalt">
       <AppHeader
         title={t('app.title')}
         onTitleClick={() => { setView('canvas'); setCurrentId(null) }}
         navItems={[
           { key: 'learn', label: t('learn.title'), active: view === 'learn', onClick: () => setView('learn') },
         ]}
-      />
+      >
+        <ThemeToggle />
+      </AppHeader>
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
         {view === 'learn' && <LearnView />}
@@ -218,11 +221,11 @@ export default function App() {
                     {current?.title || 'Untitled'} ▾
                   </button>
                   {showList && (
-                    <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-20 min-w-[240px]">
+                    <div className="absolute top-full left-0 mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-20 min-w-[240px]">
                       {initiatives.map(i => (
                         <div
                           key={i.id}
-                          className="flex items-center justify-between px-4 py-2 hover:bg-gray-50"
+                          className="flex items-center justify-between px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-800"
                         >
                           <button
                             type="button"
@@ -230,15 +233,15 @@ export default function App() {
                               setCurrentId(i.id)
                               setShowList(false)
                             }}
-                            className={`text-sm flex-1 text-left ${i.id === currentId ? 'font-semibold text-brand-600' : 'text-gray-700'}`}
+                            className={`text-sm flex-1 text-left ${i.id === currentId ? 'font-semibold text-brand-600' : 'text-gray-700 dark:text-gray-300'}`}
                           >
                             {i.title || 'Untitled'}
-                            {i.completedAt ? <span className="ml-1 text-xs text-gray-400">(archived)</span> : null}
+                            {i.completedAt ? <span className="ml-1 text-xs text-gray-400 dark:text-gray-500">(archived)</span> : null}
                           </button>
                           <button
                             type="button"
                             onClick={() => handleDelete(i.id)}
-                            className="text-gray-300 hover:text-red-400 ml-2 text-xs"
+                            className="text-gray-300 dark:text-gray-600 hover:text-red-400 ml-2 text-xs"
                           >
                             ✕
                           </button>
@@ -275,18 +278,18 @@ export default function App() {
             ) : (
               <>
                 {current && (
-                  <div className="flex items-center gap-1 mb-6 border-b border-gray-200 pb-2">
+                  <div className="flex items-center gap-1 mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">
                     <button
                       type="button"
                       onClick={() => setCanvasTab('workspace')}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${canvasTab === 'workspace' ? 'bg-brand-100 text-brand-700' : 'text-gray-500 hover:bg-gray-100'}`}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${canvasTab === 'workspace' ? 'bg-brand-100 text-brand-700 dark:bg-gray-800 dark:text-brand-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                     >
                       {t('nav.workspace')}
                     </button>
                     <button
                       type="button"
                       onClick={() => setCanvasTab('guided')}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${canvasTab === 'guided' ? 'bg-brand-100 text-brand-700' : 'text-gray-500 hover:bg-gray-100'}`}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${canvasTab === 'guided' ? 'bg-brand-100 text-brand-700 dark:bg-gray-800 dark:text-brand-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                     >
                       {t('nav.guided')}
                     </button>
@@ -318,7 +321,7 @@ export default function App() {
                 {canvasTab === 'workspace' ? (
                   <div ref={workspaceRef} className="space-y-6">
                     {current.completedAt && (
-                      <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2 text-sm text-amber-700">
+                      <div className="bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg px-4 py-2 text-sm text-amber-700 dark:text-amber-300">
                         {t('backup.archived_banner', { date: new Date(current.completedAt).toLocaleDateString() })}
                       </div>
                     )}
