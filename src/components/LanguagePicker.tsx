@@ -57,7 +57,7 @@ export default function LanguagePicker() {
         onClick={() => setOpen(v => !v)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors select-none"
+        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors select-none"
       >
         <span>{active.label}</span>
         <svg className={`w-3 h-3 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -69,7 +69,7 @@ export default function LanguagePicker() {
         <ul
           role="listbox"
           aria-label="Language"
-          className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-50 min-w-[110px]"
+          className="absolute right-0 top-full mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-1 z-50 min-w-[110px]"
         >
           {LANGUAGES.map(lang => {
             const isCurrent = lang.code === currentCode(i18n.language)
@@ -84,8 +84,8 @@ export default function LanguagePicker() {
                   onClick={() => { i18n.changeLanguage(lang.code); setOpen(false) }}
                   className={`w-full flex items-center gap-2 px-3 py-1.5 text-sm transition-colors ${
                     isCurrent
-                      ? 'bg-brand-50 text-brand-700 font-semibold'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'bg-brand-50 dark:bg-gray-800 text-brand-700 dark:text-brand-400 font-semibold'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                   }`}
                 >
                   <span>{lang.label}</span>

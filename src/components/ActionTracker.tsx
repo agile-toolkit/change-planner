@@ -111,7 +111,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
     <div className="card">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="font-semibold text-gray-900">{t('actions.title')}</h2>
+          <h2 className="font-semibold text-gray-900 dark:text-gray-100">{t('actions.title')}</h2>
           {actions.length > 0 && (
             <span className="text-xs text-gray-400">{t('actions.done_count', { done: doneCount, total: actions.length })}</span>
           )}
@@ -122,7 +122,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
       </div>
 
       {showForm && (
-        <div className="bg-gray-50 rounded-xl p-4 mb-4 space-y-3">
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-4 space-y-3">
           <input
             autoFocus
             className="input"
@@ -154,7 +154,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                 className={`px-3 py-1 rounded-lg text-xs font-medium border transition-colors ${
                   facet === f
                     ? 'bg-brand-600 text-white border-brand-600'
-                    : 'border-gray-200 text-gray-600 hover:bg-white'
+                    : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700'
                 }`}
               >
                 {t(`facets.${f}.label`)}
@@ -169,7 +169,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                 className={`px-3 py-1 rounded-lg text-xs font-medium border transition-colors ${
                   priority === p
                     ? 'bg-brand-600 text-white border-brand-600'
-                    : 'border-gray-200 text-gray-600 hover:bg-white'
+                    : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700'
                 }`}
               >
                 {t(`actions.priority_${p}`)}
@@ -185,10 +185,10 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               + {t('actions.hypothesis_add')}
             </button>
           ) : (
-            <div className="border border-brand-200 rounded-lg p-3 space-y-2 bg-white">
-              <p className="text-xs font-medium text-brand-700">{t('actions.hypothesis_title')}</p>
+            <div className="border border-brand-200 dark:border-brand-700 rounded-lg p-3 space-y-2 bg-white dark:bg-gray-800">
+              <p className="text-xs font-medium text-brand-700 dark:text-brand-400">{t('actions.hypothesis_title')}</p>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">{t('actions.hypothesis_if')}</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">{t('actions.hypothesis_if')}</label>
                 <input
                   className="input text-sm"
                   placeholder={t('actions.hypothesis_if_placeholder')}
@@ -197,7 +197,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">{t('actions.hypothesis_then')}</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">{t('actions.hypothesis_then')}</label>
                 <input
                   className="input text-sm"
                   placeholder={t('actions.hypothesis_then_placeholder')}
@@ -206,7 +206,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">{t('actions.hypothesis_because')}</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">{t('actions.hypothesis_because')}</label>
                 <input
                   className="input text-sm"
                   placeholder={t('actions.hypothesis_because_placeholder')}
@@ -233,7 +233,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
       )}
 
       {actions.length === 0 && !showForm && (
-        <p className="text-sm text-gray-400 text-center py-4">{t('actions.empty')}</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-4">{t('actions.empty')}</p>
       )}
 
       <div className="space-y-2">
@@ -246,10 +246,10 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               key={action.id}
               className={`rounded-xl border transition-colors ${
                 action.status === 'done'
-                  ? 'bg-gray-50 border-gray-100'
+                  ? 'bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700'
                   : isOverdue(action)
-                    ? 'bg-red-50 border-red-200'
-                    : 'bg-white border-gray-200'
+                    ? 'bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800'
+                    : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'
               }`}
             >
               <div className="flex items-start gap-3 px-3 py-2.5">
@@ -261,7 +261,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                   className="mt-0.5 accent-brand-600 cursor-pointer"
                 />
                 <div className="flex-1 min-w-0">
-                  <p className={`text-sm ${action.status === 'done' ? 'line-through text-gray-400' : 'text-gray-800'}`}>
+                  <p className={`text-sm ${action.status === 'done' ? 'line-through text-gray-400 dark:text-gray-600' : 'text-gray-800 dark:text-gray-200'}`}>
                     {action.text}
                   </p>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
@@ -271,7 +271,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                     <span className={`text-xs px-2 py-0.5 rounded-full ${FACET_COLORS[action.facet]}`}>
                       {t(`facets.${action.facet}.label`)}
                     </span>
-                    {action.owner && <span className="text-xs text-gray-400">{action.owner}</span>}
+                    {action.owner && <span className="text-xs text-gray-400 dark:text-gray-500">{action.owner}</span>}
                     {action.dueDate && (
                       <span className={`text-xs ${isOverdue(action) ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
                         📅 {action.dueDate}
@@ -298,20 +298,20 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               </div>
 
               {hasHyp && expanded && (
-                <div className="mx-3 mb-3 p-3 bg-brand-50 rounded-lg border border-brand-100 space-y-1.5 text-xs text-gray-700">
+                <div className="mx-3 mb-3 p-3 bg-brand-50 dark:bg-gray-800 rounded-lg border border-brand-100 dark:border-gray-700 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
                   {hyp!.if && (
-                    <p><span className="font-semibold text-brand-700">{t('actions.hypothesis_if')}:</span> {hyp!.if}</p>
+                    <p><span className="font-semibold text-brand-700 dark:text-brand-400">{t('actions.hypothesis_if')}:</span> {hyp!.if}</p>
                   )}
                   {hyp!.then && (
-                    <p><span className="font-semibold text-brand-700">{t('actions.hypothesis_then')}:</span> {hyp!.then}</p>
+                    <p><span className="font-semibold text-brand-700 dark:text-brand-400">{t('actions.hypothesis_then')}:</span> {hyp!.then}</p>
                   )}
                   {hyp!.because && (
-                    <p><span className="font-semibold text-brand-700">{t('actions.hypothesis_because')}:</span> {hyp!.because}</p>
+                    <p><span className="font-semibold text-brand-700 dark:text-brand-400">{t('actions.hypothesis_because')}:</span> {hyp!.because}</p>
                   )}
 
                   {action.status === 'done' && (
-                    <div className="pt-1.5 border-t border-brand-200">
-                      <p className="text-xs text-gray-500 mb-1.5">{t('actions.hypothesis_outcome_prompt')}</p>
+                    <div className="pt-1.5 border-t border-brand-200 dark:border-gray-700">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1.5">{t('actions.hypothesis_outcome_prompt')}</p>
                       <div className="flex gap-2">
                         {(['yes', 'partial', 'no'] as HypothesisOutcome[]).map(o => (
                           <button
@@ -320,7 +320,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                             className={`px-2.5 py-1 rounded-lg border text-xs font-medium transition-colors ${
                               hyp!.outcome === o
                                 ? OUTCOME_STYLES[o]
-                                : 'border-gray-200 text-gray-500 hover:bg-gray-50'
+                                : 'border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                             }`}
                           >
                             {t(`actions.hypothesis_outcome_${o}`)}

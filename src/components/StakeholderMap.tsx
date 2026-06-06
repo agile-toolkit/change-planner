@@ -39,8 +39,8 @@ export default function StakeholderMap({ profiles }: Props) {
   if (mapped.length < 2) return null
 
   return (
-    <div className="mt-4 rounded-xl border border-green-200 bg-white p-4">
-      <h4 className="text-sm font-semibold text-green-800 mb-3">
+    <div className="mt-4 rounded-xl border border-green-200 dark:border-green-800 bg-white dark:bg-gray-900 p-4">
+      <h4 className="text-sm font-semibold text-green-800 dark:text-green-200 mb-3">
         {t('stakeholders.map_title')}
       </h4>
       <svg

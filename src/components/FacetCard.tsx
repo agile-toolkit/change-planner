@@ -4,10 +4,10 @@ import StakeholderProfilePanel from './StakeholderProfilePanel'
 import StakeholderMap from './StakeholderMap'
 
 const FACET_STYLES: Record<FacetId, { bg: string; border: string; header: string; badge: string }> = {
-  dance:     { bg: 'bg-blue-50',   border: 'border-blue-200',   header: 'text-blue-900',   badge: 'bg-blue-100 text-blue-700' },
-  mind:      { bg: 'bg-green-50',  border: 'border-green-200',  header: 'text-green-900',  badge: 'bg-green-100 text-green-700' },
-  stimulate: { bg: 'bg-orange-50', border: 'border-orange-200', header: 'text-orange-900', badge: 'bg-orange-100 text-orange-700' },
-  change:    { bg: 'bg-purple-50', border: 'border-purple-200', header: 'text-purple-900', badge: 'bg-purple-100 text-purple-700' },
+  dance:     { bg: 'bg-blue-50 dark:bg-blue-950',   border: 'border-blue-200 dark:border-blue-800',   header: 'text-blue-900 dark:text-blue-100',   badge: 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' },
+  mind:      { bg: 'bg-green-50 dark:bg-green-950',  border: 'border-green-200 dark:border-green-800',  header: 'text-green-900 dark:text-green-100',  badge: 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' },
+  stimulate: { bg: 'bg-orange-50 dark:bg-orange-950', border: 'border-orange-200 dark:border-orange-800', header: 'text-orange-900 dark:text-orange-100', badge: 'bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300' },
+  change:    { bg: 'bg-purple-50 dark:bg-purple-950', border: 'border-purple-200 dark:border-purple-800', header: 'text-purple-900 dark:text-purple-100', badge: 'bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300' },
 }
 
 interface Props {
@@ -51,7 +51,7 @@ export default function FacetCard({ facetId, notes, actionCount, onNotesChange, 
       </div>
 
       <textarea
-        className="w-full px-3 py-2 bg-white border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-gray-300"
+        className="w-full px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-gray-300 dark:focus:ring-gray-600"
         rows={3}
         placeholder="Add your notes, insights, and plans for this facet..."
         value={notes}
