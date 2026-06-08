@@ -39,6 +39,9 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control) — implemented
 - [x] [#31] Unify header: AppHeader component + LanguagePicker — implemented
 - [x] [#32] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
+- [ ] [#38] Feature: URL-based initiative sharing (base64 hash) — encode initiative to URL hash; read-only shared view; import button
+- [ ] [#39] Feature: action roadmap timeline view — 4th workspace tab grouping actions by ISO week, overdue/current week tints
+- [ ] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health
 
 ## Tech notes
 
@@ -46,6 +49,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-08 — research: URL sharing, roadmap view, and dashboard card
+- Done: checked all open issues — #3–#32 all carry `approved` label, all implemented, awaiting human close. Created 3 new research issues: #38 (URL-based initiative sharing via base64 hash), #39 (action roadmap timeline view grouped by ISO week), #40 (Change Planner dashboard card in agile-toolkit.github.io). All added to project board at Backlog.
+- Remaining: awaiting human review on #38, #39, #40
+- Next task: check issues for human feedback; if any of #38–#40 approved, implement first one
 
 ### 2026-06-06 — feat: light/dark theme (issue #32)
 - Done: wired `ThemeToggle` into `AppHeader` children slot in `App.tsx`; added `dark:` Tailwind variants across all 13 source files — `index.css` (shared classes: `.card`, `.btn-secondary`, `.btn-ghost`, `.label`, `.input`, `body`), `App.tsx`, `AppHeader.tsx`, `LanguagePicker.tsx`, `ActionTracker.tsx`, `FacetCard.tsx`, `FacetPlanner.tsx`, `ProgressView.tsx`, `InitiativeCanvas.tsx`, `StakeholderProfilePanel.tsx`, `StakeholderMap.tsx`, `ExportButton.tsx`, `HomeScreen.tsx`, `LearnView.tsx`; anti-flash script and `tailwind.config.js` selector mode (`[data-theme="dark"]`) were already in place from design-system v2 commit; build passes
