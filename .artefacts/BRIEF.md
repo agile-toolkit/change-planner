@@ -42,6 +42,9 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#38] Feature: URL-based initiative sharing (base64 hash) — encode initiative to URL hash; read-only shared view; import button
 - [ ] [#39] Feature: action roadmap timeline view — 4th workspace tab grouping actions by ISO week, overdue/current week tints
 - [ ] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health
+- [ ] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
+- [ ] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
+- [ ] [#43] Feature: duplicate / clone initiative — one-click clone from home screen card menu; resets action statuses to todo, clears completedAt; navigates to new initiative
 
 ## Tech notes
 
@@ -49,6 +52,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-12 — research: keyboard a11y, action filter, and initiative duplication
+- Done: checked all open issues — #38–#40 still `needs-review` (4 days old, not yet at 7-day auto-approve threshold); confirmed #41 and #42 (created by stale prior run today) are already in project board Backlog; created #43 (Feature: duplicate/clone initiative — one-click clone from home screen, resets action statuses, navigates to new initiative); added #41–#43 to BRIEF backlog
+- Remaining: awaiting human review on #38–#43
+- Next task: check issues for human feedback; #38–#40 reach 7-day threshold on 2026-06-15 and qualify for auto-approve; if any of #38–#43 approved earlier, implement first in Suite order (#38 → #39 → #40 → #41 → #42 → #43)
 
 ### 2026-06-08 — research: URL sharing, roadmap view, and dashboard card
 - Done: checked all open issues — #3–#32 all carry `approved` label, all implemented, awaiting human close. Created 3 new research issues: #38 (URL-based initiative sharing via base64 hash), #39 (action roadmap timeline view grouped by ISO week), #40 (Change Planner dashboard card in agile-toolkit.github.io). All added to project board at Backlog.
