@@ -229,6 +229,13 @@
     "confirm": "Importar {{count}} elemento(s)",
     "new_initiative_title": "Desde Tablero de Mejora"
   },
+  "share": {
+    "button": "Compartir",
+    "copied": "¡Copiado!",
+    "view_title": "Iniciativa compartida",
+    "import": "Importar a mi planificador",
+    "read_only_note": "Esta es una vista de solo lectura. Importa la iniciativa para añadirla a tu planificador."
+  },
   "mind_profiles": {
     "section_title": "Perfiles de motivadores de partes interesadas",
     "open_mm": "Abrir Moving Motivators →",

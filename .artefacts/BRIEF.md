@@ -39,7 +39,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#21] Feature: home screen initiative health summary and sort (open-action count, facet-coverage dots, relative last-updated, sort control) — implemented
 - [x] [#31] Unify header: AppHeader component + LanguagePicker — implemented
 - [x] [#32] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
-- [ ] [#38] Feature: URL-based initiative sharing (base64 hash) — encode initiative to URL hash; read-only shared view; import button
+- [x] [#38] Feature: URL-based initiative sharing (base64 hash) — encode initiative to URL hash; read-only shared view; import button
 - [ ] [#39] Feature: action roadmap timeline view — 4th workspace tab grouping actions by ISO week, overdue/current week tints
 - [ ] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health
 - [ ] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
@@ -52,6 +52,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-15 — feat: URL-based initiative sharing (issue #38)
+- Done: auto-approved #38, #39, #40 (7-day threshold reached). Implemented #38: `src/utils/sharing.ts` with `encodeInitiative`/`decodeInitiative` (base64url, no deps); `SharedView.tsx` read-only overlay with facet notes + actions checklist + "Import to my planner" button; App.tsx detects `#share=` hash on load and shows overlay; Share button in workspace tab bar writes encoded URL to clipboard and shows "Copied!" tooltip for 2s; `share.*` i18n keys in all 4 locales (EN/ES/BE/RU)
+- Remaining: #39 (roadmap timeline view), #40 (dashboard card), #41 (keyboard a11y), #42 (action filter), #43 (clone initiative)
+- Next task: implement #39 (action roadmap timeline view — 4th workspace tab, group actions by ISO week, RoadmapView.tsx ~80 LOC, overdue/current week tints, undated section, `roadmap.*` i18n keys in 4 locales)
 
 ### 2026-06-12 — research: keyboard a11y, action filter, and initiative duplication
 - Done: checked all open issues — #38–#40 still `needs-review` (4 days old, not yet at 7-day auto-approve threshold); confirmed #41 and #42 (created by stale prior run today) are already in project board Backlog; created #43 (Feature: duplicate/clone initiative — one-click clone from home screen, resets action statuses, navigates to new initiative); added #41–#43 to BRIEF backlog
