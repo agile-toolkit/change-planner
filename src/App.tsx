@@ -13,6 +13,8 @@ import ActionTracker from './components/ActionTracker'
 import ProgressView from './components/ProgressView'
 import LearnView from './components/LearnView'
 import ExportButton from './components/ExportButton'
+import SharedView from './components/SharedView'
+import { encodeInitiative, decodeInitiative } from './utils/sharing'
 
 const STORAGE_KEY = 'change-planner-initiatives'
 const BACKUP_VERSION = 1
@@ -59,6 +61,14 @@ export default function App() {
   })
   const [showList, setShowList] = useState(false)
   const [importMsg, setImportMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
+  const [shareMsg, setShareMsg] = useState(false)
+  const [sharedInitiative, setSharedInitiative] = useState<Initiative | null>(() => {
+    const hash = window.location.hash
+    if (hash.startsWith('#share=')) {
+      return decodeInitiative(hash.slice(7))
+    }
+    return null
+  })
   const workspaceRef = useRef<HTMLDivElement>(null)
   const importInputRef = useRef<HTMLInputElement>(null)
 
@@ -144,6 +154,30 @@ export default function App() {
     setShowList(false)
     setCanvasTab('workspace')
     setActiveFacet('dance')
+  }
+
+  const handleShareImport = (initiative: Initiative) => {
+    const fresh: Initiative = { ...initiative, id: crypto.randomUUID(), createdAt: Date.now(), updatedAt: Date.now() }
+    setInitiatives(prev => {
+      const next = [...prev, fresh]
+      save(next)
+      return next
+    })
+    setCurrentId(fresh.id)
+    setSharedInitiative(null)
+    window.location.hash = ''
+    setCanvasTab('workspace')
+    setActiveFacet('dance')
+  }
+
+  const handleShare = () => {
+    if (!current) return
+    const encoded = encodeInitiative(current)
+    const url = `${window.location.origin}${window.location.pathname}#share=${encoded}`
+    navigator.clipboard.writeText(url).then(() => {
+      setShareMsg(true)
+      setTimeout(() => setShareMsg(false), 2000)
+    })
   }
 
   const handleExportBackup = () => {
@@ -313,6 +347,21 @@ export default function App() {
                           {t('backup.archive')}
                         </button>
                       )}
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={handleShare}
+                          className="text-sm text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                          title={t('share.button')}
+                        >
+                          🔗 {t('share.button')}
+                        </button>
+                        {shareMsg && (
+                          <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-xs bg-gray-800 text-white px-2 py-1 rounded whitespace-nowrap">
+                            {t('share.copied')}
+                          </span>
+                        )}
+                      </div>
                       <ExportButton initiative={current} workspaceRef={workspaceRef} />
                     </div>
                   </div>
@@ -383,6 +432,14 @@ export default function App() {
         className="hidden"
         onChange={handleImportBackup}
       />
+
+      {sharedInitiative && (
+        <SharedView
+          initiative={sharedInitiative}
+          onImport={handleShareImport}
+          onClose={() => { setSharedInitiative(null); window.location.hash = '' }}
+        />
+      )}
     </div>
   )
 }

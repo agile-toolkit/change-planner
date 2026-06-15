@@ -225,6 +225,13 @@
     "confirm": "Import {{count}} item(s)",
     "new_initiative_title": "From Improvement Board"
   },
+  "share": {
+    "button": "Share",
+    "copied": "Copied!",
+    "view_title": "Shared initiative",
+    "import": "Import to my planner",
+    "read_only_note": "This is a read-only view. Import it to add it to your planner."
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",
