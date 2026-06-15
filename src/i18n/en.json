@@ -232,6 +232,12 @@
     "import": "Import to my planner",
     "read_only_note": "This is a read-only view. Import it to add it to your planner."
   },
+  "roadmap": {
+    "tab": "Roadmap",
+    "week_of": "Week of {{date}}",
+    "no_date": "No date",
+    "empty": "No actions with due dates yet. Add due dates in the Action Tracker to see the roadmap."
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",

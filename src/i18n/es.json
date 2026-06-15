@@ -236,6 +236,12 @@
     "import": "Importar a mi planificador",
     "read_only_note": "Esta es una vista de solo lectura. Importa la iniciativa para añadirla a tu planificador."
   },
+  "roadmap": {
+    "tab": "Hoja de ruta",
+    "week_of": "Semana del {{date}}",
+    "no_date": "Sin fecha",
+    "empty": "Aún no hay acciones con fecha límite. Añade fechas en el Seguimiento de acciones para ver la hoja de ruta."
+  },
   "mind_profiles": {
     "section_title": "Perfiles de motivadores de partes interesadas",
     "open_mm": "Abrir Moving Motivators →",

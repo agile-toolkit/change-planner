@@ -40,7 +40,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#31] Unify header: AppHeader component + LanguagePicker — implemented
 - [x] [#32] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
 - [x] [#38] Feature: URL-based initiative sharing (base64 hash) — encode initiative to URL hash; read-only shared view; import button
-- [ ] [#39] Feature: action roadmap timeline view — 4th workspace tab grouping actions by ISO week, overdue/current week tints
+- [x] [#39] Feature: action roadmap timeline view — 4th workspace tab grouping actions by ISO week, overdue/current week tints
 - [ ] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health
 - [ ] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
 - [ ] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
@@ -52,6 +52,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-15 — feat: action roadmap timeline view (issue #39)
+- Done: created `src/components/RoadmapView.tsx` (~120 LOC); groups actions by week-Monday key (getWeekMonday), sorts ascending, past weeks get red tint, current week gets blue ring, undated actions in "No date" section at bottom, empty state when no dated actions, done/todo checkbox toggle per action; added "Roadmap" as 3rd CanvasTab in `App.tsx` alongside Workspace and Guided; wired `RoadmapView` render in canvasTab ternary; `roadmap.tab/week_of/no_date/empty` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
+- Remaining: #40 (dashboard card), #41 (keyboard a11y), #42 (action filter), #43 (clone initiative)
+- Next task: implement #40 (Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health in agile-toolkit.github.io) or #41 (keyboard a11y for Action Tracker — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut, focus management after add) or #42 (action filter — collapsible filter bar with facet/priority/status toggle chips and text search) whichever is next approved; check issues for human feedback first
 
 ### 2026-06-15 — feat: URL-based initiative sharing (issue #38)
 - Done: auto-approved #38, #39, #40 (7-day threshold reached). Implemented #38: `src/utils/sharing.ts` with `encodeInitiative`/`decodeInitiative` (base64url, no deps); `SharedView.tsx` read-only overlay with facet notes + actions checklist + "Import to my planner" button; App.tsx detects `#share=` hash on load and shows overlay; Share button in workspace tab bar writes encoded URL to clipboard and shows "Copied!" tooltip for 2s; `share.*` i18n keys in all 4 locales (EN/ES/BE/RU)
