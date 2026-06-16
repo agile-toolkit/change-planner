@@ -41,7 +41,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#32] Feature: light/dark theme support (ThemeToggle + dark: Tailwind variants) — implemented
 - [x] [#38] Feature: URL-based initiative sharing (base64 hash) — encode initiative to URL hash; read-only shared view; import button
 - [x] [#39] Feature: action roadmap timeline view — 4th workspace tab grouping actions by ISO week, overdue/current week tints
-- [ ] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health
+- [x] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health — implemented in agile-toolkit.github.io (PR #19, 5fe3679)
 - [ ] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
 - [ ] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
 - [ ] [#43] Feature: duplicate / clone initiative — one-click clone from home screen card menu; resets action statuses to todo, clears completedAt; navigates to new initiative
@@ -52,6 +52,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-16 — feat: Change Planner dashboard card (issue #40)
+- Done: auto-approved #40 (8 days, Feature from BRIEF); implemented in `agile-toolkit.github.io` — `readChangePlanner()` now extracts goal excerpt, 4-boolean facet coverage, open/overdue action counts; `AppData.facetCoverage?: boolean[]` added; `AppCard` renders colored dot row; `card.facets` i18n in EN/ES/BE/RU; PR #19 merged (5fe3679), CI passed
+- Remaining: #41 (keyboard a11y), #42 (action filter), #43 (clone initiative)
+- Next task: check #41 (keyboard a11y ActionTracker — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add); #41/#42/#43 reach 7-day auto-approve threshold 2026-06-19
 
 ### 2026-06-15 — feat: action roadmap timeline view (issue #39)
 - Done: created `src/components/RoadmapView.tsx` (~120 LOC); groups actions by week-Monday key (getWeekMonday), sorts ascending, past weeks get red tint, current week gets blue ring, undated actions in "No date" section at bottom, empty state when no dated actions, done/todo checkbox toggle per action; added "Roadmap" as 3rd CanvasTab in `App.tsx` alongside Workspace and Guided; wired `RoadmapView` render in canvasTab ternary; `roadmap.tab/week_of/no_date/empty` i18n keys added to all 4 locales (EN/ES/BE/RU); build passes
