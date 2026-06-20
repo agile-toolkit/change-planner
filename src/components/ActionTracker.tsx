@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Action, ActionHypothesis, ActionPriority, FacetId, HypothesisOutcome } from '../types'
 
@@ -57,6 +57,29 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   const [hypThen, setHypThen] = useState('')
   const [hypBecause, setHypBecause] = useState('')
   const [expandedHypotheses, setExpandedHypotheses] = useState<Set<string>>(new Set())
+  const addButtonRef = useRef<HTMLButtonElement>(null)
+  const textInputRef = useRef<HTMLInputElement>(null)
+
+  // N key opens the add form when focus is not inside an input/textarea
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement).tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement).isContentEditable) return
+      if (e.key === 'n' || e.key === 'N') {
+        e.preventDefault()
+        setShowForm(true)
+      }
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [])
+
+  // Focus the text input when form opens
+  useEffect(() => {
+    if (showForm) {
+      textInputRef.current?.focus()
+    }
+  }, [showForm])
 
   const toggleHypothesis = (id: string) => {
     setExpandedHypotheses(prev => {
@@ -92,6 +115,8 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
     setHypIf('')
     setHypThen('')
     setHypBecause('')
+    // Return focus to the Add Action button after form closes
+    setTimeout(() => addButtonRef.current?.focus(), 0)
   }
 
   const handleOutcome = (action: Action, outcome: HypothesisOutcome) => {
@@ -116,7 +141,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
             <span className="text-xs text-gray-400">{t('actions.done_count', { done: doneCount, total: actions.length })}</span>
           )}
         </div>
-        <button onClick={() => setShowForm(v => !v)} className="btn-primary text-sm">
+        <button ref={addButtonRef} onClick={() => setShowForm(v => !v)} aria-label={`${t('actions.add')} (N)`} className="btn-primary text-sm">
           + {t('actions.add')}
         </button>
       </div>
@@ -124,7 +149,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
       {showForm && (
         <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-4 space-y-3">
           <input
-            autoFocus
+            ref={textInputRef}
             className="input"
             placeholder={t('actions.placeholder_text')}
             value={text}
@@ -151,6 +176,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               <button
                 key={f}
                 onClick={() => setFacet(f)}
+                aria-pressed={facet === f}
                 className={`px-3 py-1 rounded-lg text-xs font-medium border transition-colors ${
                   facet === f
                     ? 'bg-brand-600 text-white border-brand-600'
@@ -166,6 +192,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               <button
                 key={p}
                 onClick={() => setPriority(p)}
+                aria-pressed={priority === p}
                 className={`px-3 py-1 rounded-lg text-xs font-medium border transition-colors ${
                   priority === p
                     ? 'bg-brand-600 text-white border-brand-600'
@@ -285,6 +312,8 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                     {hasHyp && (
                       <button
                         onClick={() => toggleHypothesis(action.id)}
+                        aria-expanded={expanded}
+                        aria-controls={`hypothesis-${action.id}`}
                         className="text-xs text-brand-600 hover:underline"
                       >
                         🧪 {expanded ? t('actions.hypothesis_hide') : t('actions.hypothesis_show')}
@@ -298,7 +327,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               </div>
 
               {hasHyp && expanded && (
-                <div className="mx-3 mb-3 p-3 bg-brand-50 dark:bg-gray-800 rounded-lg border border-brand-100 dark:border-gray-700 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+                <div id={`hypothesis-${action.id}`} className="mx-3 mb-3 p-3 bg-brand-50 dark:bg-gray-800 rounded-lg border border-brand-100 dark:border-gray-700 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
                   {hyp!.if && (
                     <p><span className="font-semibold text-brand-700 dark:text-brand-400">{t('actions.hypothesis_if')}:</span> {hyp!.if}</p>
                   )}
