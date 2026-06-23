@@ -128,7 +128,16 @@
     "hypothesis_outcome_prompt": "Ці адбылося гэта?",
     "hypothesis_outcome_yes": "Так",
     "hypothesis_outcome_partial": "Часткова",
-    "hypothesis_outcome_no": "Не"
+    "hypothesis_outcome_no": "Не",
+    "filter_label": "Фільтр",
+    "filter_search": "Пошук дзеянняў…",
+    "filter_facet": "Грань",
+    "filter_priority": "Прыярытэт",
+    "filter_status": "Статус",
+    "filter_todo": "Трэба зрабіць",
+    "filter_done": "Зроблена",
+    "filter_clear": "Ачысціць фільтры",
+    "filter_no_results": "Няма дзеянняў, якія адпавядаюць бягучым фільтрам."
   },
   "progress": {
     "title": "Прагрэс",

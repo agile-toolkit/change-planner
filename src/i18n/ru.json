@@ -128,7 +128,16 @@
     "hypothesis_outcome_prompt": "Это произошло?",
     "hypothesis_outcome_yes": "Да",
     "hypothesis_outcome_partial": "Частично",
-    "hypothesis_outcome_no": "Нет"
+    "hypothesis_outcome_no": "Нет",
+    "filter_label": "Фильтр",
+    "filter_search": "Поиск действий…",
+    "filter_facet": "Грань",
+    "filter_priority": "Приоритет",
+    "filter_status": "Статус",
+    "filter_todo": "К выполнению",
+    "filter_done": "Выполнено",
+    "filter_clear": "Сбросить фильтры",
+    "filter_no_results": "Нет действий, соответствующих текущим фильтрам."
   },
   "progress": {
     "title": "Прогресс",
