@@ -43,7 +43,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#39] Feature: action roadmap timeline view — 4th workspace tab grouping actions by ISO week, overdue/current week tints
 - [x] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health — implemented in agile-toolkit.github.io (PR #19, 5fe3679)
 - [x] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
-- [ ] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
+- [x] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
 - [ ] [#43] Feature: duplicate / clone initiative — one-click clone from home screen card menu; resets action statuses to todo, clears completedAt; navigates to new initiative
 
 ## Tech notes
@@ -52,6 +52,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-23 — feat: action filter and search in Action Tracker (issue #42)
+- Done: collapsible filter bar in `ActionTracker.tsx` — "Filter" button in header (only shown when actions exist) with active-filter count badge; collapsible panel reveals text search input, facet chip group (4 chips), priority chip group (3 chips), status chip group (todo/done), and a "Clear filters" link when any filter is active; `filtered` computed list replaces direct `sorted` render; "no results" empty state shown when filters active but nothing matches; `filter_*` i18n keys added to EN/ES/BE/RU; no new dependencies; build passes
+- Remaining: #43 (duplicate/clone initiative)
+- Next task: implement #43 (duplicate/clone initiative — Duplicate option in HomeScreen.tsx card overflow menu; deep-clone initiative, reset action statuses to todo, clear completedAt/outcome, auto-name "Copy of …", navigate to new initiative; `home.duplicate` and `home.duplicate_prefix` i18n keys in 4 locales; ~40 LOC in HomeScreen.tsx)
 
 ### 2026-06-20 — feat: keyboard accessibility for Action Tracker (issue #41)
 - Done: auto-approved #41/#42/#43 (8 days since creation, Feature from BRIEF); implemented #41 — `aria-pressed` on facet and priority toggle buttons; `aria-expanded` + `aria-controls` on hypothesis toggle button; `id` on hypothesis panel for controls linkage; N-key global shortcut (fires when focus not in input/textarea) opens add form; `ref` on text input + `useEffect` focuses it when form opens; `ref` on Add Action button + `setTimeout` returns focus there after add; removed `autoFocus` attribute in favour of explicit ref management; build passes
