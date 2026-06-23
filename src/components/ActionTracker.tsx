@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Action, ActionHypothesis, ActionPriority, FacetId, HypothesisOutcome } from '../types'
+import type { Action, ActionHypothesis, ActionPriority, ActionStatus, FacetId, HypothesisOutcome } from '../types'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -57,6 +57,11 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   const [hypThen, setHypThen] = useState('')
   const [hypBecause, setHypBecause] = useState('')
   const [expandedHypotheses, setExpandedHypotheses] = useState<Set<string>>(new Set())
+  const [showFilters, setShowFilters] = useState(false)
+  const [filterText, setFilterText] = useState('')
+  const [filterFacets, setFilterFacets] = useState<Set<FacetId>>(new Set())
+  const [filterPriorities, setFilterPriorities] = useState<Set<ActionPriority>>(new Set())
+  const [filterStatuses, setFilterStatuses] = useState<Set<ActionStatus>>(new Set())
   const addButtonRef = useRef<HTMLButtonElement>(null)
   const textInputRef = useRef<HTMLInputElement>(null)
 
@@ -130,7 +135,38 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   const today = new Date().toISOString().slice(0, 10)
   const isOverdue = (action: Action) =>
     action.status === 'todo' && !!action.dueDate && action.dueDate < today
+
+  const toggleChip = <T extends string>(set: Set<T>, val: T): Set<T> => {
+    const next = new Set(set)
+    if (next.has(val)) next.delete(val)
+    else next.add(val)
+    return next
+  }
+
+  const activeFilterCount =
+    (filterText.trim() ? 1 : 0) +
+    filterFacets.size +
+    filterPriorities.size +
+    filterStatuses.size
+
+  const clearFilters = () => {
+    setFilterText('')
+    setFilterFacets(new Set())
+    setFilterPriorities(new Set())
+    setFilterStatuses(new Set())
+  }
+
   const sorted = sortByPriority(actions)
+  const filtered = sorted.filter(a => {
+    if (filterFacets.size > 0 && !filterFacets.has(a.facet)) return false
+    if (filterPriorities.size > 0 && !filterPriorities.has(a.priority ?? 'low')) return false
+    if (filterStatuses.size > 0 && !filterStatuses.has(a.status)) return false
+    if (filterText.trim()) {
+      const q = filterText.trim().toLowerCase()
+      if (!a.text.toLowerCase().includes(q) && !a.owner.toLowerCase().includes(q)) return false
+    }
+    return true
+  })
 
   return (
     <div className="card">
@@ -141,10 +177,101 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
             <span className="text-xs text-gray-400">{t('actions.done_count', { done: doneCount, total: actions.length })}</span>
           )}
         </div>
-        <button ref={addButtonRef} onClick={() => setShowForm(v => !v)} aria-label={`${t('actions.add')} (N)`} className="btn-primary text-sm">
-          + {t('actions.add')}
-        </button>
+        <div className="flex items-center gap-2">
+          {actions.length > 0 && (
+            <button
+              onClick={() => setShowFilters(v => !v)}
+              aria-expanded={showFilters}
+              aria-label={t('actions.filter_label')}
+              className={`relative btn-ghost text-sm ${showFilters ? 'bg-brand-50 dark:bg-brand-900 text-brand-700 dark:text-brand-300' : ''}`}
+            >
+              ⚡ {t('actions.filter_label')}
+              {activeFilterCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[1.1rem] h-[1.1rem] rounded-full bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center px-0.5">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+          )}
+          <button ref={addButtonRef} onClick={() => setShowForm(v => !v)} aria-label={`${t('actions.add')} (N)`} className="btn-primary text-sm">
+            + {t('actions.add')}
+          </button>
+        </div>
       </div>
+
+      {showFilters && (
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 mb-4 space-y-3">
+          <input
+            className="input text-sm"
+            placeholder={t('actions.filter_search')}
+            value={filterText}
+            onChange={e => setFilterText(e.target.value)}
+            aria-label={t('actions.filter_search')}
+          />
+          <div>
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{t('actions.filter_facet')}</p>
+            <div className="flex gap-1.5 flex-wrap">
+              {FACET_IDS.map(f => (
+                <button
+                  key={f}
+                  onClick={() => setFilterFacets(s => toggleChip(s, f))}
+                  aria-pressed={filterFacets.has(f)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors ${
+                    filterFacets.has(f)
+                      ? 'bg-brand-600 text-white border-brand-600'
+                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {t(`facets.${f}.label`)}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{t('actions.filter_priority')}</p>
+            <div className="flex gap-1.5 flex-wrap">
+              {PRIORITY_ORDER.map(p => (
+                <button
+                  key={p}
+                  onClick={() => setFilterPriorities(s => toggleChip(s, p))}
+                  aria-pressed={filterPriorities.has(p)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors ${
+                    filterPriorities.has(p)
+                      ? 'bg-brand-600 text-white border-brand-600'
+                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {t(`actions.priority_${p}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{t('actions.filter_status')}</p>
+            <div className="flex gap-1.5 flex-wrap">
+              {(['todo', 'done'] as ActionStatus[]).map(s => (
+                <button
+                  key={s}
+                  onClick={() => setFilterStatuses(prev => toggleChip(prev, s))}
+                  aria-pressed={filterStatuses.has(s)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors ${
+                    filterStatuses.has(s)
+                      ? 'bg-brand-600 text-white border-brand-600'
+                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {t(`actions.filter_${s}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+          {activeFilterCount > 0 && (
+            <button onClick={clearFilters} className="text-xs text-brand-600 hover:underline">
+              {t('actions.filter_clear')}
+            </button>
+          )}
+        </div>
+      )}
 
       {showForm && (
         <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-4 space-y-3">
@@ -263,8 +390,12 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
         <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-4">{t('actions.empty')}</p>
       )}
 
+      {actions.length > 0 && filtered.length === 0 && activeFilterCount > 0 && (
+        <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-4">{t('actions.filter_no_results')}</p>
+      )}
+
       <div className="space-y-2">
-        {sorted.map(action => {
+        {filtered.map(action => {
           const hyp = action.hypothesis
           const expanded = expandedHypotheses.has(action.id)
           const hasHyp = hyp && (hyp.if || hyp.then || hyp.because)

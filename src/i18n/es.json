@@ -128,7 +128,16 @@
     "hypothesis_outcome_prompt": "¿Ocurrió esto?",
     "hypothesis_outcome_yes": "Sí",
     "hypothesis_outcome_partial": "Parcialmente",
-    "hypothesis_outcome_no": "No"
+    "hypothesis_outcome_no": "No",
+    "filter_label": "Filtrar",
+    "filter_search": "Buscar acciones…",
+    "filter_facet": "Faceta",
+    "filter_priority": "Prioridad",
+    "filter_status": "Estado",
+    "filter_todo": "Por hacer",
+    "filter_done": "Hecho",
+    "filter_clear": "Borrar filtros",
+    "filter_no_results": "Ninguna acción coincide con los filtros actuales."
   },
   "progress": {
     "title": "Progreso",
