@@ -24,7 +24,9 @@
     "facet_coverage": "Ахоп граняў",
     "sort_latest": "Апошнія",
     "sort_actions": "Найбольш адкрытых",
-    "sort_alpha": "А–Я"
+    "sort_alpha": "А–Я",
+    "duplicate": "Дубліраваць",
+    "duplicate_prefix": "Копія"
   },
   "canvas": {
     "section_heading": "Звесткі аб ініцыятыве",

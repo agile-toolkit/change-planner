@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Initiative, FacetId, Action } from './types'
+import type { Initiative, FacetId, Action, ActionStatus } from './types'
 import type { InitiativeTemplate } from './data/templates'
 import { FACET_IDS } from './types'
 import AppHeader from './components/AppHeader'
@@ -138,6 +138,36 @@ export default function App() {
       save(next)
       return next
     })
+  }
+
+  const handleDuplicate = (id: string) => {
+    const source = initiatives.find(i => i.id === id)
+    if (!source) return
+    const prefix = t('home.duplicate_prefix')
+    const cloned: Initiative = {
+      ...source,
+      id: crypto.randomUUID(),
+      title: `${prefix} ${source.title}`,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      completedAt: undefined,
+      actions: source.actions.map(a => ({
+        ...a,
+        id: crypto.randomUUID(),
+        status: 'todo' as ActionStatus,
+        hypothesis: a.hypothesis ? { ...a.hypothesis, outcome: undefined } : undefined,
+      })),
+      stakeholderProfiles: source.stakeholderProfiles.map(p => ({ ...p, id: crypto.randomUUID() })),
+    }
+    setInitiatives(prev => {
+      const next = [...prev, cloned]
+      save(next)
+      return next
+    })
+    setCurrentId(cloned.id)
+    setShowList(false)
+    setCanvasTab('workspace')
+    setActiveFacet('dance')
   }
 
   const handleImportFromBoard = (actions: Action[]) => {
@@ -306,6 +336,7 @@ export default function App() {
                 onDelete={handleDelete}
                 onArchive={handleArchive}
                 onUnarchive={handleUnarchive}
+                onDuplicate={handleDuplicate}
                 onExportBackup={handleExportBackup}
                 onImportBackup={() => importInputRef.current?.click()}
                 onImportFromBoard={handleImportFromBoard}
