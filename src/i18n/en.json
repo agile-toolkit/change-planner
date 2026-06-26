@@ -20,7 +20,9 @@
     "facet_coverage": "Facet coverage",
     "sort_latest": "Latest",
     "sort_actions": "Most open",
-    "sort_alpha": "A–Z"
+    "sort_alpha": "A–Z",
+    "duplicate": "Duplicate",
+    "duplicate_prefix": "Copy of"
   },
   "canvas": {
     "section_heading": "Initiative details",

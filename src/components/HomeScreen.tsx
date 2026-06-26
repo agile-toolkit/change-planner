@@ -95,6 +95,7 @@ interface Props {
   onDelete: (id: string) => void
   onArchive: (id: string) => void
   onUnarchive: (id: string) => void
+  onDuplicate: (id: string) => void
   onExportBackup: () => void
   onImportBackup: () => void
   onImportFromBoard: (actions: Action[]) => void
@@ -108,6 +109,7 @@ export default function HomeScreen({
   onDelete,
   onArchive,
   onUnarchive,
+  onDuplicate,
   onExportBackup,
   onImportBackup,
   onImportFromBoard,
@@ -263,6 +265,7 @@ export default function HomeScreen({
                   onDelete={onDelete}
                   onArchive={onArchive}
                   onUnarchive={onUnarchive}
+                  onDuplicate={onDuplicate}
                   t={t}
                 />
               ))}
@@ -289,6 +292,7 @@ export default function HomeScreen({
                       onDelete={onDelete}
                       onArchive={onArchive}
                       onUnarchive={onUnarchive}
+                      onDuplicate={onDuplicate}
                       t={t}
                       isArchived
                     />
@@ -524,12 +528,13 @@ interface RowProps {
   onDelete: (id: string) => void
   onArchive: (id: string) => void
   onUnarchive: (id: string) => void
+  onDuplicate: (id: string) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (key: string, opts?: any) => string
   isArchived?: boolean
 }
 
-function InitiativeRow({ initiative: init, onLoad, onDelete, onArchive, onUnarchive, t, isArchived }: RowProps) {
+function InitiativeRow({ initiative: init, onLoad, onDelete, onArchive, onUnarchive, onDuplicate, t, isArchived }: RowProps) {
   return (
     <li className={`bg-white dark:bg-gray-900 border rounded-lg px-4 py-3 shadow-sm ${isArchived ? 'border-gray-100 dark:border-gray-800 opacity-70' : 'border-slate-200 dark:border-gray-700'}`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -545,6 +550,13 @@ function InitiativeRow({ initiative: init, onLoad, onDelete, onArchive, onUnarch
             className="text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 text-sm font-medium px-3 py-1 rounded hover:bg-brand-50 dark:hover:bg-gray-800 transition-colors"
           >
             {t('home.open')}
+          </button>
+          <button
+            type="button"
+            onClick={() => onDuplicate(init.id)}
+            className="text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 text-sm px-2 py-1 rounded hover:bg-brand-50 dark:hover:bg-gray-800 transition-colors"
+          >
+            {t('home.duplicate')}
           </button>
           {isArchived ? (
             <button

@@ -24,7 +24,9 @@
     "facet_coverage": "Охват граней",
     "sort_latest": "Последние",
     "sort_actions": "Больше открытых",
-    "sort_alpha": "А–Я"
+    "sort_alpha": "А–Я",
+    "duplicate": "Дублировать",
+    "duplicate_prefix": "Копия"
   },
   "canvas": {
     "section_heading": "Сведения об инициативе",

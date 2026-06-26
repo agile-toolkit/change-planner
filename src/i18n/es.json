@@ -24,7 +24,9 @@
     "facet_coverage": "Cobertura de facetas",
     "sort_latest": "Recientes",
     "sort_actions": "Más abiertas",
-    "sort_alpha": "A–Z"
+    "sort_alpha": "A–Z",
+    "duplicate": "Duplicar",
+    "duplicate_prefix": "Copia de"
   },
   "canvas": {
     "section_heading": "Detalles de la iniciativa",

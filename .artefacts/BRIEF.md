@@ -44,7 +44,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#40] Integration: Change Planner card on suite dashboard — reads `change-planner-initiatives`, shows active count, top initiative health — implemented in agile-toolkit.github.io (PR #19, 5fe3679)
 - [x] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
 - [x] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
-- [ ] [#43] Feature: duplicate / clone initiative — one-click clone from home screen card menu; resets action statuses to todo, clears completedAt; navigates to new initiative
+- [x] [#43] Feature: duplicate / clone initiative — one-click clone from home screen card menu; resets action statuses to todo, clears completedAt; navigates to new initiative
 
 ## Tech notes
 
@@ -52,6 +52,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-26 — feat: duplicate / clone initiative (issue #43)
+- Done: auto-approved #43 (14 days, Feature from BRIEF); added `onDuplicate` prop to `HomeScreen.tsx` and `InitiativeRow`; "Duplicate" button rendered between Open and Archive in each initiative row; `handleDuplicate` in `App.tsx` deep-copies the initiative, resets all action statuses to `todo`, clears `hypothesis.outcome`, clears `completedAt`, generates fresh `id`/`createdAt`/`updatedAt`, prefixes title with `t('home.duplicate_prefix')`, appends to initiatives array, navigates to new initiative; `home.duplicate` and `home.duplicate_prefix` i18n keys added to EN/ES/BE/RU; build passes
+- Remaining: no known backlog items
+- Next task: check issues for human feedback; research cycle if no approved items pending
 
 ### 2026-06-23 — feat: action filter and search in Action Tracker (issue #42)
 - Done: collapsible filter bar in `ActionTracker.tsx` — "Filter" button in header (only shown when actions exist) with active-filter count badge; collapsible panel reveals text search input, facet chip group (4 chips), priority chip group (3 chips), status chip group (todo/done), and a "Clear filters" link when any filter is active; `filtered` computed list replaces direct `sorted` render; "no results" empty state shown when filters active but nothing matches; `filter_*` i18n keys added to EN/ES/BE/RU; no new dependencies; build passes
