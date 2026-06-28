@@ -45,6 +45,9 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
 - [x] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
 - [x] [#43] Feature: duplicate / clone initiative — one-click clone from home screen card menu; resets action statuses to todo, clears completedAt; navigates to new initiative
+- [ ] [#49] Feature: change readiness assessment per facet (pre/post survey + radar chart) — `Initiative.assessments[]` array; pentagon SVG radar; Assess tab
+- [ ] [#50] Feature: action Kanban board view — Board tab; 3 columns (Todo/In Progress/Done); extends `ActionStatus` with `'in-progress'`; swim lanes per facet; HTML5 drag-and-drop
+- [ ] [#51] Feature: initiative milestone markers on roadmap timeline — `Initiative.milestones[]`; diamond markers in `RoadmapView.tsx`; reached/unreached toggle; ~60 LOC
 
 ## Tech notes
 
@@ -52,6 +55,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-28 — research: readiness assessment, Kanban board view, milestone markers
+- Done: checked all 19 open issues — all carry `approved` label and are implemented; none have `incomplete`/`changes-requested`/`research-more` labels; #39 still has only `needs-review` (left as-is). Created 3 new research issues: #49 (change readiness assessment per facet — pre/post 1–5 survey + SVG radar chart), #50 (action Kanban board view — Board tab, extends `ActionStatus` with `in-progress`, swim lanes per facet, HTML5 drag-and-drop), #51 (initiative milestone markers on roadmap — `Initiative.milestones[]`, diamond markers in `RoadmapView.tsx`). Project board status could not be set (GraphQL unavailable).
+- Remaining: awaiting human review on #49, #50, #51
+- Next task: check issues for human feedback; if #49 (readiness assessment), #50 (Kanban board), or #51 (milestone markers) approved, implement first approved; else research cycle (next threshold 2026-07-05 for 7-day auto-approve)
 
 ### 2026-06-26 — feat: duplicate / clone initiative (issue #43)
 - Done: auto-approved #43 (14 days, Feature from BRIEF); added `onDuplicate` prop to `HomeScreen.tsx` and `InitiativeRow`; "Duplicate" button rendered between Open and Archive in each initiative row; `handleDuplicate` in `App.tsx` deep-copies the initiative, resets all action statuses to `todo`, clears `hypothesis.outcome`, clears `completedAt`, generates fresh `id`/`createdAt`/`updatedAt`, prefixes title with `t('home.duplicate_prefix')`, appends to initiatives array, navigates to new initiative; `home.duplicate` and `home.duplicate_prefix` i18n keys added to EN/ES/BE/RU; build passes
