@@ -48,6 +48,9 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#49] Feature: change readiness assessment per facet (pre/post survey + radar chart) — `Initiative.assessments[]` array; pentagon SVG radar; Assess tab
 - [ ] [#50] Feature: action Kanban board view — Board tab; 3 columns (Todo/In Progress/Done); extends `ActionStatus` with `'in-progress'`; swim lanes per facet; HTML5 drag-and-drop
 - [ ] [#51] Feature: initiative milestone markers on roadmap timeline — `Initiative.milestones[]`; diamond markers in `RoadmapView.tsx`; reached/unreached toggle; ~60 LOC
+- [ ] [#53] UX: cross-initiative "This Week" action digest on Home Screen — collapsible panel, due/overdue actions across all initiatives sorted by date, links to parent initiative
+- [ ] [#54] Feature: print-optimized initiative view — `@media print` CSS, "Print" button calling `window.print()`, hides chrome and forces light theme
+- [ ] [#55] Feature: RACI responsibility tagging on action items — `Action.raci` linking to `stakeholderProfiles`, collapsible RACI section + badge cluster in `ActionTracker.tsx`
 
 ## Tech notes
 
@@ -55,6 +58,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-06-30 — research: home screen digest, print view, RACI tagging
+- Done: checked #49 (readiness assessment), #50 (Kanban board), #51 (milestone markers) — still `needs-review` only, 7-day auto-approve threshold (2026-07-05) not yet reached; no `changes-requested`/`research-more`/`incomplete` labels on any open issue this run. Created 3 new research issues: #53 (cross-initiative "This Week" action digest on Home Screen — collapsible panel surfacing due/overdue actions across all initiatives), #54 (print-optimized initiative view — `@media print` CSS + Print button, mirrors team-identity's print layout precedent), #55 (RACI responsibility tagging on action items — extends `Action` with `raci` field linking to `stakeholderProfiles`, validated against current RACI/change-management tooling practice). Project board status could not be set (GraphQL unavailable in this session — REST-only access).
+- Remaining: awaiting human review on #49, #50, #51, #53, #54, #55
+- Next task: check issues for human feedback; if #49, #50, or #51 approved implement first (7-day auto-approve 2026-07-05); else continue research cycle
 
 ### 2026-06-28 — research: readiness assessment, Kanban board view, milestone markers
 - Done: checked all 19 open issues — all carry `approved` label and are implemented; none have `incomplete`/`changes-requested`/`research-more` labels; #39 still has only `needs-review` (left as-is). Created 3 new research issues: #49 (change readiness assessment per facet — pre/post 1–5 survey + SVG radar chart), #50 (action Kanban board view — Board tab, extends `ActionStatus` with `in-progress`, swim lanes per facet, HTML5 drag-and-drop), #51 (initiative milestone markers on roadmap — `Initiative.milestones[]`, diamond markers in `RoadmapView.tsx`). Project board status could not be set (GraphQL unavailable).
