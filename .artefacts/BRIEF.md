@@ -51,6 +51,9 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#53] UX: cross-initiative "This Week" action digest on Home Screen — collapsible panel, due/overdue actions across all initiatives sorted by date, links to parent initiative
 - [ ] [#54] Feature: print-optimized initiative view — `@media print` CSS, "Print" button calling `window.print()`, hides chrome and forces light theme
 - [ ] [#55] Feature: RACI responsibility tagging on action items — `Action.raci` linking to `stakeholderProfiles`, collapsible RACI section + badge cluster in `ActionTracker.tsx`
+- [ ] [#56] Technical: add Vitest unit test coverage for core utilities (sharing.ts encode/decode, sortInitiatives, isOverdue, boardItemToAction) — no test runner exists in the repo today
+- [ ] [#57] UX: search across initiatives on the Home Screen — text filter by title/goal/stakeholder name, complements existing sort control
+- [ ] [#58] Feature: export action due dates as .ics calendar file — `src/utils/ics.ts`, "Export to Calendar" button next to existing Export button
 
 ## Tech notes
 
@@ -58,6 +61,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-07-03 — research: unit test coverage, cross-initiative search, calendar export
+- Done: checked all 25 open issues — #40 carries both `needs-review` and `approved` but is already implemented (dashboard card, awaiting human close, stale label); #3–#32 all `approved` and implemented, awaiting human close; #39 `needs-review` only but already implemented per prior log (stale label, no action needed); #49/#50/#51 (7-day auto-approve threshold 2026-07-05) and #53/#54/#55 (threshold 2026-07-07) not yet due; no `changes-requested`/`research-more`/`incomplete` labels found. Created 3 new research issues: #56 (Technical: Vitest unit tests for `sharing.ts` encode/decode, `sortInitiatives`, `isOverdue`, `boardItemToAction` — repo has zero automated tests today), #57 (UX: cross-initiative search on Home Screen — text filter by title/goal/stakeholder, complements existing sort control from #21), #58 (Feature: .ics calendar export for action due dates — mirrors existing JSON backup Blob-download pattern from #6). Project board status could not be set (GraphQL unavailable in this session, REST/gh CLI write both blocked — relying on `needs-review` label only, consistent with precedent in other repos).
+- Remaining: awaiting human review on #49, #50, #51, #53, #54, #55, #56, #57, #58
+- Next task: check issues for human feedback; #49/#50/#51 reach 7-day auto-approve threshold 2026-07-05, #53/#54/#55 reach it 2026-07-07; implement first approved item if any; else continue research cycle
 
 ### 2026-06-30 — research: home screen digest, print view, RACI tagging
 - Done: checked #49 (readiness assessment), #50 (Kanban board), #51 (milestone markers) — still `needs-review` only, 7-day auto-approve threshold (2026-07-05) not yet reached; no `changes-requested`/`research-more`/`incomplete` labels on any open issue this run. Created 3 new research issues: #53 (cross-initiative "This Week" action digest on Home Screen — collapsible panel surfacing due/overdue actions across all initiatives), #54 (print-optimized initiative view — `@media print` CSS + Print button, mirrors team-identity's print layout precedent), #55 (RACI responsibility tagging on action items — extends `Action` with `raci` field linking to `stakeholderProfiles`, validated against current RACI/change-management tooling practice). Project board status could not be set (GraphQL unavailable in this session — REST-only access).
