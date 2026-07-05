@@ -34,6 +34,21 @@ export interface StakeholderProfile {
   interest?: number
 }
 
+export interface AssessmentEntry {
+  facet: FacetId
+  /** 1 (low) – 5 (high) readiness score */
+  score: number
+  note?: string
+}
+
+export interface Assessment {
+  id: string
+  takenAt: number
+  /** e.g. "Baseline", "Week 4", user-editable */
+  label: string
+  entries: AssessmentEntry[]
+}
+
 export interface Initiative {
   id: string
   title: string
@@ -44,6 +59,7 @@ export interface Initiative {
   facetNotes: Record<FacetId, string>
   actions: Action[]
   stakeholderProfiles: StakeholderProfile[]
+  assessments?: Assessment[]
   createdAt: number
   updatedAt: number
   completedAt?: number

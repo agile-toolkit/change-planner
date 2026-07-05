@@ -249,6 +249,22 @@
     "no_date": "No date",
     "empty": "No actions with due dates yet. Add due dates in the Action Tracker to see the roadmap."
   },
+  "assess": {
+    "tab": "Assess",
+    "radar_title": "Change readiness radar",
+    "empty": "No assessments yet. Take one to see your readiness radar.",
+    "take": "Take new assessment",
+    "label": "Assessment label",
+    "score_label": "{{facet}} readiness score",
+    "note_placeholder": "Optional note for this facet…",
+    "submit": "Save assessment",
+    "cancel": "Cancel",
+    "history": "Assessment history",
+    "baseline": "Baseline",
+    "current": "Current",
+    "default_label": "Assessment {{n}}",
+    "delete_confirm": "Delete this assessment?"
+  },
   "mind_profiles": {
     "section_title": "Stakeholder Motivator Profiles",
     "open_mm": "Open Moving Motivators →",

@@ -253,6 +253,22 @@
     "no_date": "Sin fecha",
     "empty": "Aún no hay acciones con fecha límite. Añade fechas en el Seguimiento de acciones para ver la hoja de ruta."
   },
+  "assess": {
+    "tab": "Evaluar",
+    "radar_title": "Radar de preparación para el cambio",
+    "empty": "Aún no hay evaluaciones. Realiza una para ver tu radar de preparación.",
+    "take": "Realizar nueva evaluación",
+    "label": "Nombre de la evaluación",
+    "score_label": "Puntuación de preparación: {{facet}}",
+    "note_placeholder": "Nota opcional para esta faceta…",
+    "submit": "Guardar evaluación",
+    "cancel": "Cancelar",
+    "history": "Historial de evaluaciones",
+    "baseline": "Línea base",
+    "current": "Actual",
+    "default_label": "Evaluación {{n}}",
+    "delete_confirm": "¿Eliminar esta evaluación?"
+  },
   "mind_profiles": {
     "section_title": "Perfiles de motivadores de partes interesadas",
     "open_mm": "Abrir Moving Motivators →",

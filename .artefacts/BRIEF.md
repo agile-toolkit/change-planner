@@ -13,6 +13,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] Hardcoded English — trailing ` done` replaced with `t('actions.done_count')` interpolation
 - [x] ES and BE locale translations — full `es.json` and `be.json`; 4-way language picker (EN/ES/BE/RU) in header
 - [x] Light/dark theme — sun/moon ThemeToggle in AppHeader, `[data-theme="dark"]` Tailwind selector, anti-flash script in index.html, full `dark:` coverage across all components
+- [x] Change readiness assessment — 5th "Assess" workspace tab; per-facet 1–5 slider survey with optional notes; SVG radar chart comparing baseline vs latest assessment; history list
 
 ## localStorage keys
 
@@ -45,7 +46,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [x] [#41] Feature: keyboard accessibility for Action Tracker (ARIA, keyboard navigation, focus management) — aria-pressed on priority/facet buttons, aria-expanded on hypothesis toggle, N-key shortcut to open add form, focus management after add
 - [x] [#42] Feature: action filter and search in Action Tracker — collapsible filter bar with facet/priority/status toggle chips and text search; active filter count badge; no new dependencies
 - [x] [#43] Feature: duplicate / clone initiative — one-click clone from home screen card menu; resets action statuses to todo, clears completedAt; navigates to new initiative
-- [ ] [#49] Feature: change readiness assessment per facet (pre/post survey + radar chart) — `Initiative.assessments[]` array; pentagon SVG radar; Assess tab
+- [x] [#49] Feature: change readiness assessment per facet (pre/post survey + radar chart) — `Initiative.assessments[]` array; SVG radar; Assess tab — implemented
 - [ ] [#50] Feature: action Kanban board view — Board tab; 3 columns (Todo/In Progress/Done); extends `ActionStatus` with `'in-progress'`; swim lanes per facet; HTML5 drag-and-drop
 - [ ] [#51] Feature: initiative milestone markers on roadmap timeline — `Initiative.milestones[]`; diamond markers in `RoadmapView.tsx`; reached/unreached toggle; ~60 LOC
 - [ ] [#53] UX: cross-initiative "This Week" action digest on Home Screen — collapsible panel, due/overdue actions across all initiatives sorted by date, links to parent initiative
@@ -54,6 +55,7 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - [ ] [#56] Technical: add Vitest unit test coverage for core utilities (sharing.ts encode/decode, sortInitiatives, isOverdue, boardItemToAction) — no test runner exists in the repo today
 - [ ] [#57] UX: search across initiatives on the Home Screen — text filter by title/goal/stakeholder name, complements existing sort control
 - [ ] [#58] Feature: export action due dates as .ics calendar file — `src/utils/ics.ts`, "Export to Calendar" button next to existing Export button
+- [ ] [#59] Bug: hardcoded English placeholder in FacetCard.tsx notes textarea — 1-line fix, use existing `facets.notes_placeholder` i18n key
 
 ## Tech notes
 
@@ -61,6 +63,11 @@ Interactive change-management planning (Jurgen Appelo “How to Change the World
 - Dashboard reader (`agile-toolkit.github.io/src/readers.ts`) references `completedAt` field — implement issue #12 to align.
 
 ## Agent Log
+
+### 2026-07-05 — feat: change readiness assessment (issue #49)
+- Done: auto-approved #49/#50/#51 (created 2026-06-28, reached 7-day auto-approve threshold today, no `changes-requested`/`research-more` feedback); implemented #49 — added `Assessment`/`AssessmentEntry` types and optional `assessments?: Assessment[]` on `Initiative`; new `AssessmentView.tsx` component rendered as a 5th "Assess" workspace tab in `App.tsx`; per-facet 1–5 range slider + optional note in a "Take new assessment" form (label defaults to `t('assess.default_label', {n})`); pure SVG radar chart (no chart library) with dynamic axis-label anchoring (`start`/`middle`/`end` based on angle) so long facet names don't clip against the viewBox — this was caught and fixed during browser verification (initial 260×260 viewBox truncated "Mind the People"/"Change the Environment"; widened to 440×220 with anchor-aware label placement); baseline (oldest) vs current (latest) overlay only shown once 2+ assessments exist; history list newest-first with per-facet score badges and delete; `assess.*` i18n keys added to all 4 locales (EN/ES/BE/RU); verified end-to-end via Playwright against the dev server in both light/EN and dark/RU (Cyrillic labels also fit cleanly); build passes. Filed #59 (unrelated pre-existing hardcoded English placeholder in `FacetCard.tsx`, noticed incidentally during verification) as a follow-up, not fixed in this PR to keep scope tight.
+- Remaining: #50 (Kanban board view) and #51 (milestone markers) already auto-approved this run, queued next; #53/#54/#55 reach 7-day threshold 2026-07-07; #56/#57/#58 not yet stale (created 2026-07-03); #59 (hardcoded placeholder bug) awaiting review
+- Next task: implement #50 (action Kanban board view — Board tab, 3 columns Todo/In Progress/Done, extends `ActionStatus` with `'in-progress'`, swim lanes per facet, HTML5 drag-and-drop, ~130 LOC `BoardView.tsx`); else #51 (milestone markers) if #50 not approved for some reason
 
 ### 2026-07-03 — research: unit test coverage, cross-initiative search, calendar export
 - Done: checked all 25 open issues — #40 carries both `needs-review` and `approved` but is already implemented (dashboard card, awaiting human close, stale label); #3–#32 all `approved` and implemented, awaiting human close; #39 `needs-review` only but already implemented per prior log (stale label, no action needed); #49/#50/#51 (7-day auto-approve threshold 2026-07-05) and #53/#54/#55 (threshold 2026-07-07) not yet due; no `changes-requested`/`research-more`/`incomplete` labels found. Created 3 new research issues: #56 (Technical: Vitest unit tests for `sharing.ts` encode/decode, `sortInitiatives`, `isOverdue`, `boardItemToAction` — repo has zero automated tests today), #57 (UX: cross-initiative search on Home Screen — text filter by title/goal/stakeholder, complements existing sort control from #21), #58 (Feature: .ics calendar export for action due dates — mirrors existing JSON backup Blob-download pattern from #6). Project board status could not be set (GraphQL unavailable in this session, REST/gh CLI write both blocked — relying on `needs-review` label only, consistent with precedent in other repos).
