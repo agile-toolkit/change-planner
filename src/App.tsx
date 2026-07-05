@@ -15,6 +15,7 @@ import LearnView from './components/LearnView'
 import ExportButton from './components/ExportButton'
 import SharedView from './components/SharedView'
 import RoadmapView from './components/RoadmapView'
+import AssessmentView from './components/AssessmentView'
 import { encodeInitiative, decodeInitiative } from './utils/sharing'
 
 const STORAGE_KEY = 'change-planner-initiatives'
@@ -48,7 +49,7 @@ function save(initiatives: Initiative[]) {
 }
 
 type View = 'canvas' | 'learn'
-type CanvasTab = 'workspace' | 'guided' | 'roadmap'
+type CanvasTab = 'workspace' | 'guided' | 'roadmap' | 'assess'
 
 export default function App() {
   const { t } = useTranslation()
@@ -366,6 +367,13 @@ export default function App() {
                     >
                       {t('roadmap.tab')}
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => setCanvasTab('assess')}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${canvasTab === 'assess' ? 'bg-brand-100 text-brand-700 dark:bg-gray-800 dark:text-brand-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                    >
+                      {t('assess.tab')}
+                    </button>
                     <div className="ml-auto flex items-center gap-2">
                       {current.completedAt ? (
                         <button
@@ -456,6 +464,8 @@ export default function App() {
                       patch({ actions: current.actions.map(a => a.id === action.id ? action : a) })
                     }
                   />
+                ) : canvasTab === 'assess' ? (
+                  <AssessmentView initiative={current} onChange={patch} />
                 ) : (
                   <FacetPlanner
                     initiative={current}
