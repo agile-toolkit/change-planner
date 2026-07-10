@@ -35,7 +35,7 @@ export default function ProgressView({ initiative }: Props) {
       const notes = initiative.facetNotes[facet]?.trim()
       lines.push(`**${t(`facets.${facet}.label`)}:** ${notes || '—'}`)
     }
-    const openActions = initiative.actions.filter(a => a.status === 'todo')
+    const openActions = initiative.actions.filter(a => a.status !== 'done')
     if (openActions.length > 0) {
       lines.push('')
       lines.push(`### ${t('progress.retro_open_actions')}`)

@@ -134,7 +134,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   const doneCount = actions.filter(a => a.status === 'done').length
   const today = new Date().toISOString().slice(0, 10)
   const isOverdue = (action: Action) =>
-    action.status === 'todo' && !!action.dueDate && action.dueDate < today
+    action.status !== 'done' && !!action.dueDate && action.dueDate < today
 
   const toggleChip = <T extends string>(set: Set<T>, val: T): Set<T> => {
     const next = new Set(set)
@@ -429,6 +429,20 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                     <span className={`text-xs px-2 py-0.5 rounded-full ${FACET_COLORS[action.facet]}`}>
                       {t(`facets.${action.facet}.label`)}
                     </span>
+                    {action.status !== 'done' && (
+                      <button
+                        type="button"
+                        onClick={() => onUpdate({ ...action, status: action.status === 'in-progress' ? 'todo' : 'in-progress' })}
+                        aria-pressed={action.status === 'in-progress'}
+                        className={`text-xs px-2 py-0.5 rounded-full font-medium border transition-colors ${
+                          action.status === 'in-progress'
+                            ? 'bg-amber-100 text-amber-700 border-amber-300 dark:bg-amber-900/40 dark:text-amber-300 dark:border-amber-700'
+                            : 'border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800'
+                        }`}
+                      >
+                        {t('actions.status_in_progress')}
+                      </button>
+                    )}
                     {action.owner && <span className="text-xs text-gray-400 dark:text-gray-500">{action.owner}</span>}
                     {action.dueDate && (
                       <span className={`text-xs ${isOverdue(action) ? 'text-red-500 font-medium' : 'text-gray-400'}`}>

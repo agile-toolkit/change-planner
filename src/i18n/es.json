@@ -139,7 +139,8 @@
     "filter_todo": "Por hacer",
     "filter_done": "Hecho",
     "filter_clear": "Borrar filtros",
-    "filter_no_results": "Ninguna acción coincide con los filtros actuales."
+    "filter_no_results": "Ninguna acción coincide con los filtros actuales.",
+    "status_in_progress": "En curso"
   },
   "progress": {
     "title": "Progreso",
@@ -252,6 +253,13 @@
     "week_of": "Semana del {{date}}",
     "no_date": "Sin fecha",
     "empty": "Aún no hay acciones con fecha límite. Añade fechas en el Seguimiento de acciones para ver la hoja de ruta."
+  },
+  "board": {
+    "tab": "Tablero",
+    "col_todo": "Por hacer",
+    "col_in_progress": "En curso",
+    "col_done": "Hecho",
+    "empty": "Aún no hay acciones aquí."
   },
   "assess": {
     "tab": "Evaluar",
