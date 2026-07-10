@@ -16,6 +16,7 @@ import ExportButton from './components/ExportButton'
 import SharedView from './components/SharedView'
 import RoadmapView from './components/RoadmapView'
 import AssessmentView from './components/AssessmentView'
+import BoardView from './components/BoardView'
 import { encodeInitiative, decodeInitiative } from './utils/sharing'
 
 const STORAGE_KEY = 'change-planner-initiatives'
@@ -49,7 +50,7 @@ function save(initiatives: Initiative[]) {
 }
 
 type View = 'canvas' | 'learn'
-type CanvasTab = 'workspace' | 'guided' | 'roadmap' | 'assess'
+type CanvasTab = 'workspace' | 'guided' | 'roadmap' | 'board' | 'assess'
 
 export default function App() {
   const { t } = useTranslation()
@@ -369,6 +370,13 @@ export default function App() {
                     </button>
                     <button
                       type="button"
+                      onClick={() => setCanvasTab('board')}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${canvasTab === 'board' ? 'bg-brand-100 text-brand-700 dark:bg-gray-800 dark:text-brand-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                    >
+                      {t('board.tab')}
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => setCanvasTab('assess')}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${canvasTab === 'assess' ? 'bg-brand-100 text-brand-700 dark:bg-gray-800 dark:text-brand-400' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                     >
@@ -459,6 +467,13 @@ export default function App() {
                   </div>
                 ) : canvasTab === 'roadmap' ? (
                   <RoadmapView
+                    initiative={current}
+                    onUpdate={(action) =>
+                      patch({ actions: current.actions.map(a => a.id === action.id ? action : a) })
+                    }
+                  />
+                ) : canvasTab === 'board' ? (
+                  <BoardView
                     initiative={current}
                     onUpdate={(action) =>
                       patch({ actions: current.actions.map(a => a.id === action.id ? action : a) })

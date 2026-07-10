@@ -79,8 +79,8 @@ function sortInitiatives(list: Initiative[], key: SortKey): Initiative[] {
   if (key === 'latest') return copy.sort((a, b) => b.updatedAt - a.updatedAt)
   if (key === 'actions') {
     return copy.sort((a, b) => {
-      const aOpen = a.actions.filter(x => x.status === 'todo').length
-      const bOpen = b.actions.filter(x => x.status === 'todo').length
+      const aOpen = a.actions.filter(x => x.status !== 'done').length
+      const bOpen = b.actions.filter(x => x.status !== 'done').length
       return bOpen - aOpen
     })
   }
@@ -485,7 +485,7 @@ interface StatsProps {
 
 function InitiativeStats({ initiative: init, t, isArchived }: StatsProps) {
   const today = new Date().toISOString().slice(0, 10)
-  const openActions = init.actions.filter(a => a.status === 'todo')
+  const openActions = init.actions.filter(a => a.status !== 'done')
   const overdueCount = openActions.filter(a => a.dueDate && a.dueDate < today).length
   const facetCoverage = FACET_IDS.map(f => ({
     id: f,

@@ -135,7 +135,8 @@
     "filter_todo": "To do",
     "filter_done": "Done",
     "filter_clear": "Clear filters",
-    "filter_no_results": "No actions match the current filters."
+    "filter_no_results": "No actions match the current filters.",
+    "status_in_progress": "In Progress"
   },
   "progress": {
     "title": "Progress",
@@ -248,6 +249,13 @@
     "week_of": "Week of {{date}}",
     "no_date": "No date",
     "empty": "No actions with due dates yet. Add due dates in the Action Tracker to see the roadmap."
+  },
+  "board": {
+    "tab": "Board",
+    "col_todo": "To Do",
+    "col_in_progress": "In Progress",
+    "col_done": "Done",
+    "empty": "No actions here yet."
   },
   "assess": {
     "tab": "Assess",
