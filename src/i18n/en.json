@@ -1,6 +1,10 @@
 {
-  "app": { "title": "Change Planner" },
-  "common": { "next": "Next" },
+  "app": {
+    "title": "Change Planner"
+  },
+  "common": {
+    "next": "Next"
+  },
   "nav": {
     "workspace": "Workspace",
     "guided": "Guided facets"
@@ -248,7 +252,12 @@
     "tab": "Roadmap",
     "week_of": "Week of {{date}}",
     "no_date": "No date",
-    "empty": "No actions with due dates yet. Add due dates in the Action Tracker to see the roadmap."
+    "empty": "No actions with due dates yet. Add due dates in the Action Tracker to see the roadmap.",
+    "milestone": "Milestone",
+    "add_milestone": "Add Milestone",
+    "milestone_reached": "Reached",
+    "milestone_not_reached": "Not Reached",
+    "no_milestones": "No milestones yet"
   },
   "board": {
     "tab": "Board",

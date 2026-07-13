@@ -252,7 +252,12 @@
     "tab": "Hoja de ruta",
     "week_of": "Semana del {{date}}",
     "no_date": "Sin fecha",
-    "empty": "Aún no hay acciones con fecha límite. Añade fechas en el Seguimiento de acciones para ver la hoja de ruta."
+    "empty": "Aún no hay acciones con fecha límite. Añade fechas en el Seguimiento de acciones para ver la hoja de ruta.",
+    "milestone": "Hito",
+    "add_milestone": "Añadir hito",
+    "milestone_reached": "Alcanzado",
+    "milestone_not_reached": "No alcanzado",
+    "no_milestones": "Aún no hay hitos"
   },
   "board": {
     "tab": "Tablero",
