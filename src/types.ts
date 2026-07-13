@@ -49,6 +49,14 @@ export interface Assessment {
   entries: AssessmentEntry[]
 }
 
+export interface Milestone {
+  id: string
+  title: string
+  /** ISO date (YYYY-MM-DD), same format as Action.dueDate */
+  date: string
+  reached: boolean
+}
+
 export interface Initiative {
   id: string
   title: string
@@ -60,6 +68,7 @@ export interface Initiative {
   actions: Action[]
   stakeholderProfiles: StakeholderProfile[]
   assessments?: Assessment[]
+  milestones?: Milestone[]
   createdAt: number
   updatedAt: number
   completedAt?: number

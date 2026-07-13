@@ -471,6 +471,7 @@ export default function App() {
                     onUpdate={(action) =>
                       patch({ actions: current.actions.map(a => a.id === action.id ? action : a) })
                     }
+                    onUpdateMilestones={(milestones) => patch({ milestones })}
                   />
                 ) : canvasTab === 'board' ? (
                   <BoardView
