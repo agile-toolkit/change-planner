@@ -4,7 +4,7 @@ An interactive change management planning tool based on Jurgen Appelo's "How to 
 
 Part of the [Agile Tools](https://github.com/bthos) suite built on Management 3.0 and ICAgile source materials.
 
-See `.artefacts/GOAL.md` for why this exists and `.artefacts/ROADMAP.md` for what's shipped and what's next.
+See `GOAL.md` for why this exists and `ROADMAP.md` for what's shipped and what's next.
 
 ## Stack
 React 18 · TypeScript · Vite · Tailwind CSS · react-i18next (EN/ES/BE/RU)
@@ -17,7 +17,7 @@ npm run build    # tsc typecheck + production build
 npm run preview  # preview the production build locally
 ```
 
-No test runner is configured yet (tracked in `.artefacts/ROADMAP.md`, epic E4).
+No test runner is configured yet (tracked in `ROADMAP.md`, epic E4).
 
 ## Deploy
 GitHub Pages via GitHub Actions on push to `main`.
