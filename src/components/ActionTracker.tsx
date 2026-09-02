@@ -381,7 +381,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
             <button onClick={handleAdd} disabled={!text.trim()} className="btn-primary text-sm">
               Add
             </button>
-            <button onClick={() => { setShowForm(false); setShowHypothesisForm(false) }} className="btn-ghost">Cancel</button>
+            <button onClick={() => { setShowForm(false); setShowHypothesisForm(false) }} className="btn-ghost">{t('common.cancel')}</button>
           </div>
         </div>
       )}
@@ -466,7 +466,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                     )}
                   </div>
                 </div>
-                <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-200 hover:text-red-400 transition-colors text-xs flex-shrink-0">
+                <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-400 dark:text-gray-500 hover:text-red-400 transition-colors text-xs flex-shrink-0">
                   ✕
                 </button>
               </div>

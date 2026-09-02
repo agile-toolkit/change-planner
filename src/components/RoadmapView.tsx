@@ -147,8 +147,8 @@ export default function RoadmapView({ initiative, onUpdate, onUpdateMilestones }
               autoFocus
             />
             <input type="date" value={newDate} onChange={e => setNewDate(e.target.value)} className="input text-sm w-auto" />
-            <button type="button" onClick={addMilestone} disabled={!newTitle.trim() || !newDate} className="btn-primary text-sm">Save</button>
-            <button type="button" onClick={() => setShowForm(false)} className="btn-secondary text-sm">Cancel</button>
+            <button type="button" onClick={addMilestone} disabled={!newTitle.trim() || !newDate} className="btn-primary text-sm">{t('common.save')}</button>
+            <button type="button" onClick={() => setShowForm(false)} className="btn-secondary text-sm">{t('common.cancel')}</button>
           </div>
         )}
         <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-8 text-center text-gray-400 dark:text-gray-500 text-sm">
@@ -179,8 +179,8 @@ export default function RoadmapView({ initiative, onUpdate, onUpdateMilestones }
             autoFocus
           />
           <input type="date" value={newDate} onChange={e => setNewDate(e.target.value)} className="input text-sm w-auto" />
-          <button type="button" onClick={addMilestone} disabled={!newTitle.trim() || !newDate} className="btn-primary text-sm">Save</button>
-          <button type="button" onClick={() => setShowForm(false)} className="btn-secondary text-sm">Cancel</button>
+          <button type="button" onClick={addMilestone} disabled={!newTitle.trim() || !newDate} className="btn-primary text-sm">{t('common.save')}</button>
+          <button type="button" onClick={() => setShowForm(false)} className="btn-secondary text-sm">{t('common.cancel')}</button>
         </div>
       )}
 

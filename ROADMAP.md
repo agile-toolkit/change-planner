@@ -11,6 +11,8 @@ None — idle. See `## Next epics` below.
 3. **E3: RACI responsibility tagging** — serves #2. Adds a `raci` field to actions, linking to stakeholder profiles, so action ownership tracking gets more precise. [#55](https://github.com/agile-toolkit/change-planner/issues/55).
 
 ## Recently shipped
+**i18n hardcoded Save/Cancel; fix low-contrast delete icon** (2026-09-02) — see `## Shipped`. A suite-wide UX audit found `RoadmapView.tsx`/`ActionTracker.tsx` had hardcoded-English Save/Cancel buttons and a near-invisible delete icon. Fixed both.
+
 **E4: Automated test coverage; Management 3.0 removal; invisible brand colors** (2026-09-02) — see `## Shipped`. [#56](https://github.com/agile-toolkit/change-planner/issues/56) shipped: `vitest` + `jsdom` with coverage for `sharing.ts` encode/decode, `sortInitiatives`, `isOverdue`, `boardItemToAction`, `digestActions`, `loadBoardItems`, `newInitiative`/`loadInitiatives`/`save`, and `TEMPLATES` invariants (31 tests). Writing the sharing round-trip test caught a real bug: `decodeInitiative`'s base64 re-padding formula only produced correct padding when the encoded length was ≡3 mod 4, silently corrupting shared-initiative URLs for most content lengths — fixed.
 
 **E1 (partial): cross-initiative "This Week" digest** (2026-09-02) — see `## Shipped`. [#53](https://github.com/agile-toolkit/change-planner/issues/53) shipped; #57 (search) remains queued above as the rest of E1.
@@ -41,3 +43,9 @@ Closed 21 stale issues (#3–#8, #12–#17, #19–#21, #31, #32, #39, #40, #50, 
 - ~~Completed the `brand` Tailwind color scale (200/300/800/900 were missing but referenced across `ActionTracker.tsx`/`BoardView.tsx`/`HomeScreen.tsx`)~~
 - ~~Extracted pure logic into `src/storage.ts`, `src/components/homeScreenLogic.ts`, and `src/utils/actions.ts`; added `vitest` + `jsdom` and 31 tests~~
 - ~~Fixed a real bug in `decodeInitiative`'s base64 padding, found while writing its test~~
+
+**v0.2.2 — i18n hardcoded Save/Cancel; fix low-contrast delete icon** (2026-09-02):
+- ~~Added `common.save`/`common.cancel` i18n keys; wired into
+  `RoadmapView.tsx`'s two Save/Cancel pairs and `ActionTracker.tsx`'s
+  Cancel button~~
+- ~~Fixed `ActionTracker.tsx`'s action-delete button contrast~~

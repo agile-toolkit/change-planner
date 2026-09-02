@@ -3,7 +3,9 @@
     "title": "Planificador de Cambios"
   },
   "common": {
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "save": "Guardar",
+    "cancel": "Cancelar"
   },
   "nav": {
     "workspace": "Espacio de trabajo",

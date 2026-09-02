@@ -3,7 +3,9 @@
     "title": "Change Planner"
   },
   "common": {
-    "next": "Next"
+    "next": "Next",
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "nav": {
     "workspace": "Workspace",

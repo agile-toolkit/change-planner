@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## 0.2.2 — i18n hardcoded Save/Cancel; fix low-contrast delete icon (2026-09-02)
+
+- **fix**: `RoadmapView.tsx`'s two Save/Cancel button pairs and
+  `ActionTracker.tsx`'s Cancel button hardcoded English text despite the
+  app supporting ES/BE/RU everywhere else. Added `common.save`/
+  `common.cancel` i18n keys and wired them in.
+- **fix**: `ActionTracker.tsx`'s action-delete button used
+  `text-gray-200` with no dark-mode variant, below WCAG AA contrast.
+  Bumped to `gray-400`/`gray-500`.
+- Found via a suite-wide UX/scope audit.
+
 ## 0.2.1 — E4: automated tests; remove Management 3.0 ref; fix invisible brand colors (2026-09-02)
 
 - **content**: removed "Management 3.0" branding from `README.md`'s suite
