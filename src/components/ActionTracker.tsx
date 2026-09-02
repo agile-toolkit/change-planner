@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Action, ActionHypothesis, ActionPriority, ActionStatus, FacetId, HypothesisOutcome } from '../types'
+import { isOverdue as isActionOverdue } from '../utils/actions'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -133,8 +134,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
 
   const doneCount = actions.filter(a => a.status === 'done').length
   const today = new Date().toISOString().slice(0, 10)
-  const isOverdue = (action: Action) =>
-    action.status !== 'done' && !!action.dueDate && action.dueDate < today
+  const isOverdue = (action: Action) => isActionOverdue(action, today)
 
   const toggleChip = <T extends string>(set: Set<T>, val: T): Set<T> => {
     const next = new Set(set)

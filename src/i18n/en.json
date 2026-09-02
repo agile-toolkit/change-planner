@@ -11,7 +11,7 @@
   },
   "home": {
     "headline": "How to Change the World",
-    "subheadline": "Plan change initiatives using Jurgen Appelo's 4-facet framework from Management 3.0.",
+    "subheadline": "Plan change initiatives using Jurgen Appelo's 4-facet framework.",
     "cta": "New Initiative",
     "saved_title": "Your initiatives",
     "open": "Open",
@@ -161,7 +161,7 @@
   },
   "learn": {
     "title": "About the Framework",
-    "intro": "\"How to Change the World\" is a practical guide by Jurgen Appelo (Management 3.0) that synthesizes complexity science, psychology, and systems thinking into a practical approach for change agents.",
+    "intro": "\"How to Change the World\" is a practical guide by Jurgen Appelo that synthesizes complexity science, psychology, and systems thinking into a practical approach for change agents.",
     "why_title": "Why 4 Facets?",
     "why_body": "Most change efforts fail because they focus on just one thing — usually the system or just the people. Real change is complex and requires working simultaneously across all four dimensions. The facets reinforce each other: environmental changes make new behaviors easier, network effects spread adoption, motivated people sustain the effort, and system adjustments remove structural barriers.",
     "tips_title": "Practical Tips",

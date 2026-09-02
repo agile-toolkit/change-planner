@@ -18,36 +18,7 @@ import RoadmapView from './components/RoadmapView'
 import AssessmentView from './components/AssessmentView'
 import BoardView from './components/BoardView'
 import { encodeInitiative, decodeInitiative } from './utils/sharing'
-
-const STORAGE_KEY = 'change-planner-initiatives'
-const BACKUP_VERSION = 1
-
-function newInitiative(): Initiative {
-  return {
-    id: crypto.randomUUID(),
-    title: '',
-    goal: '',
-    context: '',
-    stakeholders: '',
-    relatedSprints: '',
-    facetNotes: { dance: '', mind: '', stimulate: '', change: '' },
-    actions: [],
-    stakeholderProfiles: [],
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-  }
-}
-
-function loadInitiatives(): Initiative[] {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
-  } catch {
-    return []
-  }
-}
-function save(initiatives: Initiative[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(initiatives))
-}
+import { BACKUP_VERSION, newInitiative, loadInitiatives, save } from './storage'
 
 type View = 'canvas' | 'learn'
 type CanvasTab = 'workspace' | 'guided' | 'roadmap' | 'board' | 'assess'
