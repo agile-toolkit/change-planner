@@ -26,7 +26,10 @@
     "sort_actions": "Больше открытых",
     "sort_alpha": "А–Я",
     "duplicate": "Дублировать",
-    "duplicate_prefix": "Копия"
+    "duplicate_prefix": "Копия",
+    "digest_title": "На этой неделе ({{count}})",
+    "digest_overdue": "Просрочено",
+    "digest_due_soon": "Скоро"
   },
   "canvas": {
     "section_heading": "Сведения об инициативе",

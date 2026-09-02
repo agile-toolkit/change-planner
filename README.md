@@ -39,6 +39,7 @@ Change Planner also *reads* (never writes) a few keys owned by sibling apps for 
 - **Sharing:** `src/utils/sharing.ts` encodes an initiative to a base64url URL hash (`#share=...`) with no server round-trip; `SharedView.tsx` renders it read-only and offers a one-click import into the viewer's own localStorage.
 - **Cross-app integrations:** one-way localStorage reads from Improvement Board (`improvement-board-items`) and Team Identity (`team-identity-charter`); a "Copy to Retro context" button in `ProgressView.tsx` builds a Markdown block for pasting into Scrum Facilitator; the suite dashboard (`agile-toolkit.github.io`) reads `change-planner-initiatives` directly for its dashboard card.
 - **PNG/export:** `html2canvas` is dynamically imported (not in the initial bundle) so the export path only costs bytes when used.
+- **"This Week" digest:** `HomeScreen.tsx`'s `digestActions()` is a pure derived view over `Initiative[]` — no new localStorage key. It flattens non-done actions with a `dueDate` due within 7 days (or overdue) across all non-archived initiatives, sorted ascending by date, and hides the panel entirely when empty. Deviates slightly from actions with `status === 'todo'` only: `in-progress` actions are included too, matching the existing `isOverdue` convention in `ActionTracker.tsx` (`status !== 'done'`) rather than excluding actions someone has already started.
 
 ## Source materials
 See `.artefacts/BRIEF.md` for the full feature checklist and run-by-run agent narrative log.

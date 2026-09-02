@@ -26,7 +26,10 @@
     "sort_actions": "Most open",
     "sort_alpha": "A–Z",
     "duplicate": "Duplicate",
-    "duplicate_prefix": "Copy of"
+    "duplicate_prefix": "Copy of",
+    "digest_title": "This Week ({{count}})",
+    "digest_overdue": "Overdue",
+    "digest_due_soon": "Due soon"
   },
   "canvas": {
     "section_heading": "Initiative details",

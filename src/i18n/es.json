@@ -26,7 +26,10 @@
     "sort_actions": "Más abiertas",
     "sort_alpha": "A–Z",
     "duplicate": "Duplicar",
-    "duplicate_prefix": "Copia de"
+    "duplicate_prefix": "Copia de",
+    "digest_title": "Esta semana ({{count}})",
+    "digest_overdue": "Atrasada",
+    "digest_due_soon": "Próxima"
   },
   "canvas": {
     "section_heading": "Detalles de la iniciativa",

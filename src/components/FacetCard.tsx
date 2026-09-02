@@ -53,7 +53,7 @@ export default function FacetCard({ facetId, notes, actionCount, onNotesChange, 
       <textarea
         className="w-full px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-gray-300 dark:focus:ring-gray-600"
         rows={3}
-        placeholder="Add your notes, insights, and plans for this facet..."
+        placeholder={t('facets.notes_placeholder')}
         value={notes}
         onChange={e => onNotesChange(e.target.value)}
       />

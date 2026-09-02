@@ -74,6 +74,28 @@ function relativeTime(ts: number): string {
   return months === 1 ? '1 month ago' : `${months} months ago`
 }
 
+interface DigestRow {
+  action: Action
+  initiativeId: string
+  initiativeTitle: string
+  overdue: boolean
+}
+
+/** Flattens open actions due this week (or overdue) across all non-archived initiatives, sorted by due date. */
+function digestActions(initiatives: Initiative[]): DigestRow[] {
+  const today = new Date().toISOString().slice(0, 10)
+  const weekOut = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10)
+  const rows: DigestRow[] = []
+  for (const init of initiatives) {
+    if (init.completedAt) continue
+    for (const action of init.actions) {
+      if (action.status === 'done' || !action.dueDate || action.dueDate > weekOut) continue
+      rows.push({ action, initiativeId: init.id, initiativeTitle: init.title, overdue: action.dueDate < today })
+    }
+  }
+  return rows.sort((a, b) => a.action.dueDate.localeCompare(b.action.dueDate))
+}
+
 function sortInitiatives(list: Initiative[], key: SortKey): Initiative[] {
   const copy = [...list]
   if (key === 'latest') return copy.sort((a, b) => b.updatedAt - a.updatedAt)
@@ -121,6 +143,7 @@ export default function HomeScreen({
   const [showImportBoard, setShowImportBoard] = useState(false)
   const [boardItems, setBoardItems] = useState<ImprovementItem[]>([])
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+  const [showDigest, setShowDigest] = useState(true)
 
   const openImportBoard = () => {
     const items = loadBoardItems().filter(i => i.status !== 'done')
@@ -148,6 +171,7 @@ export default function HomeScreen({
 
   const active = sortInitiatives(initiatives.filter(i => !i.completedAt), sortBy)
   const archived = initiatives.filter(i => !!i.completedAt)
+  const digest = digestActions(initiatives)
 
   return (
     <div className="space-y-8">
@@ -208,6 +232,52 @@ export default function HomeScreen({
           <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{t('home.framework_body')}</p>
         </div>
       </div>
+
+      {digest.length > 0 && (
+        <div className="card">
+          <button
+            type="button"
+            onClick={() => setShowDigest(v => !v)}
+            className="w-full flex items-center justify-between"
+          >
+            <h2 className="text-base font-semibold text-slate-800 dark:text-gray-200">
+              {t('home.digest_title', { count: digest.length })}
+            </h2>
+            <span className="text-slate-400 dark:text-gray-500 text-sm" aria-hidden>
+              {showDigest ? '▾' : '▸'}
+            </span>
+          </button>
+          {showDigest && (
+            <ul className="mt-3 space-y-1.5">
+              {digest.map(row => (
+                <li key={row.action.id}>
+                  <button
+                    type="button"
+                    onClick={() => onLoad(row.initiativeId)}
+                    className="w-full flex items-center gap-2.5 text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${FACET_DOT_COLOR[row.action.facet]}`} aria-hidden />
+                    <span className="flex-1 min-w-0 truncate text-sm text-slate-700 dark:text-gray-300">
+                      {row.action.text}
+                    </span>
+                    {row.action.owner && (
+                      <span className="text-xs text-slate-400 dark:text-gray-500 shrink-0 hidden sm:inline">
+                        {row.action.owner}
+                      </span>
+                    )}
+                    <span className="text-xs text-slate-400 dark:text-gray-500 shrink-0 truncate max-w-[10rem]">
+                      {row.initiativeTitle}
+                    </span>
+                    <span className={`text-xs font-medium shrink-0 ${row.overdue ? 'text-red-500' : 'text-amber-600 dark:text-amber-400'}`}>
+                      {row.overdue ? t('home.digest_overdue') : t('home.digest_due_soon')}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
 
       {initiatives.length > 0 && (
         <div className="space-y-4">
