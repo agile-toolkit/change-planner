@@ -133,3 +133,115 @@ describe('Moving Motivators last session (localStorage)', () => {
     expect(mmLastSessionTopMotivators(read!)).toEqual(['Curiosity', 'Mastery', 'Freedom'])
   })
 })
+
+// ── Boundary hardening ───────────────────────────────────────────────────────
+//
+// Every payload below is written by a different repo on a shared origin.
+// TECH-NOTES.md records eight shipped bugs from trusting them, one of them in
+// this very file. These cases assert the boundary degrades to "nothing to
+// import" rather than throwing or inventing data.
+
+describe('readMmLastSession rejects payloads it cannot use', () => {
+  beforeEach(() => localStorage.clear())
+
+  const write = (v: unknown) =>
+    localStorage.setItem('moving-motivators:lastSession', JSON.stringify(v))
+
+  it('rejects a session with no ranked array', () => {
+    // The shape Moving Motivators wrote before `ranked` existed.
+    write({ date: '2026-01-01', change: 'reorg' })
+    expect(readMmLastSession()).toBeNull()
+  })
+
+  it('rejects a ranked value that is not an array', () => {
+    write({ ranked: 'curiosity', date: '2026-01-01' })
+    expect(readMmLastSession()).toBeNull()
+  })
+
+  it('rejects an empty ranking', () => {
+    write({ ranked: [], date: '2026-01-01' })
+    expect(readMmLastSession()).toBeNull()
+  })
+
+  it('rejects a ranked array holding non-strings', () => {
+    write({ ranked: [{ id: 'curiosity' }], date: '2026-01-01' })
+    expect(readMmLastSession()).toBeNull()
+  })
+
+  it('rejects a bare array', () => {
+    write(['curiosity', 'mastery'])
+    expect(readMmLastSession()).toBeNull()
+  })
+
+  it('rejects unparseable JSON', () => {
+    localStorage.setItem('moving-motivators:lastSession', 'not json')
+    expect(readMmLastSession()).toBeNull()
+  })
+
+  it('fills in the optional fields so downstream code never sees undefined', () => {
+    write({ ranked: ['curiosity', 'mastery', 'freedom', 'power'] })
+    const session = readMmLastSession()!
+    expect(session.date).toBe('')
+    expect(session.change).toBe('')
+    expect(session.changes).toEqual({})
+    // The dereference that used to throw when `ranked` was missing.
+    expect(mmLastSessionTopMotivators(session)).toEqual(['Curiosity', 'Mastery', 'Freedom'])
+  })
+
+  it('accepts a full, real session', () => {
+    write({
+      date: '2026-09-03',
+      ranked: ['curiosity', 'mastery', 'freedom'],
+      change: 'Moving to a new squad',
+      // Moving Motivators' real ImpactLevel union, not the 'increase'/'decrease'
+      // this file once checked for and never matched.
+      changes: { curiosity: 'positive', mastery: 'negative', freedom: 'neutral' },
+    })
+    const session = readMmLastSession()!
+    expect(session.changes.curiosity).toBe('positive')
+    expect(mmLastSessionTopMotivators(session)).toEqual(['Curiosity', 'Mastery', 'Freedom'])
+  })
+})
+
+describe('readPendingSalaryChange rejects payloads it cannot use', () => {
+  beforeEach(() => localStorage.clear())
+
+  const write = (v: unknown) =>
+    localStorage.setItem('salary-formula:pendingChangeRecord', JSON.stringify(v))
+
+  it('rejects a record with no title', () => {
+    write({ createdAt: '2026-09-03T00:00:00Z' })
+    expect(readPendingSalaryChange()).toBeNull()
+  })
+
+  it('rejects a record with no createdAt, which is sliced downstream', () => {
+    write({ title: 'Raise band B' })
+    expect(readPendingSalaryChange()).toBeNull()
+  })
+
+  it('rejects a bare array', () => {
+    write([{ title: 'Raise band B', createdAt: '2026-09-03' }])
+    expect(readPendingSalaryChange()).toBeNull()
+  })
+
+  it('defaults the optional fields so the initiative builder cannot throw', () => {
+    write({ title: 'Raise band B', createdAt: '2026-09-03T10:00:00Z' })
+    const record = readPendingSalaryChange()!
+    expect(record.factorDeltas).toEqual({})
+    expect(record.currency).toBe('')
+    const initiative = pendingSalaryChangeToInitiative(record)
+    expect(initiative.title).toBe('Raise band B')
+    expect(initiative.context).toContain('2026-09-03')
+  })
+})
+
+describe('parsePrefillParams caps what a link can inject', () => {
+  it('truncates an oversized title and description', () => {
+    // localStorage is a ~5 MB budget shared by all eleven apps on this origin,
+    // and anyone can hand a user a link.
+    const search = `?prefill=${'a'.repeat(5000)}&description=${'b'.repeat(50000)}`
+    const result = parsePrefillParams(search)!
+    expect(result.title.length).toBe(200)
+    expect(result.context.length).toBe(5000)
+  })
+})

@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+## 0.3.0 — Validate cross-app payloads, error boundary (2026-09-03)
+
+- **fix**: `readMmLastSession` and `readPendingSalaryChange` cast another repo's
+  payload without checking it. `mmLastSessionTopMotivators` then called
+  `session.ranked.slice(0, 3)` — a session written before `ranked` existed threw
+  inside a click handler, where an ErrorBoundary cannot help, and the button
+  simply died. Both readers now validate the fields anything downstream
+  dereferences and return `null` or a fully-defaulted object.
+- **fix**: `?prefill=` and `&description=` were written to state unbounded.
+  Anyone can hand a user a link, and localStorage is a ~5 MB budget shared by
+  all eleven apps on this origin; both are now capped.
+- **feat**: `ErrorBoundary` at the root, with a scoped "clear this app's saved
+  data" recovery path.
+- **ci**: `npm test` now runs before `npm run build` in `deploy.yml`.
+
 ## 0.2.8 — Replace decorative ✕/✓ emoji with SVG icons (2026-09-03)
 
 - **feat**: replaced 11 decorative `✕`/`✓` text glyphs (action/milestone/
