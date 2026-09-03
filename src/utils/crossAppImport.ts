@@ -35,7 +35,7 @@ export function parseMmSnapshotParam(search: string): ImportedInitiativeData | n
   try {
     const snapshot = JSON.parse(decodeURIComponent(atob(raw))) as MmSnapshot
     const impacted = snapshot.ranked
-      .filter(id => snapshot.changes[id] === 'increase' || snapshot.changes[id] === 'decrease')
+      .filter(id => snapshot.changes[id] === 'positive' || snapshot.changes[id] === 'negative')
       .map(id => `${capitalize(id)} (${snapshot.changes[id]})`)
     const top3 = snapshot.ranked.slice(0, 3).map(capitalize).join(', ')
     const mindNote = [

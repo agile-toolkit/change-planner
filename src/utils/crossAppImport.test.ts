@@ -24,9 +24,10 @@ describe('parseMmSnapshotParam', () => {
   })
 
   it('decodes a Moving Motivators snapshot into initiative data', () => {
+    // Real ImpactLevel values (moving-motivators/src/types.ts): 'positive' | 'negative' | 'neutral'.
     const snapshot = {
       ranked: ['curiosity', 'mastery', 'freedom', 'honor'],
-      changes: { curiosity: 'increase', mastery: 'neutral', freedom: 'decrease', honor: 'neutral' },
+      changes: { curiosity: 'positive', mastery: 'neutral', freedom: 'negative', honor: 'neutral' },
       change: 'Move to a new open-plan office',
       date: '2026-09-01',
     }
@@ -35,8 +36,8 @@ describe('parseMmSnapshotParam', () => {
     expect(result!.title).toBe('Move to a new open-plan office')
     expect(result!.context).toBe('Move to a new open-plan office')
     expect(result!.facetNotes.mind).toContain('Curiosity, Mastery, Freedom')
-    expect(result!.facetNotes.mind).toContain('Curiosity (increase)')
-    expect(result!.facetNotes.mind).toContain('Freedom (decrease)')
+    expect(result!.facetNotes.mind).toContain('Curiosity (positive)')
+    expect(result!.facetNotes.mind).toContain('Freedom (negative)')
     expect(result!.facetNotes.dance).toBe('')
   })
 
@@ -124,7 +125,7 @@ describe('Moving Motivators last session (localStorage)', () => {
       date: '2026-09-01',
       ranked: ['curiosity', 'mastery', 'freedom', 'honor'],
       change: 'Move to a new open-plan office',
-      changes: { curiosity: 'increase', mastery: 'neutral', freedom: 'decrease', honor: 'neutral' },
+      changes: { curiosity: 'positive', mastery: 'neutral', freedom: 'negative', honor: 'neutral' },
     }
     localStorage.setItem('moving-motivators:lastSession', JSON.stringify(session))
     const read = readMmLastSession()

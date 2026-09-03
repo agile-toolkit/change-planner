@@ -11,7 +11,7 @@ None — idle. See `## Next epics` below.
 3. **E3: RACI responsibility tagging** — serves #2. Adds a `raci` field to actions, linking to stakeholder profiles, so action ownership tracking gets more precise. [#55](https://github.com/agile-toolkit/change-planner/issues/55).
 
 ## Recently shipped
-**Wire up cross-app data intake** (2026-09-03) — see `## Shipped`. A suite-wide audit found Moving Motivators, Improvement Board, and Salary Formula all sent real data to Change Planner (URL params or a shared localStorage key) that nothing here ever read. Now consumed: `?mm_snapshot=`, `?prefill=`/`description=`, and `salary-formula:pendingChangeRecord` (via a dismissible Home-screen banner); Stakeholder Motivator Profiles can also pull top motivators back from Moving Motivators' last session.
+**Wire up cross-app data intake** (2026-09-03, fixed same day) — see `## Shipped`. A suite-wide audit found Moving Motivators, Improvement Board, and Salary Formula all sent real data to Change Planner (URL params or a shared localStorage key) that nothing here ever read. Now consumed: `?mm_snapshot=`, `?prefill=`/`description=`, and `salary-formula:pendingChangeRecord` (via a dismissible Home-screen banner); Stakeholder Motivator Profiles can also pull top motivators back from Moving Motivators' last session. The initial `?mm_snapshot=` parse used the wrong `ImpactLevel` literals (`increase`/`decrease` instead of the real `positive`/`negative`) — the affected-motivators note was silently always empty; fixed in 0.2.5.
 
 **Normalize LanguagePicker dark shades** (2026-09-02) — see `## Shipped`. `LanguagePicker.tsx` had dark-mode classes on slightly different shades than the design-system's canonical copy. Normalized to match exactly.
 

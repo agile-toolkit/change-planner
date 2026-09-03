@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## 0.2.5 — Fix wrong impact literals in the Moving Motivators import (2026-09-03)
+
+- **fix (own bug)**: 0.2.4's `parseMmSnapshotParam` checked
+  `snapshot.changes[id] === 'increase' || 'decrease'` to build the
+  "this change affects" note. Moving Motivators' real `ImpactLevel`
+  values are `'positive' | 'negative' | 'neutral'` — the check never
+  matched real data, so the affected-motivators line was always empty
+  even when the underlying data had real positive/negative impacts.
+  Caught while fixing an unrelated bug in Moving Motivators itself
+  (the same wrong assumption almost made it into a second repo). Fixed
+  the check and the tests that had copied the same wrong values,
+  which is why this passed review the first time.
+
 ## 0.2.4 — Wire up cross-app data intake: Moving Motivators, Improvement Board, Salary Formula (2026-09-03)
 
 - **fix (broken integration)**: three "Open in Change Planner" style
