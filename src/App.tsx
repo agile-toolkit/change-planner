@@ -36,7 +36,7 @@ type CanvasTab = 'workspace' | 'guided' | 'roadmap' | 'board' | 'assess'
 
 export default function App() {
   const { t } = useTranslation()
-  const [facilitatorMode, toggleFacilitatorMode] = useFacilitatorMode('change-planner:facilitatorMode')
+  const [facilitatorMode, toggleFacilitatorMode] = useFacilitatorMode('agile-toolkit:facilitatorMode')
   const [view, setView] = useState<View>('canvas')
   const [canvasTab, setCanvasTab] = useState<CanvasTab>('workspace')
   const [activeFacet, setActiveFacet] = useState<FacetId>('dance')

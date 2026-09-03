@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## 0.2.9 — Facilitator Mode persists across suite apps (2026-09-03)
+
+- **fix**: `useFacilitatorMode`'s storage key changed from
+  `'change-planner:facilitatorMode'` to the shared
+  `'agile-toolkit:facilitatorMode'` — user-requested so Facilitator Mode
+  survives navigating to another suite app in the same tab instead of
+  resetting. sessionStorage is already shared per-origin-per-tab; this
+  was previously app-prefixed specifically to keep it isolated, which
+  turned out to be the wrong default for a cross-app presentation
+  session.
+
 ## 0.2.8 — Replace decorative ✕/✓ emoji with SVG icons (2026-09-03)
 
 - **feat**: replaced 11 decorative `✕`/`✓` text glyphs (action/milestone/

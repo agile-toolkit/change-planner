@@ -11,6 +11,8 @@ None — idle. See `## Next epics` below.
 3. **E3: RACI responsibility tagging** — serves #2. Adds a `raci` field to actions, linking to stakeholder profiles, so action ownership tracking gets more precise. [#55](https://github.com/agile-toolkit/change-planner/issues/55).
 
 ## Recently shipped
+**Facilitator Mode persists across suite apps** (2026-09-03) — see `## Shipped`. `useFacilitatorMode`'s storage key changed to the shared `agile-toolkit:facilitatorMode` so the mode survives switching to another suite app in the same tab, per direct user request.
+
 **Replace decorative ✕/✓ emoji with SVG icons** (2026-09-03) — see `## Shipped`. Part of a suite-wide emoji→SVG sweep the user asked for; this app had the most occurrences (11 kept, plus 3 paired status markers deliberately left as text).
 
 **Facilitator Mode** (2026-09-03) — see `## Shipped`. A user asked for the presentation/projector mode already built for Team Identity to be adopted suite-wide; this is repo 10 of an 11-repo rollout, adopting the pattern now shared in `design-system/`.
@@ -34,6 +36,7 @@ None — idle. See `## Next epics` below.
 Closed 21 stale issues (#3–#8, #12–#17, #19–#21, #31, #32, #39, #40, #50, #51) confirmed already implemented against current source — no functional change, repo housekeeping only. #8's Phase 1 (related-sprints field, copy-to-retro) was already fully shipped; its Phase 2 (deep-links into Scrum Facilitator/Sprint Metrics) is explicitly conditional in the issue's own text on those apps adding URL-based session state, which neither currently has — closed with a note that a fresh issue should be filed once that lands.
 
 ## Shipped
+- ~~Unify Facilitator Mode's storage key to the shared `agile-toolkit:facilitatorMode` so it persists across suite apps~~
 - ~~Replace decorative ✕/✓ text-glyph buttons with shared SVG icons~~
 - ~~Facilitator Mode — bigger UI + hidden nav/language picker for in-room presentation, adopted from the shared design-system pattern~~
 - ~~AI Adoption initiative template, grounded in current AI-rollout/change-management research~~
