@@ -11,6 +11,8 @@ None — idle. See `## Next epics` below.
 3. **E3: RACI responsibility tagging** — serves #2. Adds a `raci` field to actions, linking to stakeholder profiles, so action ownership tracking gets more precise. [#55](https://github.com/agile-toolkit/change-planner/issues/55).
 
 ## Recently shipped
+**Normalize LanguagePicker dark shades** (2026-09-02) — see `## Shipped`. `LanguagePicker.tsx` had dark-mode classes on slightly different shades than the design-system's canonical copy. Normalized to match exactly.
+
 **i18n hardcoded Save/Cancel; fix low-contrast delete icon** (2026-09-02) — see `## Shipped`. A suite-wide UX audit found `RoadmapView.tsx`/`ActionTracker.tsx` had hardcoded-English Save/Cancel buttons and a near-invisible delete icon. Fixed both.
 
 **E4: Automated test coverage; Management 3.0 removal; invisible brand colors** (2026-09-02) — see `## Shipped`. [#56](https://github.com/agile-toolkit/change-planner/issues/56) shipped: `vitest` + `jsdom` with coverage for `sharing.ts` encode/decode, `sortInitiatives`, `isOverdue`, `boardItemToAction`, `digestActions`, `loadBoardItems`, `newInitiative`/`loadInitiatives`/`save`, and `TEMPLATES` invariants (31 tests). Writing the sharing round-trip test caught a real bug: `decodeInitiative`'s base64 re-padding formula only produced correct padding when the encoded length was ≡3 mod 4, silently corrupting shared-initiative URLs for most content lengths — fixed.
@@ -49,3 +51,7 @@ Closed 21 stale issues (#3–#8, #12–#17, #19–#21, #31, #32, #39, #40, #50, 
   `RoadmapView.tsx`'s two Save/Cancel pairs and `ActionTracker.tsx`'s
   Cancel button~~
 - ~~Fixed `ActionTracker.tsx`'s action-delete button contrast~~
+
+**v0.2.3 — Normalize LanguagePicker dark shades** (2026-09-02):
+- ~~Synced `LanguagePicker.tsx`'s dark-mode shades exactly with the
+  design-system's canonical copy~~
