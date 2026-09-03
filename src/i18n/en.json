@@ -310,5 +310,9 @@
     "cancel": "Cancel",
     "delete": "Remove profile",
     "suggested_action": "Address {{name}}'s top motivator: {{motivator}}"
+  },
+  "facilitator": {
+    "toggle_on": "Facilitator Mode",
+    "toggle_off": "Exit Facilitator Mode"
   }
 }

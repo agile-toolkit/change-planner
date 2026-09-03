@@ -11,6 +11,8 @@ None — idle. See `## Next epics` below.
 3. **E3: RACI responsibility tagging** — serves #2. Adds a `raci` field to actions, linking to stakeholder profiles, so action ownership tracking gets more precise. [#55](https://github.com/agile-toolkit/change-planner/issues/55).
 
 ## Recently shipped
+**Facilitator Mode** (2026-09-03) — see `## Shipped`. A user asked for the presentation/projector mode already built for Team Identity to be adopted suite-wide; this is repo 10 of an 11-repo rollout, adopting the pattern now shared in `design-system/`.
+
 **Add AI Adoption template** (2026-09-03) — see `## Shipped`. A 6th initiative template, alongside Agile Adoption/Continuous Delivery/Remote-First Culture/DevOps Transformation/OKR Rollout. Content grounded in current research (MIT's GenAI Divide pilot-failure study, ADKAR/Kotter change framing, employee AI-fear and governance-checklist reporting) rather than invented.
 
 **Wire up cross-app data intake** (2026-09-03, fixed same day) — see `## Shipped`. A suite-wide audit found Moving Motivators, Improvement Board, and Salary Formula all sent real data to Change Planner (URL params or a shared localStorage key) that nothing here ever read. Now consumed: `?mm_snapshot=`, `?prefill=`/`description=`, and `salary-formula:pendingChangeRecord` (via a dismissible Home-screen banner); Stakeholder Motivator Profiles can also pull top motivators back from Moving Motivators' last session. The initial `?mm_snapshot=` parse used the wrong `ImpactLevel` literals (`increase`/`decrease` instead of the real `positive`/`negative`) — the affected-motivators note was silently always empty; fixed in 0.2.5.
@@ -30,6 +32,7 @@ None — idle. See `## Next epics` below.
 Closed 21 stale issues (#3–#8, #12–#17, #19–#21, #31, #32, #39, #40, #50, #51) confirmed already implemented against current source — no functional change, repo housekeeping only. #8's Phase 1 (related-sprints field, copy-to-retro) was already fully shipped; its Phase 2 (deep-links into Scrum Facilitator/Sprint Metrics) is explicitly conditional in the issue's own text on those apps adding URL-based session state, which neither currently has — closed with a note that a fresh issue should be filed once that lands.
 
 ## Shipped
+- ~~Facilitator Mode — bigger UI + hidden nav/language picker for in-room presentation, adopted from the shared design-system pattern~~
 - ~~AI Adoption initiative template, grounded in current AI-rollout/change-management research~~
 - ~~Cross-app data intake: read Moving Motivators' `?mm_snapshot=`, the `?prefill=`/`description=` convention, and Salary Formula's pending-change localStorage key; Stakeholder Motivator Profiles can pull top motivators from Moving Motivators' last session~~
 - ~~Initiative canvas: guided facet walkthrough + free-form workspace across all 4 Appelo facets~~

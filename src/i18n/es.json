@@ -310,5 +310,9 @@
     "cancel": "Cancelar",
     "delete": "Eliminar perfil",
     "suggested_action": "Aborda el motivador principal de {{name}}: {{motivator}}"
+  },
+  "facilitator": {
+    "toggle_on": "Modo Facilitador",
+    "toggle_off": "Salir del Modo Facilitador"
   }
 }

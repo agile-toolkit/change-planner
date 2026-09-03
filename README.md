@@ -27,6 +27,7 @@ GitHub Pages via GitHub Actions on push to `main`.
 |-----|-------|---------|
 | `change-planner-initiatives` | `Initiative[]` | All initiatives (active + archived). Read by the suite dashboard (`agile-toolkit.github.io`) for the Change Planner card. |
 | `theme` | `'light' \| 'dark'` | Selected UI theme, applied via `[data-theme]` before first paint. |
+| `change-planner:facilitatorMode` (`sessionStorage`) | `'1' \| '0'` | Facilitator (projector) mode toggle — per-tab, not persisted across sessions. See `src/components/useFacilitatorMode.ts`. |
 
 Change Planner also *reads* (never writes) a few keys owned by sibling apps for one-way integrations: `improvement-board-items` (Improvement Board → import as actions), `team-identity-charter` (Team Identity → auto-fill initiative stakeholders), `salary-formula:pendingChangeRecord` (Salary Formula → dismissible Home-screen import banner), and `moving-motivators:lastSession` (Moving Motivators → prefill top motivators in Stakeholder Motivator Profiles). It also consumes two one-shot URL query params on load, stripped immediately after: `?mm_snapshot=` (Moving Motivators' "Export to Change Planner") and `?prefill=`/`description=` (Improvement Board and any future sender following the same convention). See `src/utils/crossAppImport.ts` for all four payload shapes.
 

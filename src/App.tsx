@@ -5,6 +5,8 @@ import type { InitiativeTemplate } from './data/templates'
 import { FACET_IDS } from './types'
 import AppHeader from './components/AppHeader'
 import ThemeToggle from './components/ThemeToggle'
+import FacilitatorToggle from './components/FacilitatorToggle'
+import { useFacilitatorMode } from './components/useFacilitatorMode'
 import FacetCard from './components/FacetCard'
 import FacetPlanner from './components/FacetPlanner'
 import InitiativeCanvas from './components/InitiativeCanvas'
@@ -33,6 +35,7 @@ type CanvasTab = 'workspace' | 'guided' | 'roadmap' | 'board' | 'assess'
 
 export default function App() {
   const { t } = useTranslation()
+  const [facilitatorMode, toggleFacilitatorMode] = useFacilitatorMode('change-planner:facilitatorMode')
   const [view, setView] = useState<View>('canvas')
   const [canvasTab, setCanvasTab] = useState<CanvasTab>('workspace')
   const [activeFacet, setActiveFacet] = useState<FacetId>('dance')
@@ -269,11 +272,18 @@ export default function App() {
       <AppHeader
         title={t('app.title')}
         onTitleClick={() => { setView('canvas'); setCurrentId(null) }}
-        navItems={[
+        hideLanguagePicker={facilitatorMode}
+        navItems={facilitatorMode ? [] : [
           { key: 'learn', label: t('learn.title'), active: view === 'learn', onClick: () => setView('learn') },
         ]}
       >
         <ThemeToggle />
+        <FacilitatorToggle
+          active={facilitatorMode}
+          onToggle={toggleFacilitatorMode}
+          labelOn={t('facilitator.toggle_on')}
+          labelOff={t('facilitator.toggle_off')}
+        />
       </AppHeader>
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
