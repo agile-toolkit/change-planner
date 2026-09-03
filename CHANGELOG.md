@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+## 0.2.4 — Wire up cross-app data intake: Moving Motivators, Improvement Board, Salary Formula (2026-09-03)
+
+- **fix (broken integration)**: three "Open in Change Planner" style
+  handoffs from other suite apps built real payloads (a URL param or a
+  shared-origin `localStorage` write) that Change Planner never read —
+  the link worked, the data silently didn't. Fixed as receiver for all
+  three, found by a suite-wide cross-app link audit:
+  - Moving Motivators' "Export to Change Planner" button (`?mm_snapshot=`)
+    now creates a pre-filled initiative with the change description and a
+    motivator-impact summary in the Mind facet notes.
+  - Improvement Board's (and any future sender's) `?prefill=`/`description=`
+    convention now creates a pre-filled initiative on load.
+  - Salary Formula's `salary-formula:pendingChangeRecord` localStorage
+    write now surfaces as a dismissible "pending change" banner on the
+    Home screen, imported on demand rather than silently auto-created.
+  - Added the reverse direction too: the Stakeholder Motivator Profiles
+    panel (which already links out to Moving Motivators) can now prefill
+    the top-3-motivator fields from `moving-motivators:lastSession` if a
+    session was run, instead of requiring manual re-entry.
+- New `src/utils/crossAppImport.ts` centralizes all four payload shapes
+  with tests; see `~/meta/TECH-NOTES.md` for the audit that found these.
+
 ## 0.2.3 — Normalize LanguagePicker dark shades (2026-09-02)
 
 - **fix (consistency)**: `LanguagePicker.tsx` already had dark-mode

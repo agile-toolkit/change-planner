@@ -11,6 +11,11 @@
     "workspace": "Espacio de trabajo",
     "guided": "Facetas guiadas"
   },
+  "cross_app": {
+    "salary_pending": "Salary Formula registró un cambio pendiente: \"{{title}}\".",
+    "import": "Importar como iniciativa",
+    "dismiss": "Descartar"
+  },
   "home": {
     "headline": "Cómo cambiar el mundo",
     "subheadline": "Planifica iniciativas de cambio usando el marco de 4 facetas de Jurgen Appelo.",
@@ -296,6 +301,7 @@
     "motivator1_placeholder": "Motivador principal",
     "motivator2_placeholder": "2.º motivador",
     "motivator3_placeholder": "3.er motivador",
+    "prefill_from_mm": "Rellenar desde Moving Motivators ({{date}}) →",
     "save": "Guardar",
     "cancel": "Cancelar",
     "delete": "Eliminar perfil",

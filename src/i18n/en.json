@@ -11,6 +11,11 @@
     "workspace": "Workspace",
     "guided": "Guided facets"
   },
+  "cross_app": {
+    "salary_pending": "Salary Formula logged a pending change: \"{{title}}\".",
+    "import": "Import as initiative",
+    "dismiss": "Dismiss"
+  },
   "home": {
     "headline": "How to Change the World",
     "subheadline": "Plan change initiatives using Jurgen Appelo's 4-facet framework.",
@@ -296,6 +301,7 @@
     "motivator1_placeholder": "Top motivator",
     "motivator2_placeholder": "2nd motivator",
     "motivator3_placeholder": "3rd motivator",
+    "prefill_from_mm": "Prefill from Moving Motivators ({{date}}) →",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Remove profile",

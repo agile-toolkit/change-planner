@@ -11,6 +11,11 @@
     "workspace": "Працоўная прастора",
     "guided": "Кіраваныя грані"
   },
+  "cross_app": {
+    "salary_pending": "Salary Formula запісала змяненне, якое чакае: \"{{title}}\".",
+    "import": "Імпартаваць як ініцыятыву",
+    "dismiss": "Адхіліць"
+  },
   "home": {
     "headline": "Як змяніць свет",
     "subheadline": "Плануйце ініцыятывы змяненняў па 4-граннай структуры Юргена Апела.",
@@ -296,6 +301,7 @@
     "motivator1_placeholder": "Галоўны матыватар",
     "motivator2_placeholder": "2-і матыватар",
     "motivator3_placeholder": "3-і матыватар",
+    "prefill_from_mm": "Запоўніць з Moving Motivators ({{date}}) →",
     "save": "Захаваць",
     "cancel": "Адмяніць",
     "delete": "Выдаліць профіль",

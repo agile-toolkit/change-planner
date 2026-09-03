@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, Action, ActionStatus } from './types'
 import type { InitiativeTemplate } from './data/templates'
@@ -18,6 +18,14 @@ import RoadmapView from './components/RoadmapView'
 import AssessmentView from './components/AssessmentView'
 import BoardView from './components/BoardView'
 import { encodeInitiative, decodeInitiative } from './utils/sharing'
+import {
+  parseMmSnapshotParam,
+  parsePrefillParams,
+  readPendingSalaryChange,
+  clearPendingSalaryChange,
+  pendingSalaryChangeToInitiative,
+  type PendingSalaryChange,
+} from './utils/crossAppImport'
 import { BACKUP_VERSION, newInitiative, loadInitiatives, save } from './storage'
 
 type View = 'canvas' | 'learn'
@@ -43,6 +51,9 @@ export default function App() {
     }
     return null
   })
+  const [pendingSalaryChange, setPendingSalaryChange] = useState<PendingSalaryChange | null>(
+    () => readPendingSalaryChange()
+  )
   const workspaceRef = useRef<HTMLDivElement>(null)
   const importInputRef = useRef<HTMLInputElement>(null)
 
@@ -223,6 +234,31 @@ export default function App() {
     if (importInputRef.current) importInputRef.current.value = ''
   }
 
+  // Cross-app handoffs delivered via URL query params (Moving Motivators'
+  // "Export to Change Planner", Improvement Board's/others' ?prefill=) are
+  // one-shot: consume on mount and strip the param so a page refresh
+  // doesn't re-import.
+  useEffect(() => {
+    const search = window.location.search
+    if (!search) return
+    const imported = parseMmSnapshotParam(search) ?? parsePrefillParams(search)
+    if (imported) handleNewFromTemplate(imported)
+    window.history.replaceState(null, '', window.location.pathname + window.location.hash)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleImportSalaryChange = () => {
+    if (!pendingSalaryChange) return
+    handleNewFromTemplate(pendingSalaryChangeToInitiative(pendingSalaryChange))
+    clearPendingSalaryChange()
+    setPendingSalaryChange(null)
+  }
+
+  const handleDismissSalaryChange = () => {
+    clearPendingSalaryChange()
+    setPendingSalaryChange(null)
+  }
+
   const patch = (partial: Partial<Initiative>) => {
     if (!current) return
     upsert({ ...current, ...partial })
@@ -294,6 +330,26 @@ export default function App() {
             {importMsg && (
               <div className={`mb-4 px-4 py-2 rounded-lg text-sm font-medium ${importMsg.type === 'ok' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
                 {importMsg.text}
+              </div>
+            )}
+
+            {!current && pendingSalaryChange && (
+              <div className="mb-4 flex items-center justify-between gap-3 flex-wrap px-4 py-3 rounded-lg bg-brand-50 dark:bg-brand-950 border border-brand-200 dark:border-brand-800">
+                <span className="text-sm text-brand-800 dark:text-brand-200">
+                  {t('cross_app.salary_pending', { title: pendingSalaryChange.title })}
+                </span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button type="button" onClick={handleImportSalaryChange} className="btn-primary text-sm py-1.5">
+                    {t('cross_app.import')}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDismissSalaryChange}
+                    className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-2"
+                  >
+                    {t('cross_app.dismiss')}
+                  </button>
+                </div>
               </div>
             )}
 

@@ -11,6 +11,8 @@ None — idle. See `## Next epics` below.
 3. **E3: RACI responsibility tagging** — serves #2. Adds a `raci` field to actions, linking to stakeholder profiles, so action ownership tracking gets more precise. [#55](https://github.com/agile-toolkit/change-planner/issues/55).
 
 ## Recently shipped
+**Wire up cross-app data intake** (2026-09-03) — see `## Shipped`. A suite-wide audit found Moving Motivators, Improvement Board, and Salary Formula all sent real data to Change Planner (URL params or a shared localStorage key) that nothing here ever read. Now consumed: `?mm_snapshot=`, `?prefill=`/`description=`, and `salary-formula:pendingChangeRecord` (via a dismissible Home-screen banner); Stakeholder Motivator Profiles can also pull top motivators back from Moving Motivators' last session.
+
 **Normalize LanguagePicker dark shades** (2026-09-02) — see `## Shipped`. `LanguagePicker.tsx` had dark-mode classes on slightly different shades than the design-system's canonical copy. Normalized to match exactly.
 
 **i18n hardcoded Save/Cancel; fix low-contrast delete icon** (2026-09-02) — see `## Shipped`. A suite-wide UX audit found `RoadmapView.tsx`/`ActionTracker.tsx` had hardcoded-English Save/Cancel buttons and a near-invisible delete icon. Fixed both.
@@ -26,6 +28,7 @@ None — idle. See `## Next epics` below.
 Closed 21 stale issues (#3–#8, #12–#17, #19–#21, #31, #32, #39, #40, #50, #51) confirmed already implemented against current source — no functional change, repo housekeeping only. #8's Phase 1 (related-sprints field, copy-to-retro) was already fully shipped; its Phase 2 (deep-links into Scrum Facilitator/Sprint Metrics) is explicitly conditional in the issue's own text on those apps adding URL-based session state, which neither currently has — closed with a note that a fresh issue should be filed once that lands.
 
 ## Shipped
+- ~~Cross-app data intake: read Moving Motivators' `?mm_snapshot=`, the `?prefill=`/`description=` convention, and Salary Formula's pending-change localStorage key; Stakeholder Motivator Profiles can pull top motivators from Moving Motivators' last session~~
 - ~~Initiative canvas: guided facet walkthrough + free-form workspace across all 4 Appelo facets~~
 - ~~Action tracker: priority levels, due dates with overdue flagging, filter/search, keyboard accessibility, If/Then/Because hypothesis format~~
 - ~~Action Kanban board (drag-and-drop, per-facet swim lanes) and week-grouped roadmap timeline with milestone markers~~

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StakeholderProfile } from '../types'
+import { readMmLastSession, mmLastSessionTopMotivators } from '../utils/crossAppImport'
 
 const MM_URL = 'https://agile-toolkit.github.io/moving-motivators/'
 
@@ -50,6 +51,15 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
   const [m3, setM3] = useState('')
   const [influence, setInfluence] = useState<number | undefined>()
   const [interest, setInterest] = useState<number | undefined>()
+  const mmSession = readMmLastSession()
+
+  function handlePrefillFromMm() {
+    if (!mmSession) return
+    const [top1, top2, top3] = mmLastSessionTopMotivators(mmSession)
+    setM1(top1 ?? '')
+    setM2(top2 ?? '')
+    setM3(top3 ?? '')
+  }
 
   function handleAdd() {
     if (!name.trim()) return
@@ -167,6 +177,15 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
             onChange={e => setName(e.target.value)}
             className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-300 dark:placeholder:text-gray-500"
           />
+          {mmSession && (
+            <button
+              type="button"
+              onClick={handlePrefillFromMm}
+              className="text-xs text-green-700 dark:text-green-400 underline hover:opacity-80"
+            >
+              {t('mind_profiles.prefill_from_mm', { date: mmSession.date })}
+            </button>
+          )}
           <div className="grid grid-cols-3 gap-2">
             <input
               type="text"

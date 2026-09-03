@@ -11,6 +11,11 @@
     "workspace": "Рабочее место",
     "guided": "Грани по шагам"
   },
+  "cross_app": {
+    "salary_pending": "Salary Formula зафиксировала ожидающее изменение: «{{title}}».",
+    "import": "Импортировать как инициативу",
+    "dismiss": "Отклонить"
+  },
   "home": {
     "headline": "Как изменить мир",
     "subheadline": "Планируйте инициативы изменений по 4-гранному фреймворку Юргена Аппело.",
@@ -296,6 +301,7 @@
     "motivator1_placeholder": "Главный мотиватор",
     "motivator2_placeholder": "2-й мотиватор",
     "motivator3_placeholder": "3-й мотиватор",
+    "prefill_from_mm": "Заполнить из Moving Motivators ({{date}}) →",
     "save": "Сохранить",
     "cancel": "Отмена",
     "delete": "Удалить профиль",
