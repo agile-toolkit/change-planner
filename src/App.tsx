@@ -7,6 +7,7 @@ import AppHeader from './components/AppHeader'
 import ThemeToggle from './components/ThemeToggle'
 import FacilitatorToggle from './components/FacilitatorToggle'
 import { useFacilitatorMode } from './components/useFacilitatorMode'
+import { CloseIcon } from './components/icons'
 import FacetCard from './components/FacetCard'
 import FacetPlanner from './components/FacetPlanner'
 import InitiativeCanvas from './components/InitiativeCanvas'
@@ -327,7 +328,7 @@ export default function App() {
                             onClick={() => handleDelete(i.id)}
                             className="text-gray-300 dark:text-gray-600 hover:text-red-400 ml-2 text-xs"
                           >
-                            ✕
+                            <CloseIcon className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       ))}

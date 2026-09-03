@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StakeholderProfile } from '../types'
 import { readMmLastSession, mmLastSessionTopMotivators } from '../utils/crossAppImport'
+import { CloseIcon } from './icons'
 
 const MM_URL = 'https://agile-toolkit.github.io/moving-motivators/'
 
@@ -131,7 +132,7 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
               aria-label={t('mind_profiles.delete')}
               className="ml-2 text-xs text-gray-300 dark:text-gray-600 hover:text-red-400 transition-colors"
             >
-              ✕
+              <CloseIcon className="w-3.5 h-3.5" />
             </button>
           </div>
           {p.motivators.length > 0 && (

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { Initiative } from '../types'
 import { FACET_IDS } from '../types'
+import { CloseIcon } from './icons'
 
 interface Props {
   initiative: Initiative
@@ -48,7 +49,7 @@ export default function SharedView({ initiative, onImport, onClose }: Props) {
             aria-label="Close"
             className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 ml-4 mt-1"
           >
-            ✕
+            <CloseIcon className="w-4 h-4" />
           </button>
         </div>
 

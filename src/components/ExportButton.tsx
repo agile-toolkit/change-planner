@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId } from '../types'
+import { CheckIcon } from './icons'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -92,7 +93,9 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
         className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
         title={t('export.button_hint')}
       >
-        {exporting ? t('export.exporting') : copied ? `✓ ${t('export.copied')}` : t('export.button')}
+        {exporting ? t('export.exporting') : copied ? (
+          <span className="inline-flex items-center gap-1"><CheckIcon className="w-3 h-3" />{t('export.copied')}</span>
+        ) : t('export.button')}
       </button>
 
       {open && (

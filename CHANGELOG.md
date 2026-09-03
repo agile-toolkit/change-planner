@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## 0.2.8 — Replace decorative ✕/✓ emoji with SVG icons (2026-09-03)
+
+- **feat**: replaced 11 decorative `✕`/`✓` text glyphs (action/milestone/
+  stakeholder delete, template/import-board modal close, export/retro
+  copy-confirmation, facet-notes-filled indicator) with `CloseIcon`/
+  `CheckIcon` from the new shared `icons.tsx`, both rendering via
+  `currentColor` so every button keeps the color it already had. Left
+  `RoadmapView.tsx`/`SharedView.tsx`'s paired `✓`/`◆` and `✓`/`○` status
+  markers (milestone-reached, action-done) as plain text — they're a
+  matched binary pair, not a standalone decorative icon, and converting
+  only one side would look inconsistent. Part of a suite-wide
+  emoji→SVG sweep the user asked for.
+
 ## 0.2.7 — Facilitator Mode (2026-09-03)
 
 - **feat**: added Facilitator (projector) Mode — a presentation toggle for

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Action, ActionHypothesis, ActionPriority, ActionStatus, FacetId, HypothesisOutcome } from '../types'
 import { isOverdue as isActionOverdue } from '../utils/actions'
+import { CloseIcon } from './icons'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -467,7 +468,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                   </div>
                 </div>
                 <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-400 dark:text-gray-500 hover:text-red-400 transition-colors text-xs flex-shrink-0">
-                  ✕
+                  <CloseIcon className="w-3.5 h-3.5" />
                 </button>
               </div>
 

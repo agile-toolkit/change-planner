@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId } from '../types'
+import { CheckIcon } from './icons'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -67,7 +68,9 @@ export default function ProgressView({ initiative }: Props) {
           className="text-xs px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           title={t('progress.copy_retro_hint')}
         >
-          {copied ? `✓ ${t('progress.copied')}` : t('progress.copy_retro')}
+          {copied ? (
+            <span className="inline-flex items-center gap-1"><CheckIcon className="w-3 h-3" />{t('progress.copied')}</span>
+          ) : t('progress.copy_retro')}
         </button>
       </div>
 

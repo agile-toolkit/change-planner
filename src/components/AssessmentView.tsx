@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, Assessment, AssessmentEntry } from '../types'
 import { FACET_IDS } from '../types'
+import { CloseIcon } from './icons'
 
 interface Props {
   initiative: Initiative
@@ -240,7 +241,7 @@ export default function AssessmentView({ initiative, onChange }: Props) {
                       onClick={() => handleDelete(a.id)}
                       className="text-gray-300 dark:text-gray-600 hover:text-red-400 text-xs"
                     >
-                      ✕
+                      <CloseIcon className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>

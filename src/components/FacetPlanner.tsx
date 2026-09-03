@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, StakeholderProfile } from '../types'
 import StakeholderProfilePanel from './StakeholderProfilePanel'
 import StakeholderMap from './StakeholderMap'
+import { CheckIcon } from './icons'
 
 /** Short labels for facet tabs (facets.*.label are often long) */
 const FACET_TAB_EMOJI: Record<FacetId, string> = {
@@ -99,7 +100,7 @@ export default function FacetPlanner({
           >
             <span aria-hidden>{FACET_TAB_EMOJI[fid]}</span>
             <span className="max-w-[10rem] truncate sm:max-w-none">{t(`facets.${fid}.label`)}</span>
-            {initiative.facetNotes[fid].trim() ? <span className="text-xs opacity-70">✓</span> : null}
+            {initiative.facetNotes[fid].trim() ? <CheckIcon className="w-3 h-3 opacity-70" /> : null}
           </button>
           )
         })}

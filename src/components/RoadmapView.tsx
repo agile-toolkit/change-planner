@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, Action, FacetId, Milestone } from '../types'
+import { CloseIcon } from './icons'
 
 interface Props {
   initiative: Initiative
@@ -219,7 +220,7 @@ export default function RoadmapView({ initiative, onUpdate, onUpdateMilestones }
                   className="text-gray-300 dark:text-gray-600 hover:text-red-400 text-xs flex-shrink-0"
                   aria-label={t('actions.delete')}
                 >
-                  ✕
+                  <CloseIcon className="w-3.5 h-3.5" />
                 </button>
               </li>
             ))}

@@ -6,6 +6,7 @@ import {
   type ImprovementItem, type SortKey,
   CATEGORY_TO_FACET, loadBoardItems, boardItemToAction, relativeTime, digestActions, sortInitiatives,
 } from './homeScreenLogic'
+import { CloseIcon } from './icons'
 
 const CATEGORY_BADGE: Record<ImprovementItem['category'], string> = {
   people: 'bg-green-100 text-green-700',
@@ -301,10 +302,10 @@ export default function HomeScreen({
               <button
                 type="button"
                 onClick={() => setShowTemplates(false)}
-                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 text-2xl leading-none"
+                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 leading-none"
                 aria-label="Close"
               >
-                ✕
+                <CloseIcon className="w-5 h-5" />
               </button>
             </div>
 
@@ -362,10 +363,10 @@ export default function HomeScreen({
               <button
                 type="button"
                 onClick={() => setShowImportBoard(false)}
-                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 text-2xl leading-none"
+                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 leading-none"
                 aria-label="Close"
               >
-                ✕
+                <CloseIcon className="w-5 h-5" />
               </button>
             </div>
 
