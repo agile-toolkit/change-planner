@@ -227,6 +227,10 @@
     "okr-rollout": {
       "name": "Implantación de OKR",
       "desc": "Alinea todos los equipos en Objetivos y Resultados Clave trimestrales."
+    },
+    "ai-adoption": {
+      "name": "Adopción de IA",
+      "desc": "Lleva flujos de trabajo reales de manual a asistido por IA, con formación y gobernanza."
     }
   },
   "stakeholders": {

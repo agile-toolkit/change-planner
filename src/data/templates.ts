@@ -87,6 +87,27 @@ export const TEMPLATES: InitiativeTemplate[] = [
     },
   },
   {
+    id: 'ai-adoption',
+    emoji: '🤖',
+    data: {
+      title: 'AI Adoption',
+      goal: 'Move 2-3 real workflows from manual to AI-assisted, embedded in daily tools, within one quarter.',
+      context:
+        'AI tool usage today is ad-hoc and individual ("shadow AI") with no shared workflow integration, training, or governance — most usage never moves past occasional chat-tool experiments into real work.',
+      stakeholders: 'IT/Security, Team leads, Early-adopter champions, Legal/Compliance, HR/People Ops, Individual contributors',
+      facetNotes: {
+        dance:
+          'Inventory where AI is already used informally and which manual, repetitive tasks could integrate it directly into existing tools. Generic chat-tool use that never touches a real workflow is the top reason pilots stall.',
+        mind:
+          'Fear is about how leadership will use AI, not the technology itself — job security concerns are the default unless addressed head-on. Find credible early adopters to lead by example rather than mandating top-down.',
+        stimulate:
+          'Start with 1-2 low-stakes tasks where a mistake costs little, so people build comfort before higher-stakes use. Run open Q&A sessions and share leadership\'s own learning journey instead of presenting AI as already solved.',
+        change:
+          'Set clear ownership, approval checkpoints, and an acceptable-use policy before scaling past the pilot team. Invest in real training — most employees currently get none — and expand only once workflow integration, not just access, is proven.',
+      },
+    },
+  },
+  {
     id: 'okr-rollout',
     emoji: '🎯',
     data: {

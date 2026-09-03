@@ -227,6 +227,10 @@
     "okr-rollout": {
       "name": "OKR Rollout",
       "desc": "Align all teams on quarterly Objectives and Key Results."
+    },
+    "ai-adoption": {
+      "name": "AI Adoption",
+      "desc": "Move real workflows from manual to AI-assisted, with training and governance in place."
     }
   },
   "stakeholders": {

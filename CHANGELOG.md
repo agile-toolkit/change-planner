@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+## 0.2.6 — Add AI Adoption template (2026-09-03)
+
+- **feature**: new "AI Adoption" initiative template (`src/data/templates.ts`,
+  🤖), matching the 4-facet Appelo framework the other 5 templates
+  already use. Content synthesized from current research on AI
+  rollout failure modes and change-management practice rather than
+  invented: MIT's 2025 "GenAI Divide" study (95% of enterprise AI
+  pilots show no P&L impact, mostly because generic tools never
+  integrate into real workflows), Prosci ADKAR/Kotter framing for the
+  human side of the rollout, and reporting on employee AI-fear drivers
+  (fear is about how leadership will use AI, not the technology
+  itself) and governance-checklist practice (ownership, approval
+  checkpoints, phased rollout). Dance covers auditing existing
+  "shadow AI" use and real workflow-integration points; Mind covers
+  job-security fear and early-adopter champions; Stimulate covers
+  low-stakes pilots and leadership transparency; Change covers
+  ownership/policy/training before scaling past a pilot team.
+
 ## 0.2.5 — Fix wrong impact literals in the Moving Motivators import (2026-09-03)
 
 - **fix (own bug)**: 0.2.4's `parseMmSnapshotParam` checked
