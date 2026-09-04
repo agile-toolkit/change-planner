@@ -311,6 +311,15 @@
     "delete": "Remove profile",
     "suggested_action": "Address {{name}}'s top motivator: {{motivator}}"
   },
+  "motivator_context": {
+    "section_title": "Motivator context",
+    "subtitle": "From Moving Motivators, {{date}}",
+    "ranked_title": "Top motivators",
+    "change_label": "Change assessed",
+    "positive": "Positive impact",
+    "negative": "Negative impact",
+    "hint": "Read-only — imported when this initiative was created from a Moving Motivators snapshot."
+  },
   "facilitator": {
     "toggle_on": "Facilitator Mode",
     "toggle_off": "Exit Facilitator Mode"

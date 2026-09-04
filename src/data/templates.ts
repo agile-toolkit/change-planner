@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import type { FacetId } from '../types'
+import type { FacetId, MotivatorContext } from '../types'
 import { RefreshIcon, RocketIcon, GlobeIcon, WrenchIcon, RobotIcon, TargetIcon } from '../components/icons'
 
 export interface InitiativeTemplate {
@@ -11,6 +11,8 @@ export interface InitiativeTemplate {
     context: string
     stakeholders: string
     facetNotes: Record<FacetId, string>
+    /** Only set when a template is synthesized from a cross-app import, e.g. Moving Motivators' `?mm_snapshot=`. Absent on the curated TEMPLATES below. */
+    motivatorContext?: MotivatorContext
   }
 }
 

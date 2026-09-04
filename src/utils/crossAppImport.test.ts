@@ -7,6 +7,8 @@ import {
   pendingSalaryChangeToInitiative,
   readMmLastSession,
   mmLastSessionTopMotivators,
+  motivatorContextTopEntries,
+  capitalize,
 } from './crossAppImport'
 
 function encodeSnapshot(snapshot: unknown): string {
@@ -45,6 +47,149 @@ describe('parseMmSnapshotParam', () => {
     const snapshot = { ranked: ['curiosity'], changes: {}, change: '', date: '2026-09-01' }
     const result = parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)
     expect(result!.title).toBe('Imported from Moving Motivators')
+  })
+
+  it('carries the structured motivatorContext for the read-only sidebar panel', () => {
+    const snapshot = {
+      ranked: ['curiosity', 'mastery', 'freedom', 'honor'],
+      changes: { curiosity: 'positive', mastery: 'neutral', freedom: 'negative', honor: 'neutral' },
+      change: 'Move to a new open-plan office',
+      date: '2026-09-01',
+    }
+    const result = parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)
+    expect(result!.motivatorContext).toEqual({
+      ranked: ['curiosity', 'mastery', 'freedom', 'honor'],
+      changes: { curiosity: 'positive', mastery: 'neutral', freedom: 'negative', honor: 'neutral' },
+      change: 'Move to a new open-plan office',
+      date: '2026-09-01',
+    })
+  })
+
+  it('trims the change text carried into motivatorContext, same as the title/context', () => {
+    const snapshot = { ranked: ['curiosity'], changes: {}, change: '  Reorg the team  ', date: '2026-09-01' }
+    const result = parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)
+    expect(result!.motivatorContext!.change).toBe('Reorg the team')
+  })
+})
+
+// ── Boundary hardening ───────────────────────────────────────────────────────
+//
+// mm_snapshot is a URL param: anyone can hand a user a crafted link, and
+// Moving Motivators is free to change its payload shape without telling us
+// (TECH-NOTES.md already records one such break). These assert malformed
+// shapes degrade to "nothing to import" rather than throwing.
+describe('parseMmSnapshotParam rejects payloads it cannot use', () => {
+  it('rejects a payload with no ranked field', () => {
+    const snapshot = { changes: {}, change: 'reorg', date: '2026-09-01' }
+    expect(parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)).toBeNull()
+  })
+
+  it('rejects a ranked value that is not an array', () => {
+    const snapshot = { ranked: 'curiosity', changes: {}, change: '', date: '' }
+    expect(parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)).toBeNull()
+  })
+
+  it('rejects an empty ranking', () => {
+    const snapshot = { ranked: [], changes: {}, change: '', date: '' }
+    expect(parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)).toBeNull()
+  })
+
+  it('rejects a ranked array holding non-strings', () => {
+    const snapshot = { ranked: [{ id: 'curiosity' }], changes: {}, change: '', date: '' }
+    expect(parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)).toBeNull()
+  })
+
+  it('rejects a bare array payload', () => {
+    expect(parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(['curiosity', 'mastery'])}`)).toBeNull()
+  })
+
+  it('defaults a missing/malformed changes map to empty instead of rejecting the whole payload', () => {
+    const snapshot = { ranked: ['curiosity', 'mastery'], change: 'reorg', date: '2026-09-01' }
+    const result = parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)
+    expect(result).not.toBeNull()
+    expect(result!.motivatorContext!.changes).toEqual({})
+    expect(result!.facetNotes.mind).not.toContain('affects')
+  })
+
+  it('defaults a missing date to empty string', () => {
+    const snapshot = { ranked: ['curiosity'], changes: {}, change: '' }
+    const result = parseMmSnapshotParam(`?mm_snapshot=${encodeSnapshot(snapshot)}`)
+    expect(result!.motivatorContext!.date).toBe('')
+  })
+})
+
+describe('motivatorContextTopEntries', () => {
+  it('ranks entries in snapshot order, 1-based', () => {
+    const context = {
+      ranked: ['curiosity', 'mastery', 'freedom'],
+      changes: {},
+      change: '',
+      date: '2026-09-01',
+    }
+    expect(motivatorContextTopEntries(context)).toEqual([
+      { id: 'curiosity', rank: 1, impact: 'neutral' },
+      { id: 'mastery', rank: 2, impact: 'neutral' },
+      { id: 'freedom', rank: 3, impact: 'neutral' },
+    ])
+  })
+
+  it('carries positive/negative impact through, untouched motivators default to neutral', () => {
+    const context = {
+      ranked: ['curiosity', 'mastery', 'freedom', 'honor'],
+      changes: { curiosity: 'positive', freedom: 'negative' },
+      change: '',
+      date: '',
+    }
+    const entries = motivatorContextTopEntries(context)
+    expect(entries.find(e => e.id === 'curiosity')!.impact).toBe('positive')
+    expect(entries.find(e => e.id === 'freedom')!.impact).toBe('negative')
+    expect(entries.find(e => e.id === 'mastery')!.impact).toBe('neutral')
+    expect(entries.find(e => e.id === 'honor')!.impact).toBe('neutral')
+  })
+
+  it('normalizes an unrecognized impact string to neutral rather than passing it through', () => {
+    // Defends the exact bug class TECH-NOTES.md records: a sibling app (or a
+    // hand-crafted link) sending literals other than the real ImpactLevel
+    // union must not leak into a CSS class or label unnormalized.
+    const context = {
+      ranked: ['curiosity'],
+      changes: { curiosity: 'increase' },
+      change: '',
+      date: '',
+    }
+    expect(motivatorContextTopEntries(context)).toEqual([{ id: 'curiosity', rank: 1, impact: 'neutral' }])
+  })
+
+  it('defaults the panel limit to 5, keeping ranking positions from the full list', () => {
+    const context = {
+      ranked: ['curiosity', 'honor', 'acceptance', 'mastery', 'power', 'freedom', 'relatedness'],
+      changes: {},
+      change: '',
+      date: '',
+    }
+    const entries = motivatorContextTopEntries(context)
+    expect(entries).toHaveLength(5)
+    expect(entries[4]).toEqual({ id: 'power', rank: 5, impact: 'neutral' })
+  })
+
+  it('respects an explicit limit', () => {
+    const context = { ranked: ['curiosity', 'honor', 'acceptance'], changes: {}, change: '', date: '' }
+    expect(motivatorContextTopEntries(context, 2)).toHaveLength(2)
+  })
+
+  it('returns an empty list for an empty ranking, matching the panel\'s "nothing to show" case', () => {
+    const context = { ranked: [], changes: {}, change: '', date: '' }
+    expect(motivatorContextTopEntries(context)).toEqual([])
+  })
+})
+
+describe('capitalize', () => {
+  it('uppercases the first character, leaves the rest untouched', () => {
+    expect(capitalize('curiosity')).toBe('Curiosity')
+  })
+
+  it('returns an empty string unchanged', () => {
+    expect(capitalize('')).toBe('')
   })
 })
 

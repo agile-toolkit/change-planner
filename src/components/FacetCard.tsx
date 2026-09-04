@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import type { FacetId, StakeholderProfile } from '../types'
+import type { FacetId, StakeholderProfile, MotivatorContext } from '../types'
 import StakeholderProfilePanel from './StakeholderProfilePanel'
 import StakeholderMap from './StakeholderMap'
+import MotivatorContextPanel from './MotivatorContextPanel'
 import { ArrowRightIcon } from './icons'
 
 const FACET_STYLES: Record<FacetId, { bg: string; border: string; header: string; badge: string }> = {
@@ -18,9 +19,10 @@ interface Props {
   onNotesChange: (notes: string) => void
   stakeholderProfiles?: StakeholderProfile[]
   onProfilesChange?: (profiles: StakeholderProfile[]) => void
+  motivatorContext?: MotivatorContext
 }
 
-export default function FacetCard({ facetId, notes, actionCount, onNotesChange, stakeholderProfiles, onProfilesChange }: Props) {
+export default function FacetCard({ facetId, notes, actionCount, onNotesChange, stakeholderProfiles, onProfilesChange, motivatorContext }: Props) {
   const { t } = useTranslation()
   const styles = FACET_STYLES[facetId]
   const prompts = t(`facets.${facetId}.prompts`, { returnObjects: true }) as string[]
@@ -64,6 +66,10 @@ export default function FacetCard({ facetId, notes, actionCount, onNotesChange, 
           <StakeholderProfilePanel profiles={stakeholderProfiles} onChange={onProfilesChange} />
           <StakeholderMap profiles={stakeholderProfiles} />
         </>
+      )}
+
+      {facetId === 'mind' && motivatorContext && (
+        <MotivatorContextPanel context={motivatorContext} />
       )}
     </div>
   )

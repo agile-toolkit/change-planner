@@ -57,6 +57,26 @@ export interface Milestone {
   reached: boolean
 }
 
+/**
+ * Read-only snapshot handed off by Moving Motivators' "Assess in Change
+ * Planner" button (`?mm_snapshot=<base64 JSON>`, decoded in
+ * `utils/crossAppImport.ts`). Kept on the initiative so the "Motivator
+ * context" panel can keep showing it after the one-shot URL param is
+ * consumed and stripped. `changes[id]` is Moving Motivators' free-form
+ * `ImpactLevel` string ('positive' | 'negative' | 'neutral' in the real
+ * union) — not narrowed here since a sibling app is free to change it
+ * without telling us; consumers normalize unknown values to neutral.
+ */
+export interface MotivatorContext {
+  /** Motivator ids in rank order, best (rank 1) first */
+  ranked: string[]
+  changes: Record<string, string>
+  /** Free-text description of the change being assessed, may be empty */
+  change: string
+  /** ISO date (YYYY-MM-DD) the snapshot was taken */
+  date: string
+}
+
 export interface Initiative {
   id: string
   title: string
@@ -69,6 +89,7 @@ export interface Initiative {
   stakeholderProfiles: StakeholderProfile[]
   assessments?: Assessment[]
   milestones?: Milestone[]
+  motivatorContext?: MotivatorContext
   createdAt: number
   updatedAt: number
   completedAt?: number

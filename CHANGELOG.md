@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## 0.3.3 — Motivator context panel for Moving Motivators imports (2026-09-04)
+
+- **feat**: closes the Change Planner side of
+  `agile-toolkit/moving-motivators#22`. `?mm_snapshot=` (Moving Motivators'
+  "Assess in Change Planner" button) was already parsed into a new
+  initiative's title/context/mind-facet note, but the structured ranking and
+  per-motivator impact were discarded after that one-shot import. They're
+  now kept on the initiative as `motivatorContext` and rendered as a
+  read-only "Motivator context" panel on the `mind` FacetCard — top 5 ranked
+  motivators as badges, positive/negative impact highlighted — matching the
+  existing StakeholderProfilePanel's placement and card styling.
+  `crossAppImport.ts` gained `motivatorContextTopEntries()`, a pure
+  ranked-motivator selector that normalizes any impact value outside
+  `positive`/`negative` to neutral (same defensive posture as the
+  `increase`/`decrease` bug TECH-NOTES.md already records for this file).
+  `parseMmSnapshotParam` also now validates `ranked` is a non-empty string
+  array before use, instead of relying on a downstream throw to reject a
+  malformed payload. New: `src/components/MotivatorContextPanel.tsx`,
+  `motivator_context.*` i18n keys (en/es/be/ru).
+
 ## 0.3.2 — Add glass effect to the header (2026-09-04)
 
 - **fix**: `AppHeader.tsx`'s background changed from opaque

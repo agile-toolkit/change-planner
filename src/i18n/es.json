@@ -311,6 +311,15 @@
     "delete": "Eliminar perfil",
     "suggested_action": "Aborda el motivador principal de {{name}}: {{motivator}}"
   },
+  "motivator_context": {
+    "section_title": "Contexto de motivadores",
+    "subtitle": "De Moving Motivators, {{date}}",
+    "ranked_title": "Motivadores principales",
+    "change_label": "Cambio evaluado",
+    "positive": "Impacto positivo",
+    "negative": "Impacto negativo",
+    "hint": "Solo lectura: importado al crear esta iniciativa desde una instantánea de Moving Motivators."
+  },
   "facilitator": {
     "toggle_on": "Modo Facilitador",
     "toggle_off": "Salir del Modo Facilitador"
