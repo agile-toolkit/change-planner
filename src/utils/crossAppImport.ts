@@ -1,4 +1,4 @@
-import type { FacetId } from '../types'
+import type { FacetId, MotivatorContext } from '../types'
 
 /**
  * Reads and normalizes the payloads other suite apps hand off to Change
@@ -13,6 +13,8 @@ export interface ImportedInitiativeData {
   context: string
   stakeholders: string
   facetNotes: Record<FacetId, string>
+  /** Only set by `parseMmSnapshotParam` — feeds the read-only "Motivator context" panel. */
+  motivatorContext?: MotivatorContext
 }
 
 const EMPTY_FACET_NOTES: Record<FacetId, string> = { dance: '', mind: '', stimulate: '', change: '' }
@@ -37,15 +39,8 @@ function isStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every(v => typeof v === 'string')
 }
 
-function capitalize(id: string): string {
+export function capitalize(id: string): string {
   return id.length > 0 ? id.charAt(0).toUpperCase() + id.slice(1) : id
-}
-
-interface MmSnapshot {
-  ranked: string[]
-  changes: Record<string, string>
-  change: string
-  date: string
 }
 
 /** Moving Motivators "Export to Change Planner": ?mm_snapshot=<base64 JSON> */
@@ -53,26 +48,67 @@ export function parseMmSnapshotParam(search: string): ImportedInitiativeData | n
   const raw = new URLSearchParams(search).get('mm_snapshot')
   if (!raw) return null
   try {
-    const snapshot = JSON.parse(decodeURIComponent(atob(raw))) as MmSnapshot
-    const impacted = snapshot.ranked
-      .filter(id => snapshot.changes[id] === 'positive' || snapshot.changes[id] === 'negative')
-      .map(id => `${capitalize(id)} (${snapshot.changes[id]})`)
-    const top3 = snapshot.ranked.slice(0, 3).map(capitalize).join(', ')
+    const parsed: unknown = JSON.parse(decodeURIComponent(atob(raw)))
+    // `ranked` is the only field every consumer below dereferences without a
+    // fallback (top3/impacted here, motivatorContextTopEntries downstream).
+    // Reject the whole payload rather than let a shape change from the other
+    // repo throw inside this try — same posture as readMmLastSession below.
+    if (!isRecord(parsed) || !isStringArray(parsed.ranked) || parsed.ranked.length === 0) {
+      return null
+    }
+    const ranked = parsed.ranked
+    const changes = isRecord(parsed.changes) ? (parsed.changes as Record<string, string>) : {}
+    const date = typeof parsed.date === 'string' ? parsed.date : ''
+    const change = typeof parsed.change === 'string' ? parsed.change.trim() : ''
+
+    const impacted = ranked
+      .filter(id => changes[id] === 'positive' || changes[id] === 'negative')
+      .map(id => `${capitalize(id)} (${changes[id]})`)
+    const top3 = ranked.slice(0, 3).map(capitalize).join(', ')
     const mindNote = [
-      `Top motivators at stake (via Moving Motivators, ${snapshot.date}): ${top3}.`,
+      `Top motivators at stake (via Moving Motivators, ${date}): ${top3}.`,
       impacted.length > 0 ? `This change affects: ${impacted.join(', ')}.` : '',
     ].filter(Boolean).join('\n')
-    const change = (snapshot.change || '').trim()
     return {
       title: change ? change.slice(0, 80) : 'Imported from Moving Motivators',
       goal: '',
       context: change,
       stakeholders: '',
       facetNotes: { ...EMPTY_FACET_NOTES, mind: mindNote },
+      motivatorContext: { ranked, changes, change, date },
     }
   } catch {
     return null
   }
+}
+
+export type NormalizedMotivatorImpact = 'positive' | 'negative' | 'neutral'
+
+export interface MotivatorContextEntry {
+  id: string
+  /** 1-based, position in `context.ranked` */
+  rank: number
+  impact: NormalizedMotivatorImpact
+}
+
+const MOTIVATOR_CONTEXT_PANEL_LIMIT = 5
+
+/**
+ * Top N ranked motivators for the read-only "Motivator context" panel, with
+ * `changes[id]` normalized to the three values the UI actually styles for —
+ * anything else Moving Motivators might one day send (or a hand-crafted
+ * `?mm_snapshot=` link might forge) renders as neutral rather than being
+ * passed through as an arbitrary string into a CSS class or label.
+ */
+export function motivatorContextTopEntries(
+  context: MotivatorContext,
+  limit = MOTIVATOR_CONTEXT_PANEL_LIMIT
+): MotivatorContextEntry[] {
+  return context.ranked.slice(0, limit).map((id, i) => {
+    const raw = context.changes[id]
+    const impact: NormalizedMotivatorImpact = raw === 'positive' || raw === 'negative' ? raw : 'neutral'
+    return { id, rank: i + 1, impact }
+  })
 }
 
 /**

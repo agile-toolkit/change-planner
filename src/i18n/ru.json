@@ -311,6 +311,15 @@
     "delete": "Удалить профиль",
     "suggested_action": "Обратитесь к главному мотиватору {{name}}: {{motivator}}"
   },
+  "motivator_context": {
+    "section_title": "Контекст мотиваторов",
+    "subtitle": "Из Moving Motivators, {{date}}",
+    "ranked_title": "Главные мотиваторы",
+    "change_label": "Оцениваемое изменение",
+    "positive": "Положительное влияние",
+    "negative": "Отрицательное влияние",
+    "hint": "Только для чтения — импортировано при создании этой инициативы из снимка Moving Motivators."
+  },
   "facilitator": {
     "toggle_on": "Режим фасилитатора",
     "toggle_off": "Выйти из режима фасилитатора"

@@ -311,6 +311,15 @@
     "delete": "Выдаліць профіль",
     "suggested_action": "Звярніцеся да галоўнага матыватара {{name}}: {{motivator}}"
   },
+  "motivator_context": {
+    "section_title": "Кантэкст матыватараў",
+    "subtitle": "З Moving Motivators, {{date}}",
+    "ranked_title": "Галоўныя матыватары",
+    "change_label": "Ацэненая змена",
+    "positive": "Станоўчы ўплыў",
+    "negative": "Адмоўны ўплыў",
+    "hint": "Толькі для чытання — імпартавана пры стварэнні гэтай ініцыятывы са здымка Moving Motivators."
+  },
   "facilitator": {
     "toggle_on": "Рэжым фасілітатара",
     "toggle_off": "Выйсці з рэжыму фасілітатара"

@@ -241,7 +241,10 @@ export default function App() {
   // Cross-app handoffs delivered via URL query params (Moving Motivators'
   // "Export to Change Planner", Improvement Board's/others' ?prefill=) are
   // one-shot: consume on mount and strip the param so a page refresh
-  // doesn't re-import.
+  // doesn't re-import. Moving Motivators' payload also seeds
+  // `motivatorContext` on the new initiative, which the mind FacetCard
+  // renders as a persistent read-only panel (unlike the note text, that
+  // survives the initiative being reloaded from storage later).
   useEffect(() => {
     const search = window.location.search
     if (!search) return
@@ -482,6 +485,7 @@ export default function App() {
                           {...(facet === 'mind' ? {
                             stakeholderProfiles: current.stakeholderProfiles ?? [],
                             onProfilesChange: (profiles) => patch({ stakeholderProfiles: profiles }),
+                            motivatorContext: current.motivatorContext,
                           } : {})}
                         />
                       ))}
