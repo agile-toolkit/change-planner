@@ -6,7 +6,7 @@ import {
   type ImprovementItem, type SortKey,
   CATEGORY_TO_FACET, loadBoardItems, boardItemToAction, relativeTime, digestActions, sortInitiatives,
 } from './homeScreenLogic'
-import { CloseIcon, GlobeIcon, DocumentIcon, ClipboardIcon, PersonIcon } from './icons'
+import { CloseIcon, GlobeIcon, DocumentIcon, ClipboardIcon, PersonIcon, ArrowRightIcon } from './icons'
 
 const CATEGORY_BADGE: Record<ImprovementItem['category'], string> = {
   people: 'bg-green-100 text-green-700',
@@ -415,8 +415,8 @@ export default function HomeScreen({
                           <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${CATEGORY_BADGE[item.category]}`}>
                             {item.category}
                           </span>
-                          <span className="text-xs text-slate-400 dark:text-gray-500">
-                            → {t(`facets.${CATEGORY_TO_FACET[item.category]}.label`)}
+                          <span className="text-xs text-slate-400 dark:text-gray-500 inline-flex items-center gap-1">
+                            <ArrowRightIcon className="w-3 h-3" /> {t(`facets.${CATEGORY_TO_FACET[item.category]}.label`)}
                           </span>
                         </div>
                         {item.description && (

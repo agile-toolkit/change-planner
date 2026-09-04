@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import type { FacetId, StakeholderProfile } from '../types'
 import StakeholderProfilePanel from './StakeholderProfilePanel'
 import StakeholderMap from './StakeholderMap'
+import { ArrowRightIcon } from './icons'
 
 const FACET_STYLES: Record<FacetId, { bg: string; border: string; header: string; badge: string }> = {
   dance:     { bg: 'bg-blue-50 dark:bg-blue-950',   border: 'border-blue-200 dark:border-blue-800',   header: 'text-blue-900 dark:text-blue-100',   badge: 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' },
@@ -44,7 +45,7 @@ export default function FacetCard({ facetId, notes, actionCount, onNotesChange, 
       <div className="space-y-1 mb-3">
         {prompts.map((prompt, i) => (
           <div key={i} className={`text-xs flex gap-2 ${styles.header} opacity-60`}>
-            <span>→</span>
+            <ArrowRightIcon className="w-3 h-3 flex-shrink-0 mt-0.5" />
             <span>{prompt}</span>
           </div>
         ))}

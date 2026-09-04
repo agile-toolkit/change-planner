@@ -24,6 +24,12 @@
   longer end with a decorative "→" baked into every locale string (en/es/
   be/ru); the arrow now renders as `ArrowRightIcon` next to the text in
   StakeholderProfilePanel.tsx so it isn't duplicated on translation.
+- **feat**: three more standalone `→` text arrows converted to
+  `ArrowRightIcon`: the facet-tab "next" button (FacetPlanner.tsx), each
+  facet card's prompt-bullet prefix (FacetCard.tsx), and the board-item
+  category→facet label prefix (HomeScreen.tsx). Left `StakeholderMap.tsx`'s
+  axis-label arrows alone — they're inside rotated SVG `<text>` elements,
+  same reasoning the suite applies to chart labels generally.
   Left `RoadmapView.tsx`/`SharedView.tsx`'s paired `✓`/`◆` and `✓`/`○`
   status markers, and the `💃`/`🧠`/`🕸️`/`🌱` facet glyphs (FacetPlanner.tsx,
   HomeScreen.tsx) as-is — motivator-card and matched-pair content, not
