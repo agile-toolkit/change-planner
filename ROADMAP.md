@@ -11,6 +11,10 @@ None — idle. See `## Next epics` below.
 3. **E3: RACI responsibility tagging** — serves #2. Adds a `raci` field to actions, linking to stakeholder profiles, so action ownership tracking gets more precise. [#55](https://github.com/agile-toolkit/change-planner/issues/55).
 
 ## Recently shipped
+**Add glass effect to the header** (2026-09-04) — see `## Shipped`. `AppHeader.tsx`'s background changed to a translucent blur, matching the Dashboard's own nav — user-reported inconsistency.
+
+**Sync icons; CI Node bump** (2026-09-04) — see `## Shipped`. Synced the shared `icons.tsx` (64 icons) and replaced the remaining decorative emoji across `App.tsx`/`HomeScreen.tsx`/`LearnView.tsx`/`StakeholderProfilePanel.tsx`/`ExportButton.tsx`/`ActionTracker.tsx` and more. CI Node bumped 20 → 22 for `jsdom@30`.
+
 **Facilitator Mode persists across suite apps** (2026-09-03) — see `## Shipped`. `useFacilitatorMode`'s storage key changed to the shared `agile-toolkit:facilitatorMode` so the mode survives switching to another suite app in the same tab, per direct user request.
 
 **Replace decorative ✕/✓ emoji with SVG icons** (2026-09-03) — see `## Shipped`. Part of a suite-wide emoji→SVG sweep the user asked for; this app had the most occurrences (11 kept, plus 3 paired status markers deliberately left as text).
@@ -36,6 +40,8 @@ None — idle. See `## Next epics` below.
 Closed 21 stale issues (#3–#8, #12–#17, #19–#21, #31, #32, #39, #40, #50, #51) confirmed already implemented against current source — no functional change, repo housekeeping only. #8's Phase 1 (related-sprints field, copy-to-retro) was already fully shipped; its Phase 2 (deep-links into Scrum Facilitator/Sprint Metrics) is explicitly conditional in the issue's own text on those apps adding URL-based session state, which neither currently has — closed with a note that a fresh issue should be filed once that lands.
 
 ## Shipped
+- ~~Add glass/backdrop-blur effect to the header, matching the Dashboard's own nav~~
+- ~~Sync the shared `icons.tsx` and replace remaining decorative emoji across the app~~
 - ~~Unify Facilitator Mode's storage key to the shared `agile-toolkit:facilitatorMode` so it persists across suite apps~~
 - ~~Replace decorative ✕/✓ text-glyph buttons with shared SVG icons~~
 - ~~Facilitator Mode — bigger UI + hidden nav/language picker for in-room presentation, adopted from the shared design-system pattern~~

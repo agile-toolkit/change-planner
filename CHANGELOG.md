@@ -1,6 +1,16 @@
 # Changelog
 
 ## Unreleased
+
+## 0.3.2 — Add glass effect to the header (2026-09-04)
+
+- **fix**: `AppHeader.tsx`'s background changed from opaque
+  `bg-white`/`dark:bg-gray-900` to `bg-[var(--glass)] backdrop-blur-sm` —
+  the Dashboard's own nav has always had this translucent blur effect,
+  but the shared header every app copies did not. User-reported
+  inconsistency. Verified in both themes.
+
+## 0.3.1 — Sync icons; CI Node bump (2026-09-04)
 - **ci**: CI Node bumped 20 → 22 and `engines` declared. `jsdom@30` requires
   Node `^22.22.2 || ^24.15.0 || >=26`, so the test step could never have passed
   on the pinned Node 20 — invisible until this release started running the
