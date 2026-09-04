@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId, StakeholderProfile } from '../types'
 import StakeholderProfilePanel from './StakeholderProfilePanel'
 import StakeholderMap from './StakeholderMap'
-import { CheckIcon } from './icons'
+import { CheckIcon, ArrowRightIcon } from './icons'
 
 /** Short labels for facet tabs (facets.*.label are often long) */
 const FACET_TAB_EMOJI: Record<FacetId, string> = {
@@ -171,9 +171,9 @@ export default function FacetPlanner({
             <button
               type="button"
               onClick={() => onFacetChange(nextFacet)}
-              className="btn-primary text-sm"
+              className="btn-primary text-sm inline-flex items-center gap-1"
             >
-              {t('common.next')} →
+              {t('common.next')} <ArrowRightIcon className="w-3.5 h-3.5" />
             </button>
           </div>
         )}

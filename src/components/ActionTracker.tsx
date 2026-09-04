@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Action, ActionHypothesis, ActionPriority, ActionStatus, FacetId, HypothesisOutcome } from '../types'
 import { isOverdue as isActionOverdue } from '../utils/actions'
-import { CloseIcon } from './icons'
+import { CloseIcon, BoltIcon, CalendarIcon, FlaskIcon } from './icons'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -184,9 +184,9 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
               onClick={() => setShowFilters(v => !v)}
               aria-expanded={showFilters}
               aria-label={t('actions.filter_label')}
-              className={`relative btn-ghost text-sm ${showFilters ? 'bg-brand-50 dark:bg-brand-900 text-brand-700 dark:text-brand-300' : ''}`}
+              className={`relative btn-ghost text-sm inline-flex items-center gap-1 ${showFilters ? 'bg-brand-50 dark:bg-brand-900 text-brand-700 dark:text-brand-300' : ''}`}
             >
-              ⚡ {t('actions.filter_label')}
+              <BoltIcon className="w-3.5 h-3.5" /> {t('actions.filter_label')}
               {activeFilterCount > 0 && (
                 <span className="absolute -top-1 -right-1 min-w-[1.1rem] h-[1.1rem] rounded-full bg-brand-600 text-white text-[10px] font-bold flex items-center justify-center px-0.5">
                   {activeFilterCount}
@@ -446,8 +446,8 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                     )}
                     {action.owner && <span className="text-xs text-gray-400 dark:text-gray-500">{action.owner}</span>}
                     {action.dueDate && (
-                      <span className={`text-xs ${isOverdue(action) ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
-                        📅 {action.dueDate}
+                      <span className={`text-xs inline-flex items-center gap-1 ${isOverdue(action) ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
+                        <CalendarIcon className="w-3 h-3" /> {action.dueDate}
                       </span>
                     )}
                     {isOverdue(action) && (
@@ -460,9 +460,9 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                         onClick={() => toggleHypothesis(action.id)}
                         aria-expanded={expanded}
                         aria-controls={`hypothesis-${action.id}`}
-                        className="text-xs text-brand-600 hover:underline"
+                        className="text-xs text-brand-600 hover:underline inline-flex items-center gap-1"
                       >
-                        🧪 {expanded ? t('actions.hypothesis_hide') : t('actions.hypothesis_show')}
+                        <FlaskIcon className="w-3 h-3" /> {expanded ? t('actions.hypothesis_hide') : t('actions.hypothesis_show')}
                       </button>
                     )}
                   </div>

@@ -6,7 +6,7 @@ import {
   type ImprovementItem, type SortKey,
   CATEGORY_TO_FACET, loadBoardItems, boardItemToAction, relativeTime, digestActions, sortInitiatives,
 } from './homeScreenLogic'
-import { CloseIcon } from './icons'
+import { CloseIcon, GlobeIcon, DocumentIcon, ClipboardIcon, PersonIcon, ArrowRightIcon } from './icons'
 
 const CATEGORY_BADGE: Record<ImprovementItem['category'], string> = {
   people: 'bg-green-100 text-green-700',
@@ -90,8 +90,8 @@ export default function HomeScreen({
   return (
     <div className="space-y-8">
       <div className="text-center py-8 max-w-2xl mx-auto">
-        <div className="text-5xl mb-4" aria-hidden>
-          🌍
+        <div className="mb-4 flex justify-center" aria-hidden>
+          <GlobeIcon className="w-14 h-14 text-slate-300 dark:text-gray-600" />
         </div>
         <h1 className="text-3xl font-bold text-slate-900 dark:text-gray-100 mb-3">{t('home.headline')}</h1>
         <p className="text-slate-600 dark:text-gray-400 text-lg leading-relaxed">{t('home.subheadline')}</p>
@@ -318,7 +318,7 @@ export default function HomeScreen({
                 }}
                 className="text-left border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-brand-400 hover:bg-brand-50 dark:hover:bg-gray-800 transition-colors group"
               >
-                <div className="text-2xl mb-2">📄</div>
+                <div className="mb-2"><DocumentIcon className="w-6 h-6 text-slate-400 dark:text-gray-500" /></div>
                 <div className="font-semibold text-slate-800 dark:text-gray-200 group-hover:text-brand-700 dark:group-hover:text-brand-400">
                   {t('templates.blank_title')}
                 </div>
@@ -335,7 +335,7 @@ export default function HomeScreen({
                   }}
                   className="text-left border border-slate-200 dark:border-gray-700 rounded-xl p-4 hover:border-brand-400 hover:bg-brand-50 dark:hover:bg-gray-800 transition-colors shadow-sm group"
                 >
-                  <div className="text-2xl mb-2">{tpl.emoji}</div>
+                  <div className="mb-2"><tpl.icon className="w-6 h-6 text-slate-400 dark:text-gray-500" /></div>
                   <div className="font-semibold text-slate-800 dark:text-gray-200 group-hover:text-brand-700 dark:group-hover:text-brand-400">
                     {t(`templates.${tpl.id}.name`)}
                   </div>
@@ -372,7 +372,7 @@ export default function HomeScreen({
 
             {boardItems.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center py-10 text-center">
-                <div className="text-4xl mb-3">📋</div>
+                <div className="mb-3 flex justify-center"><ClipboardIcon className="w-10 h-10 text-slate-300 dark:text-gray-600" /></div>
                 <p className="text-slate-600 dark:text-gray-300 font-medium mb-1">{t('import_board.empty_title')}</p>
                 <p className="text-slate-400 dark:text-gray-500 text-sm">{t('import_board.empty_desc')}</p>
               </div>
@@ -415,15 +415,17 @@ export default function HomeScreen({
                           <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${CATEGORY_BADGE[item.category]}`}>
                             {item.category}
                           </span>
-                          <span className="text-xs text-slate-400 dark:text-gray-500">
-                            → {t(`facets.${CATEGORY_TO_FACET[item.category]}.label`)}
+                          <span className="text-xs text-slate-400 dark:text-gray-500 inline-flex items-center gap-1">
+                            <ArrowRightIcon className="w-3 h-3" /> {t(`facets.${CATEGORY_TO_FACET[item.category]}.label`)}
                           </span>
                         </div>
                         {item.description && (
                           <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5 line-clamp-2">{item.description}</p>
                         )}
                         {item.owner && (
-                          <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5">👤 {item.owner}</p>
+                          <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5 inline-flex items-center gap-1">
+                            <PersonIcon className="w-3 h-3" /> {item.owner}
+                          </p>
                         )}
                       </div>
                     </li>

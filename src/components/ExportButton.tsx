@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId } from '../types'
-import { CheckIcon } from './icons'
+import { CheckIcon, ClipboardIcon, ImageIcon } from './icons'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -107,7 +107,7 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
               onClick={handleCopyMarkdown}
               className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2"
             >
-              <span>📋</span>
+              <ClipboardIcon className="w-3.5 h-3.5" />
               <span>{t('export.copy_markdown')}</span>
             </button>
             <button
@@ -115,7 +115,7 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
               onClick={handleExportPng}
               className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2"
             >
-              <span>🖼️</span>
+              <ImageIcon className="w-3.5 h-3.5" />
               <span>{t('export.export_png')}</span>
             </button>
           </div>

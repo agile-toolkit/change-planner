@@ -7,7 +7,7 @@ import AppHeader from './components/AppHeader'
 import ThemeToggle from './components/ThemeToggle'
 import FacilitatorToggle from './components/FacilitatorToggle'
 import { useFacilitatorMode } from './components/useFacilitatorMode'
-import { CloseIcon } from './components/icons'
+import { CloseIcon, LinkIcon } from './components/icons'
 import FacetCard from './components/FacetCard'
 import FacetPlanner from './components/FacetPlanner'
 import InitiativeCanvas from './components/InitiativeCanvas'
@@ -444,10 +444,10 @@ export default function App() {
                         <button
                           type="button"
                           onClick={handleShare}
-                          className="text-sm text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                          className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                           title={t('share.button')}
                         >
-                          🔗 {t('share.button')}
+                          <LinkIcon className="w-3.5 h-3.5" /> {t('share.button')}
                         </button>
                         {shareMsg && (
                           <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-xs bg-gray-800 text-white px-2 py-1 rounded whitespace-nowrap">

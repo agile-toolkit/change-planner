@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, Action, ActionStatus, ActionPriority, FacetId } from '../types'
+import { CalendarIcon } from './icons'
 
 interface Props {
   initiative: Initiative
@@ -134,8 +135,8 @@ export default function BoardView({ initiative, onUpdate }: Props) {
                               </span>
                               {action.owner && <span className="text-xs text-gray-400 dark:text-gray-500">{action.owner}</span>}
                               {action.dueDate && (
-                                <span className={`text-xs ${action.status !== 'done' && action.dueDate < today ? 'text-red-500 font-medium' : 'text-gray-400 dark:text-gray-500'}`}>
-                                  📅 {action.dueDate}
+                                <span className={`text-xs inline-flex items-center gap-1 ${action.status !== 'done' && action.dueDate < today ? 'text-red-500 font-medium' : 'text-gray-400 dark:text-gray-500'}`}>
+                                  <CalendarIcon className="w-3 h-3" /> {action.dueDate}
                                 </span>
                               )}
                             </div>
