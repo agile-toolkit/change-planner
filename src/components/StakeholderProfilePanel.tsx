@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { StakeholderProfile } from '../types'
 import { readMmLastSession, mmLastSessionTopMotivators } from '../utils/crossAppImport'
-import { CloseIcon } from './icons'
+import { CloseIcon, TipIcon, ArrowRightIcon } from './icons'
 
 const MM_URL = 'https://agile-toolkit.github.io/moving-motivators/'
 
@@ -110,9 +110,9 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
           href={MM_URL}
           target="_blank"
           rel="noreferrer"
-          className="text-xs text-green-700 dark:text-green-400 underline hover:opacity-80"
+          className="inline-flex items-center gap-1 text-xs text-green-700 dark:text-green-400 underline hover:opacity-80"
         >
-          {t('mind_profiles.open_mm')}
+          {t('mind_profiles.open_mm')} <ArrowRightIcon className="w-3.5 h-3.5" />
         </a>
       </div>
 
@@ -150,8 +150,8 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
             </div>
           )}
           {p.motivators[0] && (
-            <p className="text-xs italic text-green-700/80 dark:text-green-400/80 mb-2">
-              💡 {t('mind_profiles.suggested_action', { name: p.name, motivator: p.motivators[0] })}
+            <p className="text-xs italic text-green-700/80 dark:text-green-400/80 mb-2 inline-flex items-start gap-1">
+              <TipIcon className="w-3.5 h-3.5 shrink-0 mt-0.5" /> {t('mind_profiles.suggested_action', { name: p.name, motivator: p.motivators[0] })}
             </p>
           )}
           <div className="space-y-1 pt-1 border-t border-green-50 dark:border-green-900">
@@ -182,9 +182,9 @@ export default function StakeholderProfilePanel({ profiles, onChange }: Props) {
             <button
               type="button"
               onClick={handlePrefillFromMm}
-              className="text-xs text-green-700 dark:text-green-400 underline hover:opacity-80"
+              className="inline-flex items-center gap-1 text-xs text-green-700 dark:text-green-400 underline hover:opacity-80"
             >
-              {t('mind_profiles.prefill_from_mm', { date: mmSession.date })}
+              {t('mind_profiles.prefill_from_mm', { date: mmSession.date })} <ArrowRightIcon className="w-3.5 h-3.5" />
             </button>
           )}
           <div className="grid grid-cols-3 gap-2">

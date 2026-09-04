@@ -1,8 +1,10 @@
+import type { ComponentType } from 'react'
 import type { FacetId } from '../types'
+import { RefreshIcon, RocketIcon, GlobeIcon, WrenchIcon, RobotIcon, TargetIcon } from '../components/icons'
 
 export interface InitiativeTemplate {
   id: string
-  emoji: string
+  icon: ComponentType<{ className?: string }>
   data: {
     title: string
     goal: string
@@ -15,7 +17,7 @@ export interface InitiativeTemplate {
 export const TEMPLATES: InitiativeTemplate[] = [
   {
     id: 'agile-adoption',
-    emoji: '🔄',
+    icon: RefreshIcon,
     data: {
       title: 'Agile Adoption',
       goal: 'Run reliable 2-week Sprints with stable velocity and improved predictability within 3 months.',
@@ -32,7 +34,7 @@ export const TEMPLATES: InitiativeTemplate[] = [
   },
   {
     id: 'continuous-delivery',
-    emoji: '🚀',
+    icon: RocketIcon,
     data: {
       title: 'Continuous Delivery Pipeline',
       goal: 'Reduce deployment lead time from weeks to hours, with automated tests covering 70%+ of the codebase.',
@@ -51,7 +53,7 @@ export const TEMPLATES: InitiativeTemplate[] = [
   },
   {
     id: 'remote-culture',
-    emoji: '🌐',
+    icon: GlobeIcon,
     data: {
       title: 'Remote-First Culture',
       goal: 'Achieve equal collaboration quality for remote and in-office team members within 6 months.',
@@ -69,7 +71,7 @@ export const TEMPLATES: InitiativeTemplate[] = [
   },
   {
     id: 'devops-transformation',
-    emoji: '🔧',
+    icon: WrenchIcon,
     data: {
       title: 'DevOps Transformation',
       goal: 'Shared ownership of production; mean time to recovery under 1 hour within 6 months.',
@@ -88,7 +90,7 @@ export const TEMPLATES: InitiativeTemplate[] = [
   },
   {
     id: 'ai-adoption',
-    emoji: '🤖',
+    icon: RobotIcon,
     data: {
       title: 'AI Adoption',
       goal: 'Move 2-3 real workflows from manual to AI-assisted, embedded in daily tools, within one quarter.',
@@ -109,7 +111,7 @@ export const TEMPLATES: InitiativeTemplate[] = [
   },
   {
     id: 'okr-rollout',
-    emoji: '🎯',
+    icon: TargetIcon,
     data: {
       title: 'OKR Rollout',
       goal: 'All teams have 3 aligned OKRs per quarter, reviewed bi-weekly, within one planning cycle.',

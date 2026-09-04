@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import type { FacetId } from '../types'
+import { TipIcon } from './icons'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 const TIPS = ['tip1', 'tip2', 'tip3', 'tip4', 'tip5'] as const
@@ -35,7 +36,7 @@ export default function LearnView() {
         <ul className="space-y-2">
           {TIPS.map(tip => (
             <li key={tip} className="flex gap-2 text-sm text-brand-700 dark:text-brand-400">
-              <span className="text-brand-500 dark:text-brand-400 font-bold">💡</span>
+              <TipIcon className="w-3.5 h-3.5 text-brand-500 dark:text-brand-400 shrink-0 mt-0.5" />
               {t(`learn.${tip}`)}
             </li>
           ))}

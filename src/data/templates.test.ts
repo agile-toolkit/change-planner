@@ -26,7 +26,7 @@ describe('TEMPLATES', () => {
       expect(template.data.goal).toBeTruthy()
       expect(template.data.context).toBeTruthy()
       expect(template.data.stakeholders).toBeTruthy()
-      expect(template.emoji).toBeTruthy()
+      expect(template.icon).toBeTruthy()
     }
   })
 })

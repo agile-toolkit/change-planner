@@ -5,6 +5,29 @@
   Node `^22.22.2 || ^24.15.0 || >=26`, so the test step could never have passed
   on the pinned Node 20 — invisible until this release started running the
   tests in CI at all. Builds were unaffected (vite and tsc do not load jsdom).
+- **feat**: synced the shared `icons.tsx` (now 64 icons) and replaced the
+  remaining decorative emoji with SVG icons: share-button `🔗`→`LinkIcon`
+  (App.tsx); home hero `🌍`→`GlobeIcon`, blank-template `📄`→`DocumentIcon`,
+  empty-state `📋`→`ClipboardIcon`, board-item owner `👤`→`PersonIcon`
+  (HomeScreen.tsx); tip `💡`→`TipIcon` (LearnView.tsx,
+  StakeholderProfilePanel.tsx); export-menu `📋`/`🖼️`→`ClipboardIcon`/
+  `ImageIcon` (ExportButton.tsx); filter `⚡`→`BoltIcon`, due-date
+  `📅`→`CalendarIcon`, hypothesis `🧪`→`FlaskIcon` (ActionTracker.tsx);
+  due-date `📅`→`CalendarIcon` (BoardView.tsx). `HandshakeIcon` was retired
+  from the shared set (unused here) in favor of `TeamIcon`.
+- **refactor**: `InitiativeTemplate.emoji: string` is now
+  `icon: ComponentType<{className?: string}>`, matching the Dashboard's
+  `apps.ts` pattern — `🔄 🚀 🌐 🔧 🤖 🎯` become `RefreshIcon RocketIcon
+  GlobeIcon WrenchIcon RobotIcon TargetIcon` (data/templates.ts,
+  HomeScreen.tsx template-picker render, templates.test.ts).
+- **i18n**: `mind_profiles.open_mm` and `mind_profiles.prefill_from_mm` no
+  longer end with a decorative "→" baked into every locale string (en/es/
+  be/ru); the arrow now renders as `ArrowRightIcon` next to the text in
+  StakeholderProfilePanel.tsx so it isn't duplicated on translation.
+  Left `RoadmapView.tsx`/`SharedView.tsx`'s paired `✓`/`◆` and `✓`/`○`
+  status markers, and the `💃`/`🧠`/`🕸️`/`🌱` facet glyphs (FacetPlanner.tsx,
+  HomeScreen.tsx) as-is — motivator-card and matched-pair content, not
+  standalone decoration. Part of the suite-wide emoji→SVG sweep.
 
 
 ## 0.3.0 — Validate cross-app payloads, error boundary (2026-09-03)
