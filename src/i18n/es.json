@@ -153,7 +153,14 @@
     "filter_done": "Hecho",
     "filter_clear": "Borrar filtros",
     "filter_no_results": "Ninguna acción coincide con los filtros actuales.",
-    "status_in_progress": "En curso"
+    "status_in_progress": "En curso",
+    "raci_label": "RACI",
+    "raci_responsible": "Responsable",
+    "raci_accountable": "Aprobador",
+    "raci_consulted": "Consultado",
+    "raci_informed": "Informado",
+    "raci_add_person_placeholder": "Escribe un nombre y pulsa Enter",
+    "raci_remove_person": "Quitar a {{name}}"
   },
   "progress": {
     "title": "Progreso",

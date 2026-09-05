@@ -2,6 +2,26 @@
 
 ## Unreleased
 
+## 0.3.7 — RACI responsibility tagging on actions (2026-09-05)
+
+- **feat** (issue #55): each action in the Action Tracker can now be
+  tagged with a RACI assignment (Responsible / Accountable / Consulted /
+  Informed). A new "RACI" toggle next to the existing hypothesis toggle
+  opens an editable panel: Responsible and Accountable are single
+  free-text fields, Consulted and Informed are multi-person tag lists
+  (type a name, press Enter or comma to add; click × to remove). When
+  any role is set, a compact colored R/A/C/I badge cluster appears on
+  the action row itself, with a tooltip listing who holds which role.
+  - **Answers the issue's own open question** ("restrict to
+    `stakeholderProfiles` only, or accept free text?"): free text, with
+    `<datalist>` autocomplete suggestions drawn from the initiative's
+    `stakeholderProfiles` — the same convention `Action.owner` already
+    uses, so RACI can name a stakeholder who hasn't been profiled yet.
+  - New `RaciAssignment` type and `Action.raci?` field in `types.ts`.
+  - New `hasRaciAssigned`/`raciRoleLetters` helpers in `utils/actions.ts`
+    with 11 new unit tests.
+  - New `actions.raci_*` i18n keys in all four locales.
+
 ## 0.3.6 — Export action due dates as .ics calendar file (2026-09-05)
 
 - **feat** (issue #58): new "Export to Calendar (.ics)" option in the
