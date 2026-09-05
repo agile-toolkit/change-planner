@@ -4,7 +4,7 @@ import { FACET_IDS, type FacetId, type Initiative, type Action } from '../types'
 import { TEMPLATES, type InitiativeTemplate } from '../data/templates'
 import {
   type ImprovementItem, type SortKey,
-  CATEGORY_TO_FACET, loadBoardItems, boardItemToAction, relativeTime, digestActions, sortInitiatives,
+  CATEGORY_TO_FACET, loadBoardItems, boardItemToAction, relativeTime, digestActions, sortInitiatives, filterInitiatives,
 } from './homeScreenLogic'
 import { CloseIcon, GlobeIcon, DocumentIcon, ClipboardIcon, PersonIcon, ArrowRightIcon } from './icons'
 
@@ -54,6 +54,7 @@ export default function HomeScreen({
   const [showArchived, setShowArchived] = useState(false)
   const [showTemplates, setShowTemplates] = useState(false)
   const [sortBy, setSortBy] = useState<SortKey>('latest')
+  const [searchQuery, setSearchQuery] = useState('')
   const [showImportBoard, setShowImportBoard] = useState(false)
   const [boardItems, setBoardItems] = useState<ImprovementItem[]>([])
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
@@ -83,9 +84,10 @@ export default function HomeScreen({
     onImportFromBoard(actions)
   }
 
-  const active = sortInitiatives(initiatives.filter(i => !i.completedAt), sortBy)
-  const archived = initiatives.filter(i => !!i.completedAt)
+  const active = sortInitiatives(filterInitiatives(initiatives.filter(i => !i.completedAt), searchQuery), sortBy)
+  const archived = filterInitiatives(initiatives.filter(i => !!i.completedAt), searchQuery)
   const digest = digestActions(initiatives)
+  const noSearchResults = searchQuery.trim() !== '' && active.length === 0 && archived.length === 0
 
   return (
     <div className="space-y-8">
@@ -238,6 +240,32 @@ export default function HomeScreen({
               </button>
             </div>
           </div>
+
+          <div className="relative max-w-sm">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder={t('home.search_placeholder')}
+              className="w-full text-sm rounded-lg border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-1.5 pr-8 text-slate-700 dark:text-gray-200 placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-400"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label={t('home.search_clear')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300"
+              >
+                <CloseIcon className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+
+          {noSearchResults && (
+            <div className="card text-center py-8 text-slate-500 dark:text-gray-400 text-sm">
+              {t('home.search_empty', { query: searchQuery.trim() })}
+            </div>
+          )}
 
           {active.length > 0 && (
             <ul className="space-y-2">

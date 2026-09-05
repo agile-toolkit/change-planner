@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## 0.3.4 — Search across initiatives (2026-09-05)
+
+- **feat** (issue #57): adds a search input above the initiative list on
+  `HomeScreen.tsx`, filtering both the Active and Archived sections by
+  case-insensitive substring match against title, goal, and stakeholder
+  profile names (deliberately not facet notes/action text, which would
+  make results noisy as that free-text body grows). Shows a
+  `No initiatives match "{query}"` empty state when the filter yields
+  zero results but initiatives exist, and a clear (×) button inside the
+  input. New `filterInitiatives()` in `homeScreenLogic.ts` with 6 unit
+  tests. New `home.search_placeholder`/`search_empty`/`search_clear`
+  i18n keys in all four locales.
+
 ## 0.3.3 — Motivator context panel for Moving Motivators imports (2026-09-04)
 
 - **feat**: closes the Change Planner side of
