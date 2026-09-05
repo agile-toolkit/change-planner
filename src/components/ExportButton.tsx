@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Initiative, FacetId } from '../types'
-import { CheckIcon, ClipboardIcon, ImageIcon } from './icons'
+import { downloadIcs } from '../utils/ics'
+import { CheckIcon, ClipboardIcon, ImageIcon, CalendarIcon } from './icons'
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -62,6 +63,11 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
     })
   }
 
+  const handleExportIcs = () => {
+    setOpen(false)
+    downloadIcs(initiative.actions, initiative.milestones ?? [], initiative.title)
+  }
+
   const handleExportPng = async () => {
     if (!workspaceRef.current) return
     setExporting(true)
@@ -117,6 +123,14 @@ export default function ExportButton({ initiative, workspaceRef }: Props) {
             >
               <ImageIcon className="w-3.5 h-3.5" />
               <span>{t('export.export_png')}</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleExportIcs}
+              className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2"
+            >
+              <CalendarIcon className="w-3.5 h-3.5" />
+              <span>{t('export.export_ics')}</span>
             </button>
           </div>
         </>
