@@ -190,7 +190,9 @@
     "copied": "¡Copiado!",
     "untitled": "Sin título",
     "facets_heading": "Notas por faceta",
-    "actions_heading": "Elementos de acción"
+    "actions_heading": "Elementos de acción",
+    "print": "Imprimir",
+    "print_hint": "Imprimir esta iniciativa (abre el diálogo de impresión del navegador)"
   },
   "backup": {
     "export": "Exportar copia de seguridad",

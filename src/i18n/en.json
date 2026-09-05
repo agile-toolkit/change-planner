@@ -190,7 +190,9 @@
     "copied": "Copied!",
     "untitled": "Untitled",
     "facets_heading": "Facet notes",
-    "actions_heading": "Action items"
+    "actions_heading": "Action items",
+    "print": "Print",
+    "print_hint": "Print this initiative (opens the browser print dialog)"
   },
   "backup": {
     "export": "Export backup",

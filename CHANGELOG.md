@@ -2,6 +2,32 @@
 
 ## Unreleased
 
+## 0.3.5 — Print-optimized initiative view (2026-09-05)
+
+- **feat** (issue #54): adds a "Print" button next to the existing
+  "Export" button in the workspace tab bar, calling `window.print()`.
+  A new `@media print` block in `index.css` hides the header, the
+  "+ New Initiative"/initiative-switcher bar, the whole canvas tab
+  navigation, and `ActionTracker`'s filter/add controls; forces light
+  theme regardless of the app's dark-mode setting; and adds
+  `page-break-inside: avoid` to facet cards and action rows so they
+  don't split across pages.
+  - **Hypothesis details are conditionally rendered** (unmounted, not
+    just CSS-hidden, when collapsed) — a print stylesheet alone can't
+    reveal them. `ActionTracker.tsx` now listens for `beforeprint`/
+    `afterprint` to temporarily expand every action's hypothesis for
+    the duration of printing and restore whatever the user had open
+    afterward.
+  - Prints whatever canvas tab is currently active (Workspace/Guided/
+    Roadmap/Board/Assess) rather than a fixed full-initiative layout —
+    answers the issue's open question by giving the user control over
+    what gets printed, matching the `team-identity` precedent this
+    issue cites.
+  - Verified via Playwright's print-media emulation: header/nav/buttons
+    correctly hidden, dark theme correctly forced to light, hypothesis
+    correctly auto-expands and restores.
+  - New `export.print`/`print_hint` i18n keys in all four locales.
+
 ## 0.3.4 — Search across initiatives (2026-09-05)
 
 - **feat** (issue #57): adds a search input above the initiative list on
