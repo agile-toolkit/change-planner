@@ -28,7 +28,7 @@ export default function FacetCard({ facetId, notes, actionCount, onNotesChange, 
   const prompts = t(`facets.${facetId}.prompts`, { returnObjects: true }) as string[]
 
   return (
-    <div className={`rounded-2xl border p-5 ${styles.bg} ${styles.border}`}>
+    <div className={`rounded-2xl border p-5 print-avoid-break ${styles.bg} ${styles.border}`}>
       <div className="flex items-start justify-between mb-2">
         <h3 className={`font-semibold text-base ${styles.header}`}>
           {t(`facets.${facetId}.label`)}

@@ -97,6 +97,38 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
     })
   }
 
+  // Hypothesis details are conditionally rendered (unmounted when
+  // collapsed), so a print stylesheet alone can't reveal them — expand
+  // every action with a hypothesis for the duration of printing, then
+  // restore whatever the user had open (issue #54). Reads current
+  // actions/expandedHypotheses via refs rather than effect deps, so the
+  // listeners stay registered across renders (a beforeprint-triggered
+  // state update must not tear down the afterprint handler before it fires).
+  const actionsRef = useRef(actions)
+  actionsRef.current = actions
+  const expandedBeforePrintRef = useRef<Set<string> | null>(null)
+
+  useEffect(() => {
+    const handleBeforePrint = () => {
+      setExpandedHypotheses(prev => {
+        expandedBeforePrintRef.current = prev
+        return new Set(actionsRef.current.filter(a => a.hypothesis).map(a => a.id))
+      })
+    }
+    const handleAfterPrint = () => {
+      if (expandedBeforePrintRef.current) {
+        setExpandedHypotheses(expandedBeforePrintRef.current)
+        expandedBeforePrintRef.current = null
+      }
+    }
+    window.addEventListener('beforeprint', handleBeforePrint)
+    window.addEventListener('afterprint', handleAfterPrint)
+    return () => {
+      window.removeEventListener('beforeprint', handleBeforePrint)
+      window.removeEventListener('afterprint', handleAfterPrint)
+    }
+  }, [])
+
   const handleAdd = () => {
     if (!text.trim()) return
     const hypothesis: ActionHypothesis | undefined =
@@ -178,7 +210,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
             <span className="text-xs text-gray-400">{t('actions.done_count', { done: doneCount, total: actions.length })}</span>
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 print:hidden">
           {actions.length > 0 && (
             <button
               onClick={() => setShowFilters(v => !v)}
@@ -201,7 +233,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
       </div>
 
       {showFilters && (
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 mb-4 space-y-3">
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 mb-4 space-y-3 print:hidden">
           <input
             className="input text-sm"
             placeholder={t('actions.filter_search')}
@@ -403,7 +435,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
           return (
             <div
               key={action.id}
-              className={`rounded-xl border transition-colors ${
+              className={`rounded-xl border transition-colors print-avoid-break ${
                 action.status === 'done'
                   ? 'bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700'
                   : isOverdue(action)
@@ -460,14 +492,14 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                         onClick={() => toggleHypothesis(action.id)}
                         aria-expanded={expanded}
                         aria-controls={`hypothesis-${action.id}`}
-                        className="text-xs text-brand-600 hover:underline inline-flex items-center gap-1"
+                        className="text-xs text-brand-600 hover:underline inline-flex items-center gap-1 print:hidden"
                       >
                         <FlaskIcon className="w-3 h-3" /> {expanded ? t('actions.hypothesis_hide') : t('actions.hypothesis_show')}
                       </button>
                     )}
                   </div>
                 </div>
-                <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-400 dark:text-gray-500 hover:text-red-400 transition-colors text-xs flex-shrink-0">
+                <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-400 dark:text-gray-500 hover:text-red-400 transition-colors text-xs flex-shrink-0 print:hidden">
                   <CloseIcon className="w-3.5 h-3.5" />
                 </button>
               </div>

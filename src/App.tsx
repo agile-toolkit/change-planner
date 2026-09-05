@@ -7,7 +7,7 @@ import AppHeader from './components/AppHeader'
 import ThemeToggle from './components/ThemeToggle'
 import FacilitatorToggle from './components/FacilitatorToggle'
 import { useFacilitatorMode } from './components/useFacilitatorMode'
-import { CloseIcon, LinkIcon } from './components/icons'
+import { CloseIcon, LinkIcon, PrintIcon } from './components/icons'
 import FacetCard from './components/FacetCard'
 import FacetPlanner from './components/FacetPlanner'
 import InitiativeCanvas from './components/InitiativeCanvas'
@@ -273,29 +273,31 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950" data-accent="cobalt">
-      <AppHeader
-        title={t('app.title')}
-        onTitleClick={() => { setView('canvas'); setCurrentId(null) }}
-        hideLanguagePicker={facilitatorMode}
-        navItems={facilitatorMode ? [] : [
-          { key: 'learn', label: t('learn.title'), active: view === 'learn', onClick: () => setView('learn') },
-        ]}
-      >
-        <ThemeToggle />
-        <FacilitatorToggle
-          active={facilitatorMode}
-          onToggle={toggleFacilitatorMode}
-          labelOn={t('facilitator.toggle_on')}
-          labelOff={t('facilitator.toggle_off')}
-        />
-      </AppHeader>
+      <div className="print:hidden">
+        <AppHeader
+          title={t('app.title')}
+          onTitleClick={() => { setView('canvas'); setCurrentId(null) }}
+          hideLanguagePicker={facilitatorMode}
+          navItems={facilitatorMode ? [] : [
+            { key: 'learn', label: t('learn.title'), active: view === 'learn', onClick: () => setView('learn') },
+          ]}
+        >
+          <ThemeToggle />
+          <FacilitatorToggle
+            active={facilitatorMode}
+            onToggle={toggleFacilitatorMode}
+            labelOn={t('facilitator.toggle_on')}
+            labelOff={t('facilitator.toggle_off')}
+          />
+        </AppHeader>
+      </div>
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
         {view === 'learn' && <LearnView />}
 
         {view === 'canvas' && (
           <>
-            <div className="flex items-center gap-3 mb-6 flex-wrap">
+            <div className="flex items-center gap-3 mb-6 flex-wrap print:hidden">
               <button type="button" onClick={handleNew} className="btn-primary">
                 + {t('canvas.new')}
               </button>
@@ -387,7 +389,7 @@ export default function App() {
             ) : (
               <>
                 {current && (
-                  <div className="flex items-center gap-1 mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">
+                  <div className="flex items-center gap-1 mb-6 border-b border-gray-200 dark:border-gray-700 pb-2 print:hidden">
                     <button
                       type="button"
                       onClick={() => setCanvasTab('workspace')}
@@ -459,6 +461,14 @@ export default function App() {
                         )}
                       </div>
                       <ExportButton initiative={current} workspaceRef={workspaceRef} />
+                      <button
+                        type="button"
+                        onClick={() => window.print()}
+                        className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-brand-600 px-3 py-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        title={t('export.print_hint')}
+                      >
+                        <PrintIcon className="w-3.5 h-3.5" /> {t('export.print')}
+                      </button>
                     </div>
                   </div>
                 )}
