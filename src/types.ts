@@ -13,6 +13,16 @@ export interface ActionHypothesis {
   outcome?: HypothesisOutcome
 }
 
+// Values are free-text names — same convention as Action.owner — rather
+// than StakeholderProfile ids, so RACI can be assigned to a stakeholder
+// who hasn't been profiled yet (issue #55).
+export interface RaciAssignment {
+  responsible?: string
+  accountable?: string
+  consulted?: string[]
+  informed?: string[]
+}
+
 export interface Action {
   id: string
   text: string
@@ -22,6 +32,7 @@ export interface Action {
   facet: FacetId
   priority: ActionPriority
   hypothesis?: ActionHypothesis
+  raci?: RaciAssignment
 }
 
 export interface StakeholderProfile {

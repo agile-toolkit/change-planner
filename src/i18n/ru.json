@@ -153,7 +153,14 @@
     "filter_done": "Выполнено",
     "filter_clear": "Сбросить фильтры",
     "filter_no_results": "Нет действий, соответствующих текущим фильтрам.",
-    "status_in_progress": "В процессе"
+    "status_in_progress": "В процессе",
+    "raci_label": "RACI",
+    "raci_responsible": "Ответственный",
+    "raci_accountable": "Утверждающий",
+    "raci_consulted": "Консультируется",
+    "raci_informed": "Информируется",
+    "raci_add_person_placeholder": "Введите имя и нажмите Enter",
+    "raci_remove_person": "Удалить {{name}}"
   },
   "progress": {
     "title": "Прогресс",

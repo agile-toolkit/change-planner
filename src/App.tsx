@@ -505,6 +505,7 @@ export default function App() {
                       <ProgressView initiative={current} onChange={patch} />
                       <ActionTracker
                         actions={current.actions}
+                        stakeholderProfiles={current.stakeholderProfiles}
                         onAdd={(action: Action) => patch({ actions: [...current.actions, action] })}
                         onUpdate={(action: Action) =>
                           patch({

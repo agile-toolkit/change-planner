@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Action, ActionHypothesis, ActionPriority, ActionStatus, FacetId, HypothesisOutcome } from '../types'
-import { isOverdue as isActionOverdue } from '../utils/actions'
-import { CloseIcon, BoltIcon, CalendarIcon, FlaskIcon } from './icons'
+import type { Action, ActionHypothesis, ActionPriority, ActionStatus, FacetId, HypothesisOutcome, RaciAssignment, StakeholderProfile } from '../types'
+import { isOverdue as isActionOverdue, hasRaciAssigned, raciRoleLetters, type RaciLetter } from '../utils/actions'
+import { CloseIcon, BoltIcon, CalendarIcon, FlaskIcon, TeamIcon } from './icons'
+
+const RACI_LETTER_COLORS: Record<RaciLetter, string> = {
+  R: 'bg-blue-100 text-blue-700',
+  A: 'bg-purple-100 text-purple-700',
+  C: 'bg-amber-100 text-amber-700',
+  I: 'bg-gray-100 text-gray-600',
+}
 
 const FACET_IDS: FacetId[] = ['dance', 'mind', 'stimulate', 'change']
 
@@ -27,6 +34,16 @@ const OUTCOME_STYLES: Record<HypothesisOutcome, string> = {
   no: 'bg-red-100 text-red-700 border-red-300',
 }
 
+function raciTooltip(raci: RaciAssignment | undefined, t: (key: string) => string): string {
+  if (!raci) return ''
+  const parts: string[] = []
+  if (raci.responsible) parts.push(`${t('actions.raci_responsible')}: ${raci.responsible}`)
+  if (raci.accountable) parts.push(`${t('actions.raci_accountable')}: ${raci.accountable}`)
+  if (raci.consulted?.length) parts.push(`${t('actions.raci_consulted')}: ${raci.consulted.join(', ')}`)
+  if (raci.informed?.length) parts.push(`${t('actions.raci_informed')}: ${raci.informed.join(', ')}`)
+  return parts.join(' · ')
+}
+
 function sortByPriority(actions: Action[]): Action[] {
   return [...actions].sort((a, b) => {
     const pa = PRIORITY_ORDER.indexOf(a.priority ?? 'low')
@@ -41,12 +58,13 @@ function sortByPriority(actions: Action[]): Action[] {
 
 interface Props {
   actions: Action[]
+  stakeholderProfiles: StakeholderProfile[]
   onAdd: (action: Action) => void
   onUpdate: (action: Action) => void
   onDelete: (id: string) => void
 }
 
-export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Props) {
+export default function ActionTracker({ actions, stakeholderProfiles, onAdd, onUpdate, onDelete }: Props) {
   const { t } = useTranslation()
   const [text, setText] = useState('')
   const [owner, setOwner] = useState('')
@@ -59,6 +77,9 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
   const [hypThen, setHypThen] = useState('')
   const [hypBecause, setHypBecause] = useState('')
   const [expandedHypotheses, setExpandedHypotheses] = useState<Set<string>>(new Set())
+  const [expandedRaci, setExpandedRaci] = useState<Set<string>>(new Set())
+  const [consultedInput, setConsultedInput] = useState('')
+  const [informedInput, setInformedInput] = useState('')
   const [showFilters, setShowFilters] = useState(false)
   const [filterText, setFilterText] = useState('')
   const [filterFacets, setFilterFacets] = useState<Set<FacetId>>(new Set())
@@ -95,6 +116,31 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
       else next.add(id)
       return next
     })
+  }
+
+  const toggleRaci = (id: string) => {
+    setExpandedRaci(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const updateRaci = (action: Action, patch: Partial<RaciAssignment>) => {
+    onUpdate({ ...action, raci: { ...action.raci, ...patch } })
+  }
+
+  const addToRaciList = (action: Action, field: 'consulted' | 'informed', name: string) => {
+    const trimmed = name.trim()
+    if (!trimmed) return
+    const existing = action.raci?.[field] ?? []
+    if (existing.includes(trimmed)) return
+    updateRaci(action, { [field]: [...existing, trimmed] })
+  }
+
+  const removeFromRaciList = (action: Action, field: 'consulted' | 'informed', name: string) => {
+    updateRaci(action, { [field]: (action.raci?.[field] ?? []).filter(n => n !== name) })
   }
 
   // Hypothesis details are conditionally rendered (unmounted when
@@ -203,6 +249,9 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
 
   return (
     <div className="card">
+      <datalist id="raci-stakeholders">
+        {stakeholderProfiles.map(s => <option key={s.id} value={s.name} />)}
+      </datalist>
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="font-semibold text-gray-900 dark:text-gray-100">{t('actions.title')}</h2>
@@ -432,6 +481,7 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
           const hyp = action.hypothesis
           const expanded = expandedHypotheses.has(action.id)
           const hasHyp = hyp && (hyp.if || hyp.then || hyp.because)
+          const raciOpen = expandedRaci.has(action.id)
           return (
             <div
               key={action.id}
@@ -497,6 +547,23 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                         <FlaskIcon className="w-3 h-3" /> {expanded ? t('actions.hypothesis_hide') : t('actions.hypothesis_show')}
                       </button>
                     )}
+                    {hasRaciAssigned(action.raci) && (
+                      <span className="inline-flex items-center gap-0.5" title={raciTooltip(action.raci, t)}>
+                        {raciRoleLetters(action.raci).map(letter => (
+                          <span key={letter} className={`w-4 h-4 rounded-full text-[10px] font-bold flex items-center justify-center ${RACI_LETTER_COLORS[letter]}`}>
+                            {letter}
+                          </span>
+                        ))}
+                      </span>
+                    )}
+                    <button
+                      onClick={() => toggleRaci(action.id)}
+                      aria-expanded={raciOpen}
+                      aria-controls={`raci-${action.id}`}
+                      className="text-xs text-brand-600 hover:underline inline-flex items-center gap-1 print:hidden"
+                    >
+                      <TeamIcon className="w-3 h-3" /> {t('actions.raci_label')}
+                    </button>
                   </div>
                 </div>
                 <button onClick={() => onDelete(action.id)} aria-label={t('actions.delete')} className="text-gray-400 dark:text-gray-500 hover:text-red-400 transition-colors text-xs flex-shrink-0 print:hidden">
@@ -542,6 +609,67 @@ export default function ActionTracker({ actions, onAdd, onUpdate, onDelete }: Pr
                       {t(`actions.hypothesis_outcome_${hyp!.outcome}`)}
                     </div>
                   )}
+                </div>
+              )}
+
+              {raciOpen && (
+                <div id={`raci-${action.id}`} className="mx-3 mb-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 space-y-2 print:hidden">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">{t('actions.raci_responsible')}</label>
+                      <input
+                        list="raci-stakeholders"
+                        className="input text-sm"
+                        value={action.raci?.responsible ?? ''}
+                        onChange={e => updateRaci(action, { responsible: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">{t('actions.raci_accountable')}</label>
+                      <input
+                        list="raci-stakeholders"
+                        className="input text-sm"
+                        value={action.raci?.accountable ?? ''}
+                        onChange={e => updateRaci(action, { accountable: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  {(['consulted', 'informed'] as const).map(field => (
+                    <div key={field}>
+                      <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">{t(`actions.raci_${field}`)}</label>
+                      <div className="flex flex-wrap gap-1 mb-1">
+                        {(action.raci?.[field] ?? []).map(name => (
+                          <span key={name} className="inline-flex items-center gap-1 text-xs bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full px-2 py-0.5">
+                            {name}
+                            <button
+                              type="button"
+                              onClick={() => removeFromRaciList(action, field, name)}
+                              aria-label={t('actions.raci_remove_person', { name })}
+                              className="text-gray-400 hover:text-red-400"
+                            >
+                              <CloseIcon className="w-2.5 h-2.5" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                      <input
+                        list="raci-stakeholders"
+                        className="input text-sm"
+                        placeholder={t('actions.raci_add_person_placeholder')}
+                        value={field === 'consulted' ? consultedInput : informedInput}
+                        onChange={e => (field === 'consulted' ? setConsultedInput(e.target.value) : setInformedInput(e.target.value))}
+                        onKeyDown={e => {
+                          if (e.key !== 'Enter' && e.key !== ',') return
+                          e.preventDefault()
+                          const value = field === 'consulted' ? consultedInput : informedInput
+                          addToRaciList(action, field, value)
+                          if (field === 'consulted') setConsultedInput('')
+                          else setInformedInput('')
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
