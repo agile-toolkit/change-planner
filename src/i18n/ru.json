@@ -36,7 +36,10 @@
     "duplicate_prefix": "Копия",
     "digest_title": "На этой неделе ({{count}})",
     "digest_overdue": "Просрочено",
-    "digest_due_soon": "Скоро"
+    "digest_due_soon": "Скоро",
+    "search_placeholder": "Поиск инициатив…",
+    "search_empty": "Нет инициатив, соответствующих \"{{query}}\".",
+    "search_clear": "Очистить поиск"
   },
   "canvas": {
     "section_heading": "Сведения об инициативе",

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import type { Initiative, Action } from '../types'
 import {
-  loadBoardItems, boardItemToAction, sortInitiatives, digestActions,
+  loadBoardItems, boardItemToAction, sortInitiatives, digestActions, filterInitiatives,
   type ImprovementItem,
 } from './homeScreenLogic'
 
@@ -54,6 +54,43 @@ describe('boardItemToAction', () => {
     const item: ImprovementItem = { id: 'b1', title: 'Fix flaky test', description: '', category: 'people', status: 'identified', owner: '' }
     expect(boardItemToAction(item).text).toBe('Fix flaky test')
     expect(boardItemToAction(item).facet).toBe('mind')
+  })
+})
+
+describe('filterInitiatives', () => {
+  const alpha = makeInitiative({ id: 'a', title: 'Alpha Rollout', goal: 'Ship the new billing flow' })
+  const beta = makeInitiative({ id: 'b', title: 'Beta Migration', goal: 'Move to the new stack' })
+  const gamma = makeInitiative({
+    id: 'g', title: 'Gamma', goal: '',
+    stakeholderProfiles: [{ id: 's1', name: 'Grace Hopper', motivators: [] }],
+  })
+  const list = [alpha, beta, gamma]
+
+  it('returns the full list for a blank query', () => {
+    expect(filterInitiatives(list, '')).toEqual(list)
+    expect(filterInitiatives(list, '   ')).toEqual(list)
+  })
+
+  it('matches by title, case-insensitively', () => {
+    expect(filterInitiatives(list, 'alpha')).toEqual([alpha])
+    expect(filterInitiatives(list, 'ALPHA')).toEqual([alpha])
+  })
+
+  it('matches by goal text', () => {
+    expect(filterInitiatives(list, 'billing')).toEqual([alpha])
+  })
+
+  it('matches by stakeholder name', () => {
+    expect(filterInitiatives(list, 'grace')).toEqual([gamma])
+  })
+
+  it('returns an empty array when nothing matches', () => {
+    expect(filterInitiatives(list, 'nonexistent')).toEqual([])
+  })
+
+  it('does not match against unrelated fields like context', () => {
+    const withContext = makeInitiative({ id: 'c', title: 'Unrelated', context: 'mentions billing here too' })
+    expect(filterInitiatives([withContext], 'billing')).toEqual([])
   })
 })
 

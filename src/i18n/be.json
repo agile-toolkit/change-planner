@@ -36,7 +36,10 @@
     "duplicate_prefix": "Копія",
     "digest_title": "На гэтым тыдні ({{count}})",
     "digest_overdue": "Пратэрмінавана",
-    "digest_due_soon": "Хутка"
+    "digest_due_soon": "Хутка",
+    "search_placeholder": "Пошук ініцыятыў…",
+    "search_empty": "Няма ініцыятыў, якія адпавядаюць \"{{query}}\".",
+    "search_clear": "Ачысціць пошук"
   },
   "canvas": {
     "section_heading": "Звесткі аб ініцыятыве",

@@ -36,7 +36,10 @@
     "duplicate_prefix": "Copia de",
     "digest_title": "Esta semana ({{count}})",
     "digest_overdue": "Atrasada",
-    "digest_due_soon": "Próxima"
+    "digest_due_soon": "Próxima",
+    "search_placeholder": "Buscar iniciativas…",
+    "search_empty": "Ninguna iniciativa coincide con \"{{query}}\".",
+    "search_clear": "Borrar búsqueda"
   },
   "canvas": {
     "section_heading": "Detalles de la iniciativa",

@@ -78,6 +78,19 @@ export function digestActions(initiatives: Initiative[]): DigestRow[] {
   return rows.sort((a, b) => a.action.dueDate.localeCompare(b.action.dueDate))
 }
 
+// Case-insensitive substring match against title, goal, and stakeholder
+// names (issue #57) — deliberately not facet notes/action text, which
+// would make results noisy as the free-text body grows.
+export function filterInitiatives(list: Initiative[], query: string): Initiative[] {
+  const q = query.trim().toLowerCase()
+  if (!q) return list
+  return list.filter(init =>
+    init.title.toLowerCase().includes(q) ||
+    init.goal.toLowerCase().includes(q) ||
+    init.stakeholderProfiles.some(s => s.name.toLowerCase().includes(q))
+  )
+}
+
 export function sortInitiatives(list: Initiative[], key: SortKey): Initiative[] {
   const copy = [...list]
   if (key === 'latest') return copy.sort((a, b) => b.updatedAt - a.updatedAt)
