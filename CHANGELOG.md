@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+## 0.3.6 — Export action due dates as .ics calendar file (2026-09-05)
+
+- **feat** (issue #58): new "Export to Calendar (.ics)" option in the
+  existing Export dropdown (alongside Copy as Markdown / Export as PNG
+  — kept in that menu rather than a fourth separate toolbar button,
+  since it's another export format like its siblings). Downloads a
+  minimal RFC 5545 VCALENDAR with one all-day `VEVENT` per open action
+  that has a due date (`status !== 'done'` — a calendar export is for
+  pending work, not a history log) plus one per milestone, since
+  milestone markers (#51) already shipped by the time this was built.
+  New `src/utils/ics.ts` (`buildIcs`, `downloadIcs`) with 11 unit tests
+  covering event filtering, RFC 5545 text escaping, and the
+  month/year-rollover edge case in the exclusive end-date calculation.
+  New `export.export_ics` i18n key in all four locales.
+
 ## 0.3.5 — Print-optimized initiative view (2026-09-05)
 
 - **feat** (issue #54): adds a "Print" button next to the existing

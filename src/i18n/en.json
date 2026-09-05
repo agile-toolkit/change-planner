@@ -192,7 +192,8 @@
     "facets_heading": "Facet notes",
     "actions_heading": "Action items",
     "print": "Print",
-    "print_hint": "Print this initiative (opens the browser print dialog)"
+    "print_hint": "Print this initiative (opens the browser print dialog)",
+    "export_ics": "Export to Calendar (.ics)"
   },
   "backup": {
     "export": "Export backup",
