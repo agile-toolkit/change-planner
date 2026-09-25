@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **build**: sourcemaps are now opt-in. `npm run build` (the production
+  build that `deploy.yml` publishes) no longer emits `.map` files into
+  `dist/`; `npm run build:debug` (`vite build --mode debug`) produces the
+  same bundle with sourcemaps for local debugging.
+
 ## 0.3.7 — RACI responsibility tagging on actions (2026-09-05)
 
 - **feat** (issue #55): each action in the Action Tracker can now be
