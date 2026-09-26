@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **chore** (security): 0 `npm audit` vulnerabilities, down from 9. `vite` ^6.4.3 (patched dev-server path traversal / `fs.deny`
+  bypass) and `vitest` ^4.1.11 (patched `@vitest/mocker` arbitrary file
+  read); transitive fixes via `npm audit fix` (postcss, nanoid,
+  browserslist, @babel/core, brace-expansion, fast-uri, …).
+
 - **build**: sourcemaps are now opt-in. `npm run build` (the production
   build that `deploy.yml` publishes) no longer emits `.map` files into
   `dist/`; `npm run build:debug` (`vite build --mode debug`) produces the
